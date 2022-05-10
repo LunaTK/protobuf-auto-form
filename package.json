@@ -1,0 +1,20 @@
+{
+  "name": "profobuf-auto-form",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/LunaTK/profobuf-auto-form.git",
+  "author": "LunaTK <ahn_v3@naver.com>",
+  "license": "GPL3",
+  "peerDependencies": {
+    "react": "^17.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "typescript": "4.0"
+  },
+  "dependencies": {
+    "protobufjs": "^6.11.2",
+    "react": "^17.0",
+    "react-dom": "^18.1.0"
+  }
+}
