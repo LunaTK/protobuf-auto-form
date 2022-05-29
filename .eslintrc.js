@@ -36,5 +36,16 @@ module.exports = {
     ],
     '@typescript-eslint/no-empty-function': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'tsx'] }],
+    'no-underscore-dangle': 'off',
+    'import/extensions': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', '@types'],
+      },
+      typescript: {}, // 프로젝트 Root의 tsconfig.json을 찾는다.
+    },
   },
 };
