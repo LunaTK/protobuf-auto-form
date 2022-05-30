@@ -36,6 +36,7 @@ module.exports = {
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'tsx'] }],
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'no-underscore-dangle': 'off',
     'import/extensions': 'off',
