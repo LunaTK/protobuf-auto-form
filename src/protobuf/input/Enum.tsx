@@ -7,18 +7,20 @@ interface Props {
   type: protobuf.Enum
 }
 
-const EnumField: React.FC<Props> = ({ type, fieldName }) => {
+const EnumInput: React.FC<Props> = ({ type, fieldName }) => {
   const { register } = useFormContext();
 
   return (
     <fieldset>
       {Object.entries(type.values).map(([label, value], idx) => (
-        <label htmlFor={label}>
+        <label
+          htmlFor={label}
+          key={label}
+        >
           <input
             type="radio"
             id={label}
             value={value}
-            key={label}
             {...register(fieldName)}
             defaultChecked={idx === 0}
           />
@@ -29,4 +31,4 @@ const EnumField: React.FC<Props> = ({ type, fieldName }) => {
   );
 };
 
-export default EnumField;
+export default EnumInput;

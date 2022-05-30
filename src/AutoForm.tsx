@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import { FormProvider, useForm } from 'react-hook-form';
 import './index.css';
-import Message from './protobuf/Message';
+import Message from './protobuf/input/Message';
 
 interface Props {
   descriptor: Record<string, any>

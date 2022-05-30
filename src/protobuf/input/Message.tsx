@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
-import Field from './Field';
+import Input from '../Input';
 
 interface Props {
   type: protobuf.Type
+  name?: string
 }
 
 const useMessage = (type: protobuf.Type) => {
@@ -32,12 +33,20 @@ const useMessage = (type: protobuf.Type) => {
   return info;
 };
 
-const Message: React.FC<Props> = ({ type }) => {
+const Message: React.FC<Props> = ({ type, name = '' }) => {
   const { fields } = useMessage(type);
 
   return (
     <div>
-      {fields.map((field) => <Field field={field} key={field.name} />)}
+      {fields.map((field) => (
+        <Input
+          name={`${name}.${field.name}`}
+          repeated={field.repeated}
+          resolvedType={field.resolvedType}
+          type={field.type}
+          key={field.name}
+        />
+      ))}
     </div>
   );
 };

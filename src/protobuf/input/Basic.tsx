@@ -1,4 +1,4 @@
-import protobuf, { types } from 'protobufjs';
+import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -21,7 +21,8 @@ const protobufNumberTypes = new Set([
 export const isBasicType = (type: string): type is BasicType => protobufNumberTypes.has(type) || type === 'string' || type === 'bool';
 
 interface Props {
-  field: protobuf.Field
+  type: string
+  name: string
 }
 
 const getInputType = (type: BasicType) => {
@@ -33,15 +34,15 @@ const getInputType = (type: BasicType) => {
   return 'text';
 };
 
-const BasicField: React.FC<Props> = ({ field }) => {
+const BasicInput: React.FC<Props> = ({ type, name }) => {
   const { register } = useFormContext();
   return (
     <input
-      {...register(field.name)}
-      type={getInputType(field.type as BasicType)}
-      placeholder={field.type}
+      {...register(name)}
+      type={getInputType(type as BasicType)}
+      placeholder={type}
     />
   );
 };
 
-export default BasicField;
+export default BasicInput;
