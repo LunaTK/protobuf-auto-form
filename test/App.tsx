@@ -1,6 +1,11 @@
 import React from 'react';
-import Main from '../src/Main';
+import descriptor from './proto.json';
+import AutoForm from '../src/AutoForm';
 
-const App = () => <div><Main /></div>;
+const App = () => (
+  <div>
+    <AutoForm messageType="Article" descriptor={descriptor} />
+  </div>
+);
 
 export default App;

@@ -1,0 +1,41 @@
+{
+  "nested": {
+    "ArticleType": {
+      "values": {
+        "SIMPLE": 1,
+        "DETAILED": 2
+      }
+    },
+    "Article": {
+      "oneofs": {
+        "_content": {
+          "oneof": [
+            "content"
+          ]
+        }
+      },
+      "fields": {
+        "title": {
+          "type": "string",
+          "id": 1
+        },
+        "type": {
+          "type": "ArticleType",
+          "id": 2
+        },
+        "content": {
+          "type": "string",
+          "id": 3,
+          "options": {
+            "proto3_optional": true
+          }
+        },
+        "tags": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 4
+        }
+      }
+    }
+  }
+}

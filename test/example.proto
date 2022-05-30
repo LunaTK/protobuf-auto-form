@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+enum ArticleType {
+    SIMPLE = 1;
+    DETAILED = 2;
+}
+
+message Article {
+    string title = 1;
+    ArticleType type = 2;
+    optional string content = 3;
+    repeated string tags = 4;
+}
