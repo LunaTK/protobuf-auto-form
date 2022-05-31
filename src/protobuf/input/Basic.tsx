@@ -1,6 +1,7 @@
 import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import get from 'lodash.get';
 
 type BasicType = keyof typeof types.basic
 const protobufNumberTypes = new Set([
@@ -35,11 +36,13 @@ const getInputType = (type: BasicType) => {
 };
 
 const BasicInput: React.FC<Props> = ({ type, name }) => {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
+  const error = get(errors, name);
+
   return (
     <input
-      className="input input-bordered input-sm flex-1"
-      {...register(name)}
+      className={`input input-bordered input-sm flex-1 ${error ? 'input-error' : ''}`}
+      {...register(name, { required: true })}
       type={getInputType(type as BasicType)}
       placeholder={type}
     />
