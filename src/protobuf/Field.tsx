@@ -32,14 +32,7 @@ const Field: React.FC<Props> = ({ field, name }) => (
     <Label field={field} />
     {field instanceof protobuf.OneOf
       ? <OneofInput oneof={field} />
-      : (
-        <Input
-          name={name}
-          repeated={field.repeated}
-          resolvedType={field.resolvedType}
-          type={field.type}
-        />
-      )}
+      : <Input name={name} field={field} />}
   </>
 );
 

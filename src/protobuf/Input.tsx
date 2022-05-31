@@ -5,20 +5,19 @@ import BasicInput, { isBasicType } from './input/Basic';
 import EnumInput from './input/Enum';
 import Message from './input/Message';
 
-export interface InputProps {
-  type: protobuf.Field['type']
-  resolvedType: protobuf.Field['resolvedType']
-  name: protobuf.Field['name']
-  repeated: protobuf.Field['repeated']
+interface InputProps {
+  field: protobuf.Field
+  name: string
+  ignoreRepeatAndMap?: boolean
 }
 
-const Input: React.FC<InputProps> = (props) => {
+const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
   const {
-    name, resolvedType, type, repeated,
-  } = props;
+    resolvedType, type, repeated,
+  } = field;
 
-  if (repeated) {
-    return <RepeatedInput {...props} />;
+  if (!ignoreRepeatAndMap && repeated) {
+    return <RepeatedInput field={field} name={name} />;
   } if (isBasicType(type)) {
     return <BasicInput name={name} type={type} />;
   } if (resolvedType instanceof protobuf.Enum) {

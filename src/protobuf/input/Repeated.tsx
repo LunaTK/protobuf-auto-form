@@ -1,16 +1,22 @@
 import React from 'react';
+import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import MinusIcon from '../../icon/MinusIcon';
 import PlusIcon from '../../icon/PlusIcon';
-import Input, { InputProps } from '../Input';
+import Input from '../Input';
 import { fillEmptyFieldsWithDefault, makeTypeOrEnum } from '../utils';
 
-const RepeatedInput: React.FC<InputProps> = (props) => {
+interface Props {
+  name: string
+  field: protobuf.Field
+}
+
+const RepeatedInput: React.FC<Props> = ({ field, name }) => {
   const { control } = useFormContext();
-  const { name, resolvedType } = props;
+  const { resolvedType } = field;
   const { append, remove, fields } = useFieldArray({
     control,
-    name,
+    name: field.name,
   });
 
   const add = () => {
@@ -30,7 +36,7 @@ const RepeatedInput: React.FC<InputProps> = (props) => {
           <button type="button" className="btn btn-xs btn-outline btn-error" onClick={() => remove(idx)}>
             <MinusIcon />
           </button>
-          <Input {...props} repeated={false} name={`${name}.${idx}.value`} />
+          <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
         </div>
       ))}
     </fieldset>
