@@ -5,7 +5,6 @@ import get from 'lodash.get';
 import MinusIcon from '../../icon/MinusIcon';
 import PlusIcon from '../../icon/PlusIcon';
 import Input from '../Input';
-import { fillEmptyFieldsWithDefault, makeTypeOrEnum } from '../utils';
 import BasicInput from './Basic';
 
 interface Props {
@@ -50,18 +49,15 @@ const MapValueInput: React.FC<{
 
 const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
   const { control } = useFormContext();
-  const { resolvedType } = field;
   const { append, remove, fields } = useFieldArray({
     control,
     name,
   });
 
   const add = () => {
-    const newValue = makeTypeOrEnum(resolvedType!);
-    fillEmptyFieldsWithDefault(newValue, resolvedType!);
     append({
       key: '',
-      value: newValue,
+      value: {},
     });
   };
 
