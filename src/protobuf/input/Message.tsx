@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
-import Input from '../Input';
+import Field from '../Field';
 
 interface Props {
   type: protobuf.Type
@@ -37,9 +37,9 @@ const Message: React.FC<Props> = ({ type, name = '' }) => {
   const { fields } = useMessage(type);
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-4">
       {fields.map((field) => (
-        <Input
+        <Field
           name={`${name}.${field.name}`}
           repeated={field.repeated}
           resolvedType={field.resolvedType}

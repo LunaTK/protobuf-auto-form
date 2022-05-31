@@ -16,15 +16,19 @@ const EnumInput: React.FC<Props> = ({ type, fieldName }) => {
         <label
           htmlFor={label}
           key={label}
+          className="cursor-pointer"
         >
           <input
             type="radio"
+            className="radio-xs"
             id={label}
             value={value}
             {...register(fieldName)}
             defaultChecked={idx === 0}
           />
-          {label}
+          <span className="label-text">
+            {label}
+          </span>
         </label>
       ))}
     </fieldset>
