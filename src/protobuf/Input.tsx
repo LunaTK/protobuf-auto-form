@@ -22,9 +22,9 @@ const Input: React.FC<InputProps> = (props) => {
   } if (isBasicType(type)) {
     return <BasicInput name={name} type={type} />;
   } if (resolvedType instanceof protobuf.Enum) {
-    return <EnumInput fieldName={name} type={resolvedType} />;
+    return <EnumInput name={name} type={resolvedType} />;
   } if (resolvedType instanceof protobuf.Type) {
-    return <Message type={resolvedType} />;
+    return <Message name={name} type={resolvedType} />;
   }
 
   throw new Error(`Unresolved type "${type}" from field "${name}"`);

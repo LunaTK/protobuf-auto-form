@@ -34,7 +34,7 @@ const Field: React.FC<Props> = ({ field, name }) => (
       ? <OneofInput oneof={field} />
       : (
         <Input
-          name={`${name}.${field.name}`}
+          name={name}
           repeated={field.repeated}
           resolvedType={field.resolvedType}
           type={field.type}

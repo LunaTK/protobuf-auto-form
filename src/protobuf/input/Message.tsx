@@ -10,7 +10,7 @@ interface Props {
 const useMessage = (type: protobuf.Type) => {
   const info = useMemo(() => {
     const everyOneofFields = new Set(
-      Object.values(type.oneofs ?? []).flatMap((o) => o.oneof),
+      Object.values(type.oneofs ?? {}).flatMap((o) => o.oneof),
     );
 
     const fields = type.fieldsArray.filter(
