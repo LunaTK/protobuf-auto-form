@@ -17,4 +17,10 @@ message Article {
     }
 
     map<string, int32> referrers = 10;
+    repeated Comment comments = 11;
+}
+
+message Comment {
+    string author = 1;
+    string content = 2;
 }

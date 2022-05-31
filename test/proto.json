@@ -53,6 +53,23 @@
           "keyType": "string",
           "type": "int32",
           "id": 10
+        },
+        "comments": {
+          "rule": "repeated",
+          "type": "Comment",
+          "id": 11
+        }
+      }
+    },
+    "Comment": {
+      "fields": {
+        "author": {
+          "type": "string",
+          "id": 1
+        },
+        "content": {
+          "type": "string",
+          "id": 2
         }
       }
     }
