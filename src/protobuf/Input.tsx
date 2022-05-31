@@ -4,6 +4,7 @@ import RepeatedInput from './input/Repeated';
 import BasicInput, { isBasicType } from './input/Basic';
 import EnumInput from './input/Enum';
 import Message from './input/Message';
+import MapInput from './input/Map';
 
 interface InputProps {
   field: protobuf.Field
@@ -18,6 +19,8 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
 
   if (!ignoreRepeatAndMap && repeated) {
     return <RepeatedInput field={field} name={name} />;
+  } if (!ignoreRepeatAndMap && field instanceof protobuf.MapField) {
+    return <MapInput name={name} field={field} keyType={field.keyType} />;
   } if (isBasicType(type)) {
     return <BasicInput name={name} type={type} />;
   } if (resolvedType instanceof protobuf.Enum) {
