@@ -3,6 +3,7 @@ import protobuf from 'protobufjs';
 import { FormProvider, useForm } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/Message';
+import ErrorAlert from './ErrorAlert';
 
 interface Props {
   descriptor: Record<string, any>
@@ -20,7 +21,15 @@ const AutoForm: React.FC<Props> = ({ descriptor, messageType }) => {
     }
   }, [descriptor, messageType]);
 
-  if (!reflectionObj) return <div>Invalid Message Type</div>;
+  if (!reflectionObj) {
+    return (
+      <ErrorAlert>
+        Message type does not exist:
+        {' '}
+        {messageType}
+      </ErrorAlert>
+    );
+  }
 
   return (
     <FormProvider {...methods}>
