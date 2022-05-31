@@ -42,7 +42,7 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
             <MinusIcon />
           </button>
 
-          <div className="af-message-ele flex-1 flex flex-col my-2 p-2">
+          <div className="af-repeat-ele flex-1 flex flex-col my-2 p-2">
             <div className="label">
               <span className="label-text">Key</span>
             </div>
