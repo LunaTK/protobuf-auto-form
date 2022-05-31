@@ -32,7 +32,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
         Add
       </button>
       {fields.map((f, idx) => (
-        <div key={f.id} className="flex items-center">
+        <div key={f.id} className="flex items-center gap-2">
           <button type="button" className="btn btn-xs btn-outline btn-error" onClick={() => remove(idx)}>
             <MinusIcon />
           </button>

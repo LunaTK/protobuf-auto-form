@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.af-message-ele {
+    @apply border-2 border-dashed border-slate-400/50 rounded;
+}
+
+.af-message-ele .af-message-ele {
+    @apply border-2 border-dotted;
+}
+
+.af-message-ele .af-message-ele .af-message-ele {
+    @apply border-2;
+}

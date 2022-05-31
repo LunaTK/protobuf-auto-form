@@ -37,12 +37,22 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
         Add
       </button>
       {fields.map((f, idx) => (
-        <div key={f.id} className="flex items-center">
+        <div key={f.id} className="flex items-center gap-2">
           <button type="button" className="btn btn-xs btn-outline btn-error" onClick={() => remove(idx)}>
             <MinusIcon />
           </button>
-          <BasicInput type={keyType} name={`${name}.${idx}.key`} />
-          <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
+
+          <div className="af-message-ele flex-1 flex flex-col my-2 p-2">
+            <div className="label">
+              <span className="label-text">Key</span>
+            </div>
+            <BasicInput name={`${name}.${idx}.key`} type={keyType} />
+
+            <div className="label">
+              <span className="label-text">Value</span>
+            </div>
+            <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
+          </div>
         </div>
       ))}
     </fieldset>
