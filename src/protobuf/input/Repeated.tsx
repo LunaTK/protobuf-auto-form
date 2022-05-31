@@ -4,7 +4,6 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import MinusIcon from '../../icon/MinusIcon';
 import PlusIcon from '../../icon/PlusIcon';
 import Input from '../Input';
-import { fillEmptyFieldsWithDefault, makeTypeOrEnum } from '../utils';
 
 interface Props {
   name: string
@@ -13,21 +12,14 @@ interface Props {
 
 const RepeatedInput: React.FC<Props> = ({ field, name }) => {
   const { control } = useFormContext();
-  const { resolvedType } = field;
   const { append, remove, fields } = useFieldArray({
     control,
     name: field.name,
   });
 
-  const add = () => {
-    const newValue = makeTypeOrEnum(resolvedType!);
-    fillEmptyFieldsWithDefault(newValue, resolvedType!);
-    append(newValue!);
-  };
-
   return (
     <fieldset>
-      <button type="button" className="btn btn-xs btn-outline" onClick={add}>
+      <button type="button" className="btn btn-xs btn-outline" onClick={() => append({})}>
         <PlusIcon />
         Add
       </button>
