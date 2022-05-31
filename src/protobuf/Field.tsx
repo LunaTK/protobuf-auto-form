@@ -8,24 +8,27 @@ interface Props {
   name: string
 }
 
+const getTypeLabel = (field: Props['field']) => {
+  if (field instanceof protobuf.OneOf) {
+    return 'oneof';
+  } if (field instanceof protobuf.MapField) {
+    return `map<${field.keyType}, ${field.type}>`;
+  }
+  return field.type;
+};
+
 const Label: React.FC<{
   field: Props['field']
-}> = ({ field }) => {
-  const isOneof = field instanceof protobuf.OneOf;
-
-  return (
-    <span className="text-right inline-flex flex-col">
-      <span className="leading-3 font-bold">
-        {field.name}
-      </span>
-      <span className="text-slate-500 text-sm">
-        (
-        {isOneof ? 'oneof' : field.type}
-        )
-      </span>
+}> = ({ field }) => (
+  <span className="text-right inline-flex flex-col">
+    <span className="leading-3 font-bold">
+      {field.name}
     </span>
-  );
-};
+    <span className="text-slate-400 text-sm">
+      {getTypeLabel(field)}
+    </span>
+  </span>
+);
 
 const Field: React.FC<Props> = ({ field, name }) => (
   <>
