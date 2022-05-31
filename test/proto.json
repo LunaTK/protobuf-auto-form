@@ -12,6 +12,12 @@
           "oneof": [
             "content"
           ]
+        },
+        "author": {
+          "oneof": [
+            "nickname",
+            "userId"
+          ]
         }
       },
       "fields": {
@@ -34,6 +40,14 @@
           "rule": "repeated",
           "type": "string",
           "id": 4
+        },
+        "nickname": {
+          "type": "string",
+          "id": 5
+        },
+        "userId": {
+          "type": "int32",
+          "id": 6
         }
       }
     }

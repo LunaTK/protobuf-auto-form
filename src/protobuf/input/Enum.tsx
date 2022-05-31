@@ -12,7 +12,7 @@ const EnumInput: React.FC<Props> = ({ type, fieldName }) => (
     {Object.entries(type.values).map(([label, value], idx) => (
       <RadioButton
         label={label}
-        value={value}
+        value={String(value)}
         name={fieldName}
         key={label}
         defaultChecked={idx === 0}

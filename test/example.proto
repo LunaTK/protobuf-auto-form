@@ -10,4 +10,9 @@ message Article {
     ArticleType type = 2;
     optional string content = 3;
     repeated string tags = 4;
+
+    oneof author {
+        string nickname = 5;
+        int32 user_id = 6;
+    }
 }
