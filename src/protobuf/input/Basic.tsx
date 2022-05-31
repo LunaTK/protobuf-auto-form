@@ -38,7 +38,7 @@ const BasicInput: React.FC<Props> = ({ type, name }) => {
   const { register } = useFormContext();
   return (
     <input
-      className="input-bordered input input-sm"
+      className="input input-bordered input-sm flex-1"
       {...register(name)}
       type={getInputType(type as BasicType)}
       placeholder={type}
