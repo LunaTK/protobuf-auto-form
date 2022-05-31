@@ -1,6 +1,6 @@
 import { types } from 'protobufjs';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Validate } from 'react-hook-form';
 import get from 'lodash.get';
 
 type BasicType = keyof typeof types.basic
@@ -24,6 +24,7 @@ export const isBasicType = (type: string): type is BasicType => protobufNumberTy
 interface Props {
   type: string
   name: string
+  validate?: Validate<unknown>
 }
 
 const getInputType = (type: BasicType) => {
@@ -35,17 +36,27 @@ const getInputType = (type: BasicType) => {
   return 'text';
 };
 
-const BasicInput: React.FC<Props> = ({ type, name }) => {
+const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
   const { register, formState: { errors } } = useFormContext();
   const error = get(errors, name);
 
   return (
-    <input
-      className={`input input-bordered input-sm flex-1 ${error ? 'input-error' : ''}`}
-      {...register(name, { required: true })}
-      type={getInputType(type as BasicType)}
-      placeholder={type}
-    />
+    <div className="form-control w-full">
+      <input
+        className={`input input-bordered input-sm flex-1 ${error ? 'input-error' : ''}`}
+        {...register(name, { required: { value: true, message: 'Empty input.' }, validate })}
+        type={getInputType(type as BasicType)}
+        placeholder={type}
+      />
+      {
+        error && (
+        <div className="text-red-500 p-1">
+          {error.message}
+        </div>
+        )
+      }
+
+    </div>
   );
 };
 

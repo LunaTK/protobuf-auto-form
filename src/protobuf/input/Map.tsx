@@ -1,6 +1,7 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import get from 'lodash.get';
 import MinusIcon from '../../icon/MinusIcon';
 import PlusIcon from '../../icon/PlusIcon';
 import Input from '../Input';
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
-  const { control } = useFormContext();
+  const { control, getValues } = useFormContext();
   const { resolvedType } = field;
   const { append, remove, fields } = useFieldArray({
     control,
@@ -46,7 +47,15 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
             <div className="label">
               <span className="label-text">Key</span>
             </div>
-            <BasicInput name={`${name}.${idx}.key`} type={keyType} />
+            <BasicInput
+              name={`${name}.${idx}.key`}
+              type={keyType}
+              validate={(value) => {
+                const isDuplicated = (get(getValues(), name) as any[])
+                  .some(({ key }, i) => i !== idx && key === value);
+                return !isDuplicated || 'Same key exists';
+              }}
+            />
 
             <div className="label">
               <span className="label-text">Value</span>
