@@ -50,7 +50,7 @@ const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
       />
       {
         error && (
-        <div className="text-red-500 p-1">
+        <div className="text-xs text-red-500 p-1">
           {error.message}
         </div>
         )
