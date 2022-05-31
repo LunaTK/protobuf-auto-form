@@ -21,7 +21,7 @@ const Label: React.FC<{
   field: Props['field']
 }> = ({ field }) => (
   <span className="text-right inline-flex flex-col">
-    <span className="leading-3 font-bold">
+    <span className="leading-tight font-bold">
       {field.name}
     </span>
     <span className="text-slate-400 text-sm">

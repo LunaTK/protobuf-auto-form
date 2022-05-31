@@ -37,7 +37,7 @@ const Message: React.FC<Props> = ({ type, name = '' }) => {
   const { fields, oneofs } = useMessage(type);
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-8">
       {
         [...fields, ...oneofs].map((field) => (
           <Field
