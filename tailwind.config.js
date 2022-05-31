@@ -1,3 +1,5 @@
+const daisyui = require('daisyui');
+
 module.exports = {
   content: [
     './src/**/*.{tsx,jsx}',
@@ -5,5 +7,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [daisyui],
 };
