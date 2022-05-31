@@ -35,13 +35,14 @@ const useMessage = (type: protobuf.Type) => {
 
 const Message: React.FC<Props> = ({ type, name = '' }) => {
   const { fields, oneofs } = useMessage(type);
+  const isRoot = name === '';
 
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-8">
+    <div className={`grid grid-cols-2 gap-x-4 gap-y-8 p-4 flex-1 ${!isRoot ? 'af-repeat-ele' : ''}`}>
       {
         [...fields, ...oneofs].map((field) => (
           <Field
-            name={`${name}.${field.name}`}
+            name={`${name ? `${name}.` : ''}${field.name}`}
             field={field}
             key={field.name}
           />
