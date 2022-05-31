@@ -48,6 +48,11 @@
         "userId": {
           "type": "int32",
           "id": 6
+        },
+        "referrers": {
+          "keyType": "string",
+          "type": "int32",
+          "id": 10
         }
       }
     }

@@ -15,4 +15,6 @@ message Article {
         string nickname = 5;
         int32 user_id = 6;
     }
+
+    map<string, int32> referrers = 10;
 }
