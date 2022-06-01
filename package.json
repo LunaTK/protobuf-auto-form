@@ -6,10 +6,15 @@
     "protobuf",
     "form"
   ],
-  "main": "index.js",
+  "main": "./dist/AutoForm.es.js",
+  "module": "./dist/AutoForm.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/LunaTK/protobuf-auto-form.git",
   "author": "LunaTK <ahn_v3@naver.com>",
-  "license": "GPL3",
+  "license": "GPL-3.0-only",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -31,14 +36,21 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.14",
+    "react": "^17.0",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.31.1",
+    "rollup-plugin-visualizer": "^5.6.0",
     "tailwindcss": "^3.0.24",
-    "typescript": "4.0",
-    "vite": "^2.9.9"
+    "typescript": "4.6",
+    "vite": "^2.9.9",
+    "vite-plugin-dts": "^1.2.0"
   },
   "dependencies": {
     "daisyui": "^2.15.2",
     "lodash.get": "^4.4.2",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "^6.11.2"
+  },
+  "peerDependencies": {
     "react": "^17.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.31.1"
