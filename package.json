@@ -1,5 +1,5 @@
 {
-  "name": "profobuf-auto-form",
+  "name": "protobuf-auto-form",
   "version": "0.1.0-alpha.1",
   "description": "Automatically generate form from Protobuf schema for React",
   "keywords": [
