@@ -28,13 +28,7 @@ const AutoForm: React.FC<AutoFormProps> = ({
   }, [descriptor, messageType]);
 
   if (!reflectionObj) {
-    return (
-      <ErrorAlert>
-        Message type does not exist:
-        {' '}
-        {messageType}
-      </ErrorAlert>
-    );
+    return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
   }
 
   return (
