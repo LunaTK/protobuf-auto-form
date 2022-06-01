@@ -4,7 +4,7 @@ import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
-import { finalize, protoObjToForm } from './protobuf/utils';
+import { finalize, protoObjToForm } from './protobuf/conversion';
 
 interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   descriptor: Record<string, unknown>
