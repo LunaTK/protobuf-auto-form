@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
@@ -9,13 +9,15 @@ import { finalize } from './protobuf/utils';
 interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   descriptor: Record<string, unknown>
   messageType: string
+  form?: UseFormReturn
   onSubmitValid?: (values: Record<string, unknown>) => void
 }
 
 const AutoForm: React.FC<AutoFormProps> = ({
-  descriptor, messageType, children, onSubmitValid, ...props
+  descriptor, messageType, children, onSubmitValid, form, ...props
 }) => {
-  const methods = useForm();
+  const ownForm = useForm();
+  const methods = form ?? ownForm;
   const reflectionObj = useMemo(() => {
     const protoRoot = protobuf.Namespace.fromJSON('', descriptor);
     try {
