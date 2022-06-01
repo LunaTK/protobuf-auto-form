@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
+import { finalize } from './protobuf/utils';
 
 interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   descriptor: Record<string, unknown>
@@ -40,7 +41,7 @@ const AutoForm: React.FC<AutoFormProps> = ({
         {...props}
         onSubmit={methods.handleSubmit((values) => {
           if (onSubmitValid) {
-            onSubmitValid(values);
+            onSubmitValid(finalize(values, reflectionObj));
           }
         })}
       >
