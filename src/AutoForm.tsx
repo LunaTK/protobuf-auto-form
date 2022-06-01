@@ -6,11 +6,14 @@ import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
 
 interface Props {
-  descriptor: Record<string, any>
+  descriptor: Record<string, unknown>
   messageType: string
+  onSubmitValid?: (values: Record<string, unknown>) => void
 }
 
-const AutoForm: React.FC<Props> = ({ descriptor, messageType }) => {
+const AutoForm: React.FC<Props> = ({
+  descriptor, messageType, children, onSubmitValid,
+}) => {
   const methods = useForm();
   const reflectionObj = useMemo(() => {
     const protoRoot = protobuf.Namespace.fromJSON('', descriptor);
@@ -34,11 +37,13 @@ const AutoForm: React.FC<Props> = ({ descriptor, messageType }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit((values) => {
-        console.log('submitted: ', values);
+        if (onSubmitValid) {
+          onSubmitValid(values);
+        }
       })}
       >
         <Message type={reflectionObj} />
-        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
+        {children}
       </form>
     </FormProvider>
   );

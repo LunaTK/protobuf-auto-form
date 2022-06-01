@@ -4,7 +4,15 @@ import AutoForm from '../src/AutoForm';
 
 const App = () => (
   <div>
-    <AutoForm messageType="Article" descriptor={descriptor} />
+    <AutoForm
+      messageType="Article"
+      descriptor={descriptor}
+      onSubmitValid={(values) => {
+        console.log(values);
+      }}
+    >
+      <button type="submit" className="btn btn-xs btn-accent">Submit</button>
+    </AutoForm>
   </div>
 );
 
