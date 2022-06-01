@@ -5,6 +5,7 @@ import RadioButton from '../../RadioButton';
 import Input from '../Input';
 
 interface Props {
+  // TODO: full name
   oneof: protobuf.OneOf
 }
 
