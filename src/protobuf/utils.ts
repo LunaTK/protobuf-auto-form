@@ -73,6 +73,8 @@ export const protoObjToForm = (
   const ret = { ...(protoObj as Record<string, unknown>) };
 
   type.fieldsArray.forEach((f) => {
+    if (!ret[f.name]) return;
+
     if (f.repeated) {
       ret[f.name] = (ret[f.name] as unknown[])
         .map((value) => ({ value: protoObjToForm(value, f.resolvedType) }));
