@@ -14,7 +14,7 @@ const RadioButton: React.FC<Props> = ({
   const { register } = useFormContext();
 
   return (
-    <label htmlFor={label} className="cursor-pointer flex items-center justify-start space-x-2">
+    <label htmlFor={label} className="cursor-pointer inline-flex items-center justify-start space-x-2">
       <input type="radio" className="radio-xs" id={label} value={value} defaultChecked={defaultChecked} {...register(name)} />
       <span className="label-text">
         {label}

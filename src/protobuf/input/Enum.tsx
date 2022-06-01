@@ -8,7 +8,7 @@ interface Props {
 }
 
 const EnumInput: React.FC<Props> = ({ type, name }) => (
-  <fieldset>
+  <fieldset className="flex gap-4 flex-wrap">
     {Object.entries(type.values).map(([label, value], idx) => (
       <RadioButton
         label={label}
