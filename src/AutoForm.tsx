@@ -5,14 +5,14 @@ import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
 
-interface Props {
+interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   descriptor: Record<string, unknown>
   messageType: string
   onSubmitValid?: (values: Record<string, unknown>) => void
 }
 
-const AutoForm: React.FC<Props> = ({
-  descriptor, messageType, children, onSubmitValid,
+const AutoForm: React.FC<AutoFormProps> = ({
+  descriptor, messageType, children, onSubmitValid, ...props
 }) => {
   const methods = useForm();
   const reflectionObj = useMemo(() => {
@@ -36,11 +36,13 @@ const AutoForm: React.FC<Props> = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((values) => {
-        if (onSubmitValid) {
-          onSubmitValid(values);
-        }
-      })}
+      <form
+        {...props}
+        onSubmit={methods.handleSubmit((values) => {
+          if (onSubmitValid) {
+            onSubmitValid(values);
+          }
+        })}
       >
         <Message type={reflectionObj} />
         {children}
