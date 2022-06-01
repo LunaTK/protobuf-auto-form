@@ -15,9 +15,9 @@ const OneofInput: React.FC<Props> = ({ oneof }) => {
 
   return (
     <div>
-      {oneof.fieldsArray.map((f, idx) => (
+      {oneof.fieldsArray.map((f) => (
         <div key={f.name}>
-          <RadioButton value={f.name} name={oneof.name} defaultChecked={idx === 0} />
+          <RadioButton value={f.name} name={oneof.name} defaultChecked={selected === oneof.name} />
           {selected === f.name && <Input name={`${f.name}`} field={f} />}
         </div>
       ))}
