@@ -38,7 +38,7 @@ const AutoForm: React.FC<Props> = ({ descriptor, messageType }) => {
       })}
       >
         <Message type={reflectionObj} />
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn btn-primary btn-sm">Submit</button>
       </form>
     </FormProvider>
   );
