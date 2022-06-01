@@ -58,10 +58,31 @@ const formToProtoObj = (
   return ret;
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const finalize = (formState: unknown, type: protobuf.Type) => {
   const protoObj = formToProtoObj(formState, type) as Record<string, unknown>;
   const prunedProtoObj = pruneUnselectedOneofValues(protoObj, type);
 
   return prunedProtoObj;
+};
+
+export const protoObjToForm = (
+  protoObj: unknown,
+  type: protobuf.Type | protobuf.Enum | null,
+) => {
+  if (!(type instanceof protobuf.Type)) return protoObj;
+  const ret = { ...(protoObj as Record<string, unknown>) };
+
+  type.fieldsArray.forEach((f) => {
+    if (f.repeated) {
+      ret[f.name] = (ret[f.name] as unknown[])
+        .map((value) => ({ value: protoObjToForm(value, f.resolvedType) }));
+    } else if (f.map) {
+      ret[f.name] = Object.entries(ret[f.name] as Record<string, unknown>)
+        .map(([key, value]) => ({ key, value: protoObjToForm(value, f.resolvedType) }));
+    } else {
+      ret[f.name] = protoObjToForm(ret[f.name], f.resolvedType);
+    }
+  });
+
+  return ret;
 };
