@@ -14,7 +14,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
-    name: field.name,
+    name,
   });
 
   return (
@@ -25,7 +25,14 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
       </button>
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
-          <button type="button" className="btn btn-xs btn-outline btn-error" onClick={() => remove(idx)}>
+          <button
+            type="button"
+            className="btn btn-xs btn-outline btn-error"
+            onClick={() => {
+              remove(idx);
+              console.log(idx);
+            }}
+          >
             <MinusIcon />
           </button>
           <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
