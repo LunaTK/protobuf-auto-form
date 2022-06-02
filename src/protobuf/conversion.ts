@@ -50,6 +50,8 @@ const formToProtoObj = (
         (ret[f.name] as Record<string, unknown>[])
           .map(({ key, value }) => [key, formToProtoObj(value, f.resolvedType)]),
       );
+    } else if (isUnselectedOneofField(ret, f)) {
+      delete ret[f.name];
     } else {
       ret[f.name] = formToProtoObj(ret[f.name], f.resolvedType);
     }
