@@ -1,12 +1,12 @@
 {
   "name": "protobuf-auto-form",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.3",
   "description": "Automatically generate form from Protobuf schema for React",
   "keywords": [
     "protobuf",
     "form"
   ],
-  "main": "./dist/AutoForm.es.js",
+  "main": "./dist/AutoForm.cjs.js",
   "module": "./dist/AutoForm.es.js",
   "types": "./dist/index.d.ts",
   "files": [

@@ -17,7 +17,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'AutoForm',
-      formats: ['es'],
+      formats: ['es', 'cjs'],
       fileName: (format) => `AutoForm.${format}.js`,
     },
     rollupOptions: {
