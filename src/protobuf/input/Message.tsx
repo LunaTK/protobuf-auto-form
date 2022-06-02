@@ -36,9 +36,11 @@ const useMessage = (type: protobuf.Type) => {
 const Message: React.FC<Props> = ({ type, name = '' }) => {
   const { fields, oneofs } = useMessage(type);
   const isRoot = name === '';
+  const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
 
   return (
-    <div className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${!isRoot ? 'af-repeat-ele' : ''}`}>
+    <div className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${!isRoot ? 'af-repeat-ele ml-6' : ''}`}>
+      {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
       {
         [...fields, ...oneofs].map((field) => (
           <Field
