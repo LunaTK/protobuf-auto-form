@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
@@ -67,7 +66,6 @@ const AutoForm: React.FC<AutoFormProps> = ({
           {children}
         </form>
       </AutoFormProvider>
-      <DevTool control={methods.control} />
     </FormProvider>
   );
 };
