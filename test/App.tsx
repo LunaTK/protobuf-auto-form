@@ -1,4 +1,5 @@
 import React from 'react';
+import protobuf from 'protobufjs';
 import descriptor from './proto.json';
 import AutoForm from '../src/AutoForm';
 
@@ -16,11 +17,13 @@ const initialState = {
   userId: '7748',
 };
 
+const namespace = protobuf.Namespace.fromJSON('', descriptor);
+
 const App = () => (
   <div>
     <AutoForm
       messageType="Article"
-      descriptor={descriptor}
+      namespace={namespace}
       onSubmitValid={(values) => {
         console.log(values);
       }}

@@ -9,7 +9,7 @@ import { finalize, protoObjToForm } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 
 interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
-  descriptor: Record<string, unknown>
+  namespace: protobuf.Namespace
   messageType: string
   form?: UseFormReturn
   initialState?: Record<string, unknown>
@@ -20,7 +20,7 @@ interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
 }
 
 const AutoForm: React.FC<AutoFormProps> = ({
-  descriptor,
+  namespace,
   messageType,
   children,
   onSubmitValid,
@@ -35,12 +35,11 @@ const AutoForm: React.FC<AutoFormProps> = ({
   const methods = form ?? ownForm;
   const reflectionObj = useMemo(() => {
     try {
-      const protoRoot = protobuf.Namespace.fromJSON('', descriptor);
-      return protoRoot.resolveAll().lookupType(messageType);
+      return namespace.resolveAll().lookupType(messageType);
     } catch (e) {
       return null;
     }
-  }, [descriptor, messageType]);
+  }, [namespace, messageType]);
 
   useEffect(() => {
     if (!initialState || !reflectionObj) return;
