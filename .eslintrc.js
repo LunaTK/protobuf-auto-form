@@ -40,6 +40,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'no-underscore-dangle': 'off',
     'import/extensions': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
   settings: {
     'import/resolver': {
