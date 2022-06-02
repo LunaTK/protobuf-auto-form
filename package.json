@@ -14,7 +14,7 @@
   ],
   "repository": "https://github.com/LunaTK/protobuf-auto-form.git",
   "author": "LunaTK <ahn_v3@naver.com>",
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "scripts": {
     "dev": "vite test",
     "build": "tsc && vite build",
