@@ -7,9 +7,9 @@
 }
 
 .af-repeat-ele .af-repeat-ele {
-    @apply border-2 border-dotted;
+    @apply border-2 border-solid;
 }
 
 .af-repeat-ele .af-repeat-ele .af-repeat-ele {
-    @apply border-2;
+    @apply border-2 border-dotted;
 }
