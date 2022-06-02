@@ -23,4 +23,9 @@ message Article {
 message Comment {
     string author = 1;
     string content = 2;
+
+    oneof something {
+        string s1 = 3;
+        ArticleType type = 4;
+    }
 }

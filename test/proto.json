@@ -62,6 +62,14 @@
       }
     },
     "Comment": {
+      "oneofs": {
+        "something": {
+          "oneof": [
+            "s1",
+            "type"
+          ]
+        }
+      },
       "fields": {
         "author": {
           "type": "string",
@@ -70,6 +78,14 @@
         "content": {
           "type": "string",
           "id": 2
+        },
+        "s1": {
+          "type": "string",
+          "id": 3
+        },
+        "type": {
+          "type": "ArticleType",
+          "id": 4
         }
       }
     }
