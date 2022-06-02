@@ -6,6 +6,7 @@ import './index.css';
 import Message from './protobuf/input/Message';
 import ErrorAlert from './ErrorAlert';
 import { finalize, protoObjToForm } from './protobuf/conversion';
+import { AutoFormContext, AutoFormProvider } from './context';
 
 interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   descriptor: Record<string, unknown>
@@ -13,10 +14,22 @@ interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   form?: UseFormReturn
   initialState?: Record<string, unknown>
   onSubmitValid?: (values: Record<string, unknown>) => void
+  hideFieldType?: AutoFormContext['hideFieldType']
+  fieldOverride?: AutoFormContext['fieldOverride']
+  typeOverride?: AutoFormContext['typeOverride']
 }
 
 const AutoForm: React.FC<AutoFormProps> = ({
-  descriptor, messageType, children, onSubmitValid, form, initialState, ...props
+  descriptor,
+  messageType,
+  children,
+  onSubmitValid,
+  form,
+  initialState,
+  hideFieldType = false,
+  fieldOverride = {},
+  typeOverride = {},
+  ...props
 }) => {
   const ownForm = useForm();
   const methods = form ?? ownForm;
@@ -42,17 +55,19 @@ const AutoForm: React.FC<AutoFormProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <form
-        {...props}
-        onSubmit={methods.handleSubmit((values) => {
-          if (onSubmitValid) {
-            onSubmitValid(finalize(values, reflectionObj));
-          }
-        })}
-      >
-        <Message type={reflectionObj} />
-        {children}
-      </form>
+      <AutoFormProvider value={{ hideFieldType, fieldOverride, typeOverride }}>
+        <form
+          {...props}
+          onSubmit={methods.handleSubmit((values) => {
+            if (onSubmitValid) {
+              onSubmitValid(finalize(values, reflectionObj));
+            }
+          })}
+        >
+          <Message type={reflectionObj} />
+          {children}
+        </form>
+      </AutoFormProvider>
       <DevTool control={methods.control} />
     </FormProvider>
   );
