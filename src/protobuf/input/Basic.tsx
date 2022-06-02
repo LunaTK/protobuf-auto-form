@@ -47,6 +47,7 @@ const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
         {...register(name, { required: { value: true, message: 'Empty input.' }, validate })}
         type={getInputType(type as BasicType)}
         placeholder={type}
+        step="any"
       />
       {
         error && (
