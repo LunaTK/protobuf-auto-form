@@ -33,7 +33,7 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
       <Controller
         name={name}
         control={control}
-        render={({ field: hookFormField }) => <OverriddenComponent {...hookFormField} />}
+        render={(props) => <OverriddenComponent field={props.field} />}
       />
     );
   }

@@ -1,10 +1,14 @@
 import React, { createContext, useContext } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 
+interface OverriddenFieldProps {
+  field: ControllerRenderProps
+}
+
 export interface AutoFormContext {
   hideFieldType: boolean
-  fieldOverride: Record<string, React.FC<ControllerRenderProps>>
-  typeOverride: Record<string, React.FC<ControllerRenderProps>>
+  fieldOverride: Record<string, React.FC<OverriddenFieldProps>>
+  typeOverride: Record<string, React.FC<OverriddenFieldProps>>
 }
 
 const context = createContext<AutoFormContext>({
