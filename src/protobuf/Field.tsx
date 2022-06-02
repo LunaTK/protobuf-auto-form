@@ -1,6 +1,6 @@
 import React from 'react';
 import protobuf from 'protobufjs';
-import OneofInput from './input/Oneof';
+import OneofField from './OneofField';
 import Input from './Input';
 
 interface Props {
@@ -34,7 +34,7 @@ const Field: React.FC<Props> = ({ field, parentName }) => (
   <>
     <Label field={field} />
     {field instanceof protobuf.OneOf
-      ? <OneofInput parentName={parentName} oneof={field} />
+      ? <OneofField parentName={parentName} oneof={field} />
       : <Input name={parentName ? `${parentName}.${field.name}` : field.name} field={field} />}
   </>
 );
