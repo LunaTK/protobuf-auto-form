@@ -5,20 +5,22 @@ import RadioButton from '../../RadioButton';
 import Input from '../Input';
 
 interface Props {
-  // TODO: full name
+  parentName: string
   oneof: protobuf.OneOf
 }
 
-const OneofInput: React.FC<Props> = ({ oneof }) => {
+const OneofInput: React.FC<Props> = ({ parentName, oneof }) => {
   const { watch } = useFormContext();
-  const selected = watch(oneof.name, oneof.fieldsArray[0].name);
+  const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
+  // TODO: find out why default value does not work
+  const selected = watch(oneofFullName) ?? oneof.fieldsArray[0].name;
 
   return (
     <div>
       {oneof.fieldsArray.map((f) => (
         <div key={f.name}>
-          <RadioButton value={f.name} name={oneof.name} defaultChecked={selected === oneof.name} />
-          {selected === f.name && <Input name={`${f.name}`} field={f} />}
+          <RadioButton value={f.name} name={oneofFullName} defaultChecked={selected === f.name} />
+          {selected === f.name && <Input name={parentName ? `${parentName}.${f.name}` : f.name} field={f} />}
         </div>
       ))}
     </div>

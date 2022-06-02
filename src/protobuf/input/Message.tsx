@@ -42,7 +42,7 @@ const Message: React.FC<Props> = ({ type, name = '' }) => {
       {
         [...fields, ...oneofs].map((field) => (
           <Field
-            name={`${name ? `${name}.` : ''}${field.name}`}
+            parentName={name}
             field={field}
             key={field.name}
           />
