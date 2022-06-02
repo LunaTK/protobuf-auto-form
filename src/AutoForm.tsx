@@ -20,8 +20,8 @@ const AutoForm: React.FC<AutoFormProps> = ({
   const ownForm = useForm();
   const methods = form ?? ownForm;
   const reflectionObj = useMemo(() => {
-    const protoRoot = protobuf.Namespace.fromJSON('', descriptor);
     try {
+      const protoRoot = protobuf.Namespace.fromJSON('', descriptor);
       return protoRoot.resolveAll().lookupType(messageType);
     } catch (e) {
       return null;
