@@ -19,13 +19,11 @@ const initialState = {
 const App = () => (
   <div>
     <AutoForm
-      style={{ maxWidth: 500 }}
       messageType="Article"
       descriptor={descriptor}
       onSubmitValid={(values) => {
         console.log(values);
       }}
-      initialState={initialState}
     >
       <button type="submit" className="btn btn-xs btn-accent">Submit</button>
     </AutoForm>
