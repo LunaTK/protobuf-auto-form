@@ -6,6 +6,7 @@ import Input from './Input';
 interface Props {
   field: protobuf.Field | protobuf.OneOf
   parentName: string
+  hideLabel?: boolean
 }
 
 const getTypeLabel = (field: Props['field']) => {
@@ -30,9 +31,9 @@ const Label: React.FC<{
   </span>
 );
 
-const Field: React.FC<Props> = ({ field, parentName }) => (
+const Field: React.FC<Props> = ({ field, parentName, hideLabel = false }) => (
   <>
-    <Label field={field} />
+    {!hideLabel && <Label field={field} />}
     {field instanceof protobuf.OneOf
       ? <OneofField parentName={parentName} oneof={field} />
       : <Input name={parentName ? `${parentName}.${field.name}` : field.name} field={field} />}

@@ -34,12 +34,13 @@ const useMessage = (type: protobuf.Type) => {
 };
 
 const Message: React.FC<Props> = ({ type, name = '' }) => {
-  const { fields, oneofs } = useMessage(type);
+  const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
+  const shouldHideLabel = isRoot && hasOneAndOnlyField;
 
-  return (
-    <div className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${!isRoot ? 'af-repeat-ele ml-6' : ''}`}>
+  const content = (
+    <>
       {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
       {
         [...fields, ...oneofs].map((field) => (
@@ -47,9 +48,20 @@ const Message: React.FC<Props> = ({ type, name = '' }) => {
             parentName={name}
             field={field}
             key={field.name}
+            hideLabel={shouldHideLabel}
           />
         ))
       }
+    </>
+  );
+
+  if (shouldHideLabel) {
+    return <div className="flex-1">{content}</div>;
+  }
+
+  return (
+    <div className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${!isRoot ? 'af-repeat-ele' : ''}`}>
+      {content}
     </div>
   );
 };
