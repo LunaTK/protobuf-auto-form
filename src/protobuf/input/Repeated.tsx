@@ -19,7 +19,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
 
   return (
     <fieldset>
-      <button type="button" className="btn btn-xs btn-outline" onClick={() => append({})}>
+      <button type="button" className="btn btn-xs btn-outline" onClick={() => append({ value: '' })}>
         <PlusIcon />
         Add
       </button>
