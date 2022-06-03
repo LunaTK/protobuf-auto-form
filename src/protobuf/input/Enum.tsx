@@ -10,7 +10,7 @@ interface Props {
 
 const EnumInput: React.FC<Props> = ({ type, name }) => {
   const { watch } = useFormContext();
-  const selected = watch(name) ?? '1';
+  const selected = watch(name) ?? type.valuesById['1'];
 
   return (
     <div className="flex gap-4 flex-wrap">
