@@ -1,9 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { ControllerRenderProps } from 'react-hook-form';
-
-interface OverriddenFieldProps {
-  field: ControllerRenderProps
-}
+import { OverriddenFieldProps } from './models';
 
 export interface AutoFormContext {
   hideFieldType: boolean
