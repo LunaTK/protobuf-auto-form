@@ -2,4 +2,4 @@ import AutoForm from './AutoForm';
 
 export default AutoForm;
 
-export { OverriddenFieldProps } from './models';
+export type { OverriddenFieldProps } from './models';
