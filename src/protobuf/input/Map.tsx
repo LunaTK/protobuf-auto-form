@@ -2,8 +2,8 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import get from 'lodash.get';
-import MinusIcon from '../../icon/MinusIcon';
-import PlusIcon from '../../icon/PlusIcon';
+import AddButton from '../../common/AddButton';
+import DelButton from '../../common/DelButton';
 import Input from '../Input';
 import BasicInput from './Basic';
 
@@ -63,16 +63,11 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
 
   return (
     <fieldset>
-      <button type="button" className="btn btn-xs btn-outline" onClick={add}>
-        <PlusIcon />
-        Add
-      </button>
+      <AddButton onClick={add} />
+
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2">
-          <button type="button" className="btn btn-xs btn-outline btn-error" onClick={() => remove(idx)}>
-            <MinusIcon />
-          </button>
-
+          <DelButton onClick={() => remove(idx)} />
           <MapValueInput name={name} field={field} index={idx} keyType={keyType} />
         </div>
       ))}

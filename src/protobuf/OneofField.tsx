@@ -1,7 +1,7 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
-import RadioButton from '../RadioButton';
+import RadioButton from '../common/RadioButton';
 import Input from './Input';
 
 interface Props {

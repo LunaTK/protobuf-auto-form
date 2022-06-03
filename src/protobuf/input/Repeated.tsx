@@ -1,8 +1,8 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import MinusIcon from '../../icon/MinusIcon';
-import PlusIcon from '../../icon/PlusIcon';
+import DelButton from '../../common/DelButton';
+import AddButton from '../../common/AddButton';
 import Input from '../Input';
 
 interface Props {
@@ -19,22 +19,10 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
 
   return (
     <fieldset>
-      <button type="button" className="btn btn-xs btn-outline" onClick={() => append({ value: '' })}>
-        <PlusIcon />
-        Add
-      </button>
+      <AddButton onClick={() => append({ value: '' })} />
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
-          <button
-            type="button"
-            className="btn btn-xs btn-outline btn-error"
-            onClick={() => {
-              remove(idx);
-              console.log(idx);
-            }}
-          >
-            <MinusIcon />
-          </button>
+          <DelButton onClick={() => { remove(idx); }} />
           <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
         </div>
       ))}

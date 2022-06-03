@@ -1,6 +1,6 @@
 import React from 'react';
 import protobuf from 'protobufjs';
-import RadioButton from '../../RadioButton';
+import RadioButton from '../../common/RadioButton';
 
 interface Props {
   type: protobuf.Enum
