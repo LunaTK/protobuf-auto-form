@@ -7,12 +7,14 @@ interface OverriddenFieldProps {
 
 export interface AutoFormContext {
   hideFieldType: boolean
+  camelCaseLabel: boolean
   fieldOverride: Record<string, React.FC<OverriddenFieldProps>>
   typeOverride: Record<string, React.FC<OverriddenFieldProps>>
 }
 
 const context = createContext<AutoFormContext>({
   hideFieldType: false,
+  camelCaseLabel: false,
   fieldOverride: {},
   typeOverride: {},
 });

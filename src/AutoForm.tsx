@@ -14,6 +14,7 @@ interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
   initialState?: Record<string, unknown>
   onSubmitValid?: (values: Record<string, unknown>) => void
   hideFieldType?: AutoFormContext['hideFieldType']
+  camelCaseLabel?: AutoFormContext['camelCaseLabel']
   fieldOverride?: AutoFormContext['fieldOverride']
   typeOverride?: AutoFormContext['typeOverride']
 }
@@ -25,6 +26,7 @@ const AutoForm: React.FC<AutoFormProps> = ({
   onSubmitValid,
   initialState,
   hideFieldType = false,
+  camelCaseLabel = true,
   fieldOverride = {},
   typeOverride = {},
   ...props
@@ -51,7 +53,10 @@ const AutoForm: React.FC<AutoFormProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <AutoFormProvider value={{ hideFieldType, fieldOverride, typeOverride }}>
+      <AutoFormProvider value={{
+        hideFieldType, camelCaseLabel, fieldOverride, typeOverride,
+      }}
+      >
         <form
           {...props}
           onSubmit={methods.handleSubmit((values) => {
