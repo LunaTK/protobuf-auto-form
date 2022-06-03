@@ -2,6 +2,8 @@
 
 React component that renders a form corresponding to protobuf schema.
 
+![thumbnail](./thumbnail.png)
+
 # How to use
 
 Using the protobuf schema below,
