@@ -14,13 +14,13 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
 
   return (
     <div className="flex gap-4 flex-wrap">
-      {Object.entries(type.values).map(([label, value]) => (
+      {Object.entries(type.values).map(([label]) => (
         <RadioButton
           label={label}
-          value={String(value)}
+          value={label}
           name={name}
           key={label}
-          defaultChecked={selected === String(value)}
+          defaultChecked={selected === label}
         />
       ))}
     </div>
