@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AddButton: React.FC<Props> = ({ onClick }) => (
-  <button type="button" className="btn btn-xs btn-outline btn-error" onClick={onClick}>
+  <button type="button" className="btn btn-xs btn-error" onClick={onClick}>
     <MinusIcon />
   </button>
 );

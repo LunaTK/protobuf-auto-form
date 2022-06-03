@@ -7,6 +7,9 @@ module.exports = {
   theme: {
     extend: {},
   },
+  corePlugins: {
+    preflight: false,
+  },
   plugins: [daisyui],
   daisyui: {
     themes: false,

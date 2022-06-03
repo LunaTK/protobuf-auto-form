@@ -6,7 +6,7 @@ interface Props {
 }
 
 const AddButton: React.FC<Props> = ({ onClick }) => (
-  <button type="button" className="btn btn-xs btn-outline" onClick={onClick}>
+  <button type="button" className="btn btn-xs" onClick={onClick}>
     <PlusIcon />
     Add
   </button>
