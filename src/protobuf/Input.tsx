@@ -33,7 +33,12 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
       <Controller
         name={name}
         control={control}
-        render={(props) => <OverriddenComponent field={props.field} />}
+        render={({ field: { value, onChange } }) => (
+          <OverriddenComponent
+            value={value}
+            onChange={onChange}
+          />
+        )}
       />
     );
   }

@@ -1,5 +1,4 @@
-import { ControllerRenderProps } from 'react-hook-form';
-
-export interface OverriddenFieldProps {
-  field: ControllerRenderProps
+export interface OverriddenFieldProps<T = unknown> {
+  value: T
+  onChange: (newValue: T) => void
 }
