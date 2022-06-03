@@ -62,7 +62,7 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
   };
 
   return (
-    <fieldset>
+    <div>
       <AddButton onClick={add} />
 
       {fields.map((f, idx) => (
@@ -71,7 +71,7 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
           <MapValueInput name={name} field={field} index={idx} keyType={keyType} />
         </div>
       ))}
-    </fieldset>
+    </div>
   );
 };
 

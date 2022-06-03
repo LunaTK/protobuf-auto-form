@@ -13,7 +13,7 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
   const selected = watch(name) ?? '1';
 
   return (
-    <fieldset className="flex gap-4 flex-wrap">
+    <div className="flex gap-4 flex-wrap">
       {Object.entries(type.values).map(([label, value]) => (
         <RadioButton
           label={label}
@@ -23,7 +23,7 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
           defaultChecked={selected === String(value)}
         />
       ))}
-    </fieldset>
+    </div>
   );
 };
 

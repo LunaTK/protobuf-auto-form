@@ -18,7 +18,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
   });
 
   return (
-    <fieldset>
+    <div>
       <AddButton onClick={() => append({ value: '' })} />
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
@@ -26,7 +26,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
           <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
         </div>
       ))}
-    </fieldset>
+    </div>
   );
 };
 
