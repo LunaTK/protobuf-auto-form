@@ -20,7 +20,7 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
           value={String(value)}
           name={name}
           key={label}
-          defaultChecked={selected === value}
+          defaultChecked={selected === String(value)}
         />
       ))}
     </fieldset>
