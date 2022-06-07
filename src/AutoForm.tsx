@@ -7,19 +7,19 @@ import ErrorAlert from './common/ErrorAlert';
 import { finalize, protoObjToForm } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 
-interface AutoFormProps extends React.HTMLAttributes<HTMLFormElement> {
+interface AutoFormProps<T> extends React.HTMLAttributes<HTMLFormElement> {
   namespace: protobuf.Namespace
   messageType: string
   form?: UseFormReturn
-  initialState?: Record<string, unknown>
-  onSubmitValid?: (values: Record<string, unknown>) => void
+  initialState?: T
+  onSubmitValid?: (values: T) => void
   hideFieldType?: AutoFormContext['hideFieldType']
   camelCaseLabel?: AutoFormContext['camelCaseLabel']
   fieldOverride?: AutoFormContext['fieldOverride']
   typeOverride?: AutoFormContext['typeOverride']
 }
 
-const AutoForm: React.FC<AutoFormProps> = ({
+const AutoForm = <T, >({
   namespace,
   messageType,
   children,
@@ -29,8 +29,8 @@ const AutoForm: React.FC<AutoFormProps> = ({
   camelCaseLabel = true,
   fieldOverride = {},
   typeOverride = {},
-  ...props
-}) => {
+  ...rest
+}: AutoFormProps<T>) => {
   const reflectionObj = useMemo(() => {
     try {
       return namespace.resolveAll().lookupType(messageType);
@@ -58,7 +58,7 @@ const AutoForm: React.FC<AutoFormProps> = ({
       }}
       >
         <form
-          {...props}
+          {...rest}
           onSubmit={methods.handleSubmit((values) => {
             if (onSubmitValid) {
               onSubmitValid(finalize(values, reflectionObj));
