@@ -19,18 +19,19 @@ interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
   typeOverride?: AutoFormContext<T>['typeOverride']
 }
 
-const AutoForm = <T, >({
-  namespace,
-  messageType,
-  children,
-  onSubmitValid,
-  initialState,
-  hideFieldType = false,
-  camelCaseLabel = true,
-  fieldOverride = {},
-  typeOverride = {},
-  ...rest
-}: AutoFormProps<T>) => {
+const AutoForm = <T, >(props: AutoFormProps<T>) => {
+  const {
+    namespace,
+    messageType,
+    children,
+    onSubmitValid,
+    initialState,
+    hideFieldType = false,
+    camelCaseLabel = true,
+    fieldOverride = {},
+    typeOverride = {},
+    ...rest
+  } = props;
   const reflectionObj = useMemo(() => {
     try {
       return namespace.resolveAll().lookupType(messageType);
