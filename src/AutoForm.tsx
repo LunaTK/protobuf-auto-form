@@ -7,7 +7,7 @@ import ErrorAlert from './common/ErrorAlert';
 import { finalize, protoObjToForm } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 
-interface AutoFormProps<T> extends React.HTMLAttributes<HTMLFormElement> {
+interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
   namespace: protobuf.Namespace
   messageType: string
   form?: UseFormReturn
