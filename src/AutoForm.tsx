@@ -19,18 +19,19 @@ interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
   wellKnownTypes?: AutoFormContext['wellKnownTypes']
 }
 
-const AutoForm = <T, >({
-  namespace,
-  messageType,
-  children,
-  onSubmitValid,
-  initialState,
-  hideFieldType = false,
-  camelCaseLabel = true,
-  wellKnownFields = {},
-  wellKnownTypes = {},
-  ...rest
-}: AutoFormProps<T>) => {
+const AutoForm = <T, >(props: AutoFormProps<T>) => {
+  const {
+    namespace,
+    messageType,
+    children,
+    onSubmitValid,
+    initialState,
+    hideFieldType = false,
+    camelCaseLabel = true,
+    wellKnownFields = {},
+    wellKnownTypes = {},
+    ...rest
+  } = props;
   const reflectionObj = useMemo(() => {
     try {
       return namespace.resolveAll().lookupType(messageType);
