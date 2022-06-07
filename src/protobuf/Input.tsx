@@ -6,7 +6,7 @@ import BasicInput, { isBasicType } from './input/Basic';
 import EnumInput from './input/Enum';
 import Message from './input/Message';
 import MapInput from './input/Map';
-import { useAutoForm } from '../context';
+import { useGetOverriddenComponent } from '../hooks';
 
 interface InputProps {
   field: protobuf.Field
@@ -18,8 +18,8 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
   const {
     resolvedType, type, repeated,
   } = field;
-  const { typeOverride, fieldOverride } = useAutoForm();
   const { control } = useFormContext();
+  const getOverriddenComponent = useGetOverriddenComponent();
 
   if (!ignoreRepeatAndMap && repeated) {
     return <RepeatedInput field={field} name={name} />;
@@ -27,8 +27,9 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
     return <MapInput name={name} field={field} keyType={field.keyType} />;
   }
 
-  const OverriddenComponent = typeOverride[resolvedType?.fullName ?? ''] ?? fieldOverride[field.name ?? ''];
-  if (OverriddenComponent) {
+  const isRoot = name === field.name;
+  const OverriddenComponent = getOverriddenComponent(field);
+  if (isRoot && OverriddenComponent) {
     return (
       <Controller
         name={name}

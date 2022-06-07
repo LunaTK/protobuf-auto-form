@@ -13,10 +13,10 @@ interface AutoFormProps<T> extends React.HTMLAttributes<HTMLFormElement> {
   form?: UseFormReturn
   initialState?: T
   onSubmitValid?: (values: T) => void
-  hideFieldType?: AutoFormContext['hideFieldType']
-  camelCaseLabel?: AutoFormContext['camelCaseLabel']
-  fieldOverride?: AutoFormContext['fieldOverride']
-  typeOverride?: AutoFormContext['typeOverride']
+  hideFieldType?: AutoFormContext<T>['hideFieldType']
+  camelCaseLabel?: AutoFormContext<T>['camelCaseLabel']
+  fieldOverride?: AutoFormContext<T>['fieldOverride']
+  typeOverride?: AutoFormContext<T>['typeOverride']
 }
 
 const AutoForm = <T, >({
