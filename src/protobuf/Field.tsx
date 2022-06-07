@@ -27,7 +27,7 @@ const getTypeLabel = (field: Props['field']) => {
 const Label: React.FC<{
   field: Props['field']
 }> = ({ field }) => {
-  const { camelCaseLabel } = useAutoForm();
+  const { camelCaseLabel, hideFieldType } = useAutoForm();
 
   return (
     <span className="text-right inline-flex flex-col">
@@ -35,7 +35,7 @@ const Label: React.FC<{
         { camelCaseLabel ? field.name : toSpaceSeperated(field.name)}
       </span>
       <span className="text-slate-400 text-sm">
-        {getTypeLabel(field)}
+        {!hideFieldType && getTypeLabel(field)}
       </span>
     </span>
   );
