@@ -6,6 +6,7 @@ import Message from './protobuf/input/Message';
 import ErrorAlert from './common/ErrorAlert';
 import { finalize, protoObjToForm } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
+import AutoFormField from './AutoFormField';
 
 interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
   namespace: protobuf.Namespace
@@ -65,12 +66,15 @@ const AutoForm = <T, >({
             }
           })}
         >
-          <Message type={reflectionObj} />
-          {children}
+          <Message type={reflectionObj}>
+            {children}
+          </Message>
         </form>
       </AutoFormProvider>
     </FormProvider>
   );
 };
+
+AutoForm.Field = AutoFormField;
 
 export default AutoForm;

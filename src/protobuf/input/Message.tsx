@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../Field';
+import { extractFields } from '../../utils';
 
 interface Props {
   type: protobuf.Type
@@ -33,11 +34,13 @@ const useMessage = (type: protobuf.Type) => {
   return info;
 };
 
-const Message: React.FC<Props> = ({ type, name = '' }) => {
+const Message: React.FC<Props> = ({ type, name = '', children }) => {
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
+
+  console.log(extractFields(children));
 
   const content = (
     <>
