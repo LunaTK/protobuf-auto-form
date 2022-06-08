@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
-  value: string
+  value?: string
   name: string
   label?: string
   defaultChecked?: boolean

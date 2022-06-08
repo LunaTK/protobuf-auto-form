@@ -14,6 +14,7 @@ const OneofField: React.FC<Props> = ({ parentName, oneof }) => {
   const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
   // TODO: find out why default value does not work
   const selected = watch(oneofFullName) ?? oneof.fieldsArray[0].name;
+  const isProto3Optional = oneof.fieldsArray[0].options?.proto3_optional;
 
   return (
     <div>
@@ -23,6 +24,12 @@ const OneofField: React.FC<Props> = ({ parentName, oneof }) => {
           {selected === f.name && <Input name={parentName ? `${parentName}.${f.name}` : f.name} field={f} />}
         </div>
       ))}
+      {isProto3Optional && (
+      <div className="my-2">
+        <RadioButton name={oneofFullName} label="None" />
+      </div>
+      )}
+
     </div>
   );
 };
