@@ -1,20 +1,18 @@
 import React, { createContext, useContext } from 'react';
 import { OverriddenFieldProps } from './models';
 
-export interface AutoFormContext<T = any> {
+export interface AutoFormContext {
   hideFieldType: boolean
   camelCaseLabel: boolean
-  fieldOverride: Partial<{
-    [field in keyof T]: React.FC<OverriddenFieldProps<T[field]>>
-  }>
-  typeOverride: Record<string, React.FC<OverriddenFieldProps>>
+  wellKnownFields: Record<string, React.FC<OverriddenFieldProps>>
+  wellKnownTypes: Record<string, React.FC<OverriddenFieldProps>>
 }
 
 const context = createContext<AutoFormContext>({
   hideFieldType: false,
   camelCaseLabel: false,
-  fieldOverride: {},
-  typeOverride: {},
+  wellKnownFields: {},
+  wellKnownTypes: {},
 });
 
 export const AutoFormProvider = context.Provider;

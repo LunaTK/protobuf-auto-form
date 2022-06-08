@@ -13,10 +13,10 @@ interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
   form?: UseFormReturn
   initialState?: T
   onSubmitValid?: (values: T) => void
-  hideFieldType?: AutoFormContext<T>['hideFieldType']
-  camelCaseLabel?: AutoFormContext<T>['camelCaseLabel']
-  fieldOverride?: AutoFormContext<T>['fieldOverride']
-  typeOverride?: AutoFormContext<T>['typeOverride']
+  hideFieldType?: AutoFormContext['hideFieldType']
+  camelCaseLabel?: AutoFormContext['camelCaseLabel']
+  wellKnownFields?: AutoFormContext['wellKnownFields']
+  wellKnownTypes?: AutoFormContext['wellKnownTypes']
 }
 
 const AutoForm = <T, >({
@@ -27,8 +27,8 @@ const AutoForm = <T, >({
   initialState,
   hideFieldType = false,
   camelCaseLabel = true,
-  fieldOverride = {},
-  typeOverride = {},
+  wellKnownFields = {},
+  wellKnownTypes = {},
   ...rest
 }: AutoFormProps<T>) => {
   const reflectionObj = useMemo(() => {
@@ -54,7 +54,7 @@ const AutoForm = <T, >({
   return (
     <FormProvider {...methods}>
       <AutoFormProvider value={{
-        hideFieldType, camelCaseLabel, fieldOverride, typeOverride,
+        hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes,
       }}
       >
         <form

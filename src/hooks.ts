@@ -3,8 +3,8 @@ import protobuf from 'protobufjs';
 import { useAutoForm } from './context';
 
 // eslint-disable-next-line import/prefer-default-export
-export const useGetOverriddenComponent = () => {
-  const { fieldOverride, typeOverride } = useAutoForm();
+export const useGetWellKnownComponent = () => {
+  const { wellKnownFields, wellKnownTypes } = useAutoForm();
 
-  return useCallback((field: protobuf.Field) => typeOverride[field.resolvedType?.fullName ?? ''] ?? fieldOverride[field.name ?? ''], [fieldOverride, typeOverride]);
+  return useCallback((field: protobuf.Field) => wellKnownTypes[field.resolvedType?.fullName ?? ''] ?? wellKnownFields[field.name ?? ''], [wellKnownFields, wellKnownTypes]);
 };

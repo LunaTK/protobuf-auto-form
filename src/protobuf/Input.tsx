@@ -6,7 +6,7 @@ import BasicInput, { isBasicType } from './input/Basic';
 import EnumInput from './input/Enum';
 import Message from './input/Message';
 import MapInput from './input/Map';
-import { useGetOverriddenComponent } from '../hooks';
+import { useGetWellKnownComponent } from '../hooks';
 
 interface InputProps {
   field: protobuf.Field
@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
     resolvedType, type, repeated,
   } = field;
   const { control } = useFormContext();
-  const getOverriddenComponent = useGetOverriddenComponent();
+  const getWellKnownComponent = useGetWellKnownComponent();
 
   if (!ignoreRepeatAndMap && repeated) {
     return <RepeatedInput field={field} name={name} />;
@@ -27,15 +27,14 @@ const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
     return <MapInput name={name} field={field} keyType={field.keyType} />;
   }
 
-  const isRoot = name === field.name;
-  const OverriddenComponent = getOverriddenComponent(field);
-  if (isRoot && OverriddenComponent) {
+  const WellKnownComponent = getWellKnownComponent(field);
+  if (WellKnownComponent) {
     return (
       <Controller
         name={name}
         control={control}
         render={({ field: { value, onChange } }) => (
-          <OverriddenComponent
+          <WellKnownComponent
             value={value}
             onChange={onChange}
           />
