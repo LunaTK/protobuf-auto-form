@@ -4,12 +4,12 @@ import { useFormContext } from 'react-hook-form';
 import RadioButton from '../common/RadioButton';
 import Input from './Input';
 
-interface Props {
+interface OneofProps {
   parentName: string
   oneof: protobuf.OneOf
 }
 
-const OneofField: React.FC<Props> = ({ parentName, oneof }) => {
+const OneofField: React.FC<OneofProps> = ({ parentName, oneof }) => {
   const { watch } = useFormContext();
   const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
   // TODO: find out why default value does not work
