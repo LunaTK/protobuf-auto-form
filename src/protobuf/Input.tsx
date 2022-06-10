@@ -10,16 +10,17 @@ import { useGetWellKnownComponent } from '../hooks';
 
 interface InputProps {
   field: protobuf.Field
-  name: string
+  parentName: string
   ignoreRepeatAndMap?: boolean
 }
 
-const Input: React.FC<InputProps> = ({ field, name, ignoreRepeatAndMap }) => {
+const Input: React.FC<InputProps> = ({ field, parentName, ignoreRepeatAndMap }) => {
   const {
     resolvedType, type, repeated,
   } = field;
   const { control } = useFormContext();
   const getWellKnownComponent = useGetWellKnownComponent();
+  const name = parentName ? `${parentName}.${field.name}` : field.name;
 
   if (!ignoreRepeatAndMap && repeated) {
     return <RepeatedInput field={field} name={name} />;
