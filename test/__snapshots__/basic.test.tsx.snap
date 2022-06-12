@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`Link changes the class when hovered 1`] = `
+<div>
+  hi
+</div>
+`;
+
+exports[`Link changes the class when hovered 2`] = `
+<div>
+  hi
+</div>
+`;
+
+exports[`Snapshot test 1`] = `
+<div>
+  hi
+</div>
+`;
+
+exports[`Snapshot test 2`] = `
+<div>
+  hi
+</div>
+`;

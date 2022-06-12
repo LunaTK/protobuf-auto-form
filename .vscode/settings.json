@@ -1,0 +1,6 @@
+{
+    "eslint.format.enable": true,
+    "eslint.packageManager": "yarn",
+    "eslint.run": "onType",
+    "editor.tabSize": 2
+}
