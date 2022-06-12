@@ -28,6 +28,7 @@ const App = () => (
         console.log(values);
       }}
     >
+      <AutoForm.Field name="title" label="타이틀" />
       <button type="submit" className="btn btn-xs btn-accent">Submit</button>
     </AutoForm>
   </div>

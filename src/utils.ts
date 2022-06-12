@@ -1,8 +1,8 @@
 import React from 'react';
-import AutoFormField from './AutoFormField';
+import AutoFormField, { FieldProps } from './AutoFormField';
 
 // eslint-disable-next-line import/prefer-default-export
-export const extractFields = (children?: React.ReactNode) => {
+export const extractFields = (children?: React.ReactNode): React.ReactElement<FieldProps>[] => {
   if (!children) return [];
   const nodes: React.ReactElement[] = Array.isArray(children) ? children : [children];
 

@@ -40,7 +40,9 @@ const Message: React.FC<Props> = ({ type, name = '', children }) => {
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
 
-  console.log(extractFields(children));
+  const childFields = Object.fromEntries(
+    extractFields(children).map(({ props }) => [props.name, props]),
+  );
 
   const content = (
     <>
@@ -52,6 +54,7 @@ const Message: React.FC<Props> = ({ type, name = '', children }) => {
             field={field}
             key={field.name}
             hideLabel={shouldHideLabel}
+            override={childFields[field.name]}
           />
         ))
       }

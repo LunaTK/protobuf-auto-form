@@ -4,11 +4,13 @@ import { pascalCase } from 'change-case';
 import OneofField from './OneofField';
 import Input from './Input';
 import { useAutoForm } from '../context';
+import { FieldProps } from '../AutoFormField';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf
   parentName: string
   hideLabel?: boolean
+  override?: FieldProps
 }
 
 const toSpaceSeperated = (name: string) => pascalCase(name)
@@ -25,14 +27,15 @@ const getTypeLabel = (field: Props['field']) => {
 };
 
 const Label: React.FC<{
+  label?: string
   field: Props['field']
-}> = ({ field }) => {
+}> = ({ field, label }) => {
   const { camelCaseLabel, hideFieldType } = useAutoForm();
 
   return (
     <span className="text-right inline-flex flex-col">
       <span className="leading-tight font-bold">
-        { camelCaseLabel ? field.name : toSpaceSeperated(field.name)}
+        {label || (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
       </span>
       <span className="text-slate-400 text-sm">
         {!hideFieldType && getTypeLabel(field)}
@@ -41,9 +44,11 @@ const Label: React.FC<{
   );
 };
 
-const Field: React.FC<Props> = ({ field, parentName, hideLabel = false }) => (
+const Field: React.FC<Props> = ({
+  field, parentName, hideLabel = false, override,
+}) => (
   <>
-    {!hideLabel && <Label field={field} />}
+    {!hideLabel && <Label label={override?.label} field={field} />}
     {field instanceof protobuf.OneOf
       ? <OneofField parentName={parentName} oneof={field} />
       : <Input parentName={parentName} field={field} />}
