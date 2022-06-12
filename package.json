@@ -16,7 +16,7 @@
   "author": "LunaTK <ahn_v3@naver.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vite test",
+    "dev": "vite example",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
