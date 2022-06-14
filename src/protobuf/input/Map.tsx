@@ -32,11 +32,13 @@ const MapKeyValueInput: React.FC<{
       .some(({ key }, i) => i !== index && key === value);
     return !isDuplicated || 'Same key exists';
   };
+  const keyLabel = keyOptions?.label ?? 'Key';
+  const valueLabel = valueOptions?.label ?? 'Value';
 
   return (
     <div className="af-repeat-ele flex-1 flex flex-col my-2 p-2">
       <div className="label">
-        <span className="label-text">Key</span>
+        <span className="label-text">{keyLabel}</span>
       </div>
       <BasicInput
         name={`${name}.${index}.key`}
@@ -46,7 +48,7 @@ const MapKeyValueInput: React.FC<{
       />
 
       <div className="label">
-        <span className="label-text">Value</span>
+        <span className="label-text">{valueLabel}</span>
       </div>
       <PrimitiveInput name={`${name}.${index}.value`} field={field} options={valueOptions} />
     </div>

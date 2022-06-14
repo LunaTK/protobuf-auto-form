@@ -56,7 +56,6 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
             hideLabel={shouldHideLabel}
             options={{
               ...fieldOptions[field.name],
-              disabled: options?.disabled, // override children's attribute
             }}
           />
         ))
