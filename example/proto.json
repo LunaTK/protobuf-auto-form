@@ -88,6 +88,32 @@
           "id": 4
         }
       }
+    },
+    "User": {
+      "fields": {
+        "userId": {
+          "type": "int32",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "friends": {
+          "rule": "repeated",
+          "type": "int32",
+          "id": 3
+        }
+      }
+    },
+    "Guild": {
+      "fields": {
+        "members": {
+          "rule": "repeated",
+          "type": "User",
+          "id": 1
+        }
+      }
     }
   }
 }
