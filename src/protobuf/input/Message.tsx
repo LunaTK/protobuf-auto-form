@@ -42,9 +42,7 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
 
-  const fieldOptions = Object.fromEntries(
-    extractFields(options?.children).map(({ props }) => [props.name, props]),
-  );
+  const fieldOptions = extractFields(options?.children);
 
   const content = (
     <>
