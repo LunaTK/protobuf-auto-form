@@ -10,7 +10,7 @@ interface Props {
   options?: FieldOptions
 }
 
-const EnumInput: React.FC<Props> = ({ type, name }) => {
+const EnumInput: React.FC<Props> = ({ type, name, options }) => {
   const { watch } = useFormContext();
   const selected = watch(name) ?? type.valuesById['1'];
 
@@ -22,6 +22,7 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
           value={label}
           name={name}
           key={label}
+          disabled={options?.disabled}
           defaultChecked={selected === label}
         />
       ))}
