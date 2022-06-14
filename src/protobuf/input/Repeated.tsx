@@ -3,14 +3,16 @@ import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import DelButton from '../../common/DelButton';
 import AddButton from '../../common/AddButton';
-import Input from '../Input';
+import PrimitiveInput from '../PrimitiveInput';
+import { FieldOptions } from '../../AutoFormField';
 
 interface Props {
   name: string
   field: protobuf.Field
+  options?: FieldOptions
 }
 
-const RepeatedInput: React.FC<Props> = ({ field, name }) => {
+const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
@@ -23,7 +25,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name }) => {
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
           <DelButton onClick={() => { remove(idx); }} />
-          <Input name={`${name}.${idx}.value`} field={field} ignoreRepeatAndMap />
+          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={options} />
         </div>
       ))}
     </div>
