@@ -1,7 +1,7 @@
 import React from 'react';
 import { OverriddenFieldProps } from './models';
 
-export interface FieldProps {
+export interface FieldOptions {
   name: string
   label?: string
   render?: React.FunctionComponent<OverriddenFieldProps>
@@ -10,6 +10,6 @@ export interface FieldProps {
 }
 
 // eslint-disable-next-line no-unused-vars
-const AutoFormField = (_props: FieldProps) => <>Field!</>;
+const AutoFormField = (_props: FieldOptions) => <>Field!</>;
 
 export default AutoFormField;

@@ -4,13 +4,13 @@ import { pascalCase } from 'change-case';
 import OneofField from './OneofField';
 import Input from './Input';
 import { useAutoForm } from '../context';
-import { FieldProps } from '../AutoFormField';
+import { FieldOptions } from '../AutoFormField';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf
   parentName: string
   hideLabel?: boolean
-  override?: FieldProps
+  options?: FieldOptions
 }
 
 const toSpaceSeperated = (name: string) => pascalCase(name)
@@ -45,10 +45,10 @@ const Label: React.FC<{
 };
 
 const Field: React.FC<Props> = ({
-  field, parentName, hideLabel = false, override,
+  field, parentName, hideLabel = false, options,
 }) => (
   <>
-    {!hideLabel && <Label label={override?.label} field={field} />}
+    {!hideLabel && <Label label={options?.label} field={field} />}
     {field instanceof protobuf.OneOf
       ? <OneofField parentName={parentName} oneof={field} />
       : <Input parentName={parentName} field={field} />}
