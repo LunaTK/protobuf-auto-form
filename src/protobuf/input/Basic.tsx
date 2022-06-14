@@ -2,6 +2,7 @@ import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext, Validate } from 'react-hook-form';
 import get from 'lodash.get';
+import { FieldOptions } from '../../AutoFormField';
 
 type BasicType = keyof typeof types.basic
 const protobufNumberTypes = new Set([
@@ -25,6 +26,7 @@ interface Props {
   type: string
   name: string
   validate?: Validate<unknown>
+  options?: FieldOptions
 }
 
 const getInputType = (type: BasicType) => {
@@ -36,7 +38,9 @@ const getInputType = (type: BasicType) => {
   return 'text';
 };
 
-const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
+const BasicInput: React.FC<Props> = ({
+  type, name, validate, options,
+}) => {
   const { register, formState: { errors } } = useFormContext();
   const error = get(errors, name);
 
@@ -48,6 +52,7 @@ const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
         type={getInputType(type as BasicType)}
         placeholder={type}
         step="any"
+        disabled={options?.disabled}
       />
       {
         error && (

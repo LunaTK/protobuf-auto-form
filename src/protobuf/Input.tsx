@@ -7,14 +7,18 @@ import EnumInput from './input/Enum';
 import Message from './input/Message';
 import MapInput from './input/Map';
 import { useGetWellKnownComponent } from '../hooks';
+import { FieldOptions } from '../AutoFormField';
 
 interface InputProps {
   field: protobuf.Field
   parentName: string
   ignoreRepeatAndMap?: boolean
+  options?: FieldOptions
 }
 
-const Input: React.FC<InputProps> = ({ field, parentName, ignoreRepeatAndMap }) => {
+const Input: React.FC<InputProps> = ({
+  field, options, parentName, ignoreRepeatAndMap,
+}) => {
   const {
     resolvedType, type, repeated,
   } = field;
@@ -45,11 +49,11 @@ const Input: React.FC<InputProps> = ({ field, parentName, ignoreRepeatAndMap }) 
   }
 
   if (isBasicType(type)) {
-    return <BasicInput name={name} type={type} />;
+    return <BasicInput name={name} type={type} options={options} />;
   } if (resolvedType instanceof protobuf.Enum) {
-    return <EnumInput name={name} type={resolvedType} />;
+    return <EnumInput name={name} type={resolvedType} options={options} />;
   } if (resolvedType instanceof protobuf.Type) {
-    return <Message name={name} type={resolvedType} />;
+    return <Message name={name} type={resolvedType} options={options} />;
   }
 
   throw new Error(`Unresolved type "${type}" from field "${name}"`);

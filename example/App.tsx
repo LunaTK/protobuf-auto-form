@@ -29,6 +29,7 @@ const App = () => (
       }}
     >
       <AutoForm.Field name="title" label="타이틀" />
+      <AutoForm.Field name="tags" hidden />
       <button type="submit" className="btn btn-xs btn-accent">Submit</button>
     </AutoForm>
   </div>

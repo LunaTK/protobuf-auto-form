@@ -2,10 +2,12 @@ import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../Field';
 import { extractFields } from '../../utils';
+import { FieldOptions } from '../../AutoFormField';
 
 interface Props {
   type: protobuf.Type
   name?: string
+  options?: FieldOptions
 }
 
 const useMessage = (type: protobuf.Type) => {
@@ -34,14 +36,14 @@ const useMessage = (type: protobuf.Type) => {
   return info;
 };
 
-const Message: React.FC<Props> = ({ type, name = '', children }) => {
+const Message: React.FC<Props> = ({ type, name = '', options }) => {
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
 
   const fieldOptions = Object.fromEntries(
-    extractFields(children).map(({ props }) => [props.name, props]),
+    extractFields(options?.children).map(({ props }) => [props.name, props]),
   );
 
   const content = (

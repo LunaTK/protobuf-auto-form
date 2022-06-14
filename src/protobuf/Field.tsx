@@ -46,13 +46,17 @@ const Label: React.FC<{
 
 const Field: React.FC<Props> = ({
   field, parentName, hideLabel = false, options,
-}) => (
-  <>
-    {!hideLabel && <Label label={options?.label} field={field} />}
-    {field instanceof protobuf.OneOf
-      ? <OneofField parentName={parentName} oneof={field} />
-      : <Input parentName={parentName} field={field} />}
-  </>
-);
+}) => {
+  if (options?.hidden === true) return null;
+
+  return (
+    <>
+      {!hideLabel && <Label field={field} label={options?.label} />}
+      {field instanceof protobuf.OneOf
+        ? <OneofField parentName={parentName} oneof={field} />
+        : <Input parentName={parentName} field={field} options={options} />}
+    </>
+  );
+};
 
 export default Field;
