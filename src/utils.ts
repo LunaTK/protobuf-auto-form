@@ -1,6 +1,7 @@
 import React from 'react';
 import AutoFormField, { FieldOptions } from './AutoFormField';
 
+// TODO: change this into a hook using memo
 // eslint-disable-next-line import/prefer-default-export
 export const extractFields = (children?: React.ReactNode): Record<string, FieldOptions> => {
   if (!children) return {};

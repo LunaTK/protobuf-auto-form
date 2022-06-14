@@ -53,7 +53,7 @@ const Field: React.FC<Props> = ({
     <>
       {!hideLabel && <Label field={field} label={options?.label} />}
       {field instanceof protobuf.OneOf
-        ? <OneofField parentName={parentName} oneof={field} />
+        ? <OneofField parentName={parentName} oneof={field} options={options} />
         : <Input parentName={parentName} field={field} options={options} />}
     </>
   );

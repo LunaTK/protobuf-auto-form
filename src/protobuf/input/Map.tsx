@@ -4,22 +4,27 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import get from 'lodash.get';
 import AddButton from '../../common/AddButton';
 import DelButton from '../../common/DelButton';
-import Input from '../Input';
+import PrimitiveInput from '../PrimitiveInput';
 import BasicInput from './Basic';
+import { FieldOptions } from '../../AutoFormField';
+import { extractFields } from '../../utils';
 
-interface Props {
+interface MapProps {
   name: string
   field: protobuf.Field
   keyType: string
+  options?: FieldOptions
 }
 
-const MapValueInput: React.FC<{
+const MapKeyValueInput: React.FC<{
   index: number
   name: string
   keyType: string
   field: protobuf.Field
+  keyOptions?: FieldOptions
+  valueOptions?: FieldOptions
 }> = ({
-  index, name, keyType, field,
+  index, name, keyType, field, keyOptions, valueOptions,
 }) => {
   const { getValues } = useFormContext();
   const validate = (value: unknown) => {
@@ -37,17 +42,20 @@ const MapValueInput: React.FC<{
         name={`${name}.${index}.key`}
         type={keyType}
         validate={validate}
+        options={keyOptions}
       />
 
       <div className="label">
         <span className="label-text">Value</span>
       </div>
-      <Input name={`${name}.${index}.value`} field={field} ignoreRepeatAndMap />
+      <PrimitiveInput name={`${name}.${index}.value`} field={field} options={valueOptions} />
     </div>
   );
 };
 
-const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
+const MapInput: React.FC<MapProps> = ({
+  name, field, keyType, options,
+}) => {
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
@@ -61,6 +69,8 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
     });
   };
 
+  const { key: keyOptions, value: valueOptions } = extractFields(options?.children);
+
   return (
     <div>
       <AddButton onClick={add} />
@@ -68,7 +78,14 @@ const MapInput: React.FC<Props> = ({ name, field, keyType }) => {
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2">
           <DelButton onClick={() => remove(idx)} />
-          <MapValueInput name={name} field={field} index={idx} keyType={keyType} />
+          <MapKeyValueInput
+            name={name}
+            field={field}
+            index={idx}
+            keyType={keyType}
+            keyOptions={keyOptions}
+            valueOptions={valueOptions}
+          />
         </div>
       ))}
     </div>

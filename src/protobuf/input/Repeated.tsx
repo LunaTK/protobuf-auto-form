@@ -5,6 +5,7 @@ import DelButton from '../../common/DelButton';
 import AddButton from '../../common/AddButton';
 import PrimitiveInput from '../PrimitiveInput';
 import { FieldOptions } from '../../AutoFormField';
+import { extractFields } from '../../utils';
 
 interface Props {
   name: string
@@ -19,13 +20,15 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
     name,
   });
 
+  const { value: valueOptions } = extractFields(options);
+
   return (
     <div>
       <AddButton onClick={() => append({ value: '' })} />
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
           <DelButton onClick={() => { remove(idx); }} />
-          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={options} />
+          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={valueOptions} />
         </div>
       ))}
     </div>

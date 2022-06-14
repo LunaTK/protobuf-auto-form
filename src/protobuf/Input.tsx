@@ -19,9 +19,9 @@ const Input: React.FC<InputProps> = ({
   const name = parentName ? `${parentName}.${field.name}` : field.name;
 
   if (!ignoreRepeatAndMap && repeated) {
-    return <RepeatedInput field={field} name={name} />;
+    return <RepeatedInput field={field} name={name} options={options} />;
   } if (!ignoreRepeatAndMap && field instanceof protobuf.MapField) {
-    return <MapInput name={name} field={field} keyType={field.keyType} />;
+    return <MapInput name={name} field={field} keyType={field.keyType} options={options} />;
   }
 
   return <PrimitiveInput field={field} name={name} options={options} />;
