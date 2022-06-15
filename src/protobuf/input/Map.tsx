@@ -7,7 +7,7 @@ import DelButton from '../../common/DelButton';
 import PrimitiveInput from '../PrimitiveInput';
 import BasicInput from './Basic';
 import { FieldOptions } from '../../AutoFormField';
-import { useChildFieldOptions } from '../../utils';
+import { useChildFieldOptions } from '../../hooks';
 
 interface MapProps {
   name: string

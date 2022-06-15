@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../Field';
-import { useChildFieldOptions } from '../../utils';
+import { useChildFieldOptions } from '../../hooks';
 import { FieldOptions } from '../../AutoFormField';
 
 interface Props {

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import RadioButton from '../common/RadioButton';
 import Input from './Input';
 import { FieldOptions } from '../AutoFormField';
-import { useChildFieldOptions } from '../utils';
+import { useChildFieldOptions } from '../hooks';
 
 interface OneofProps {
   parentName: string

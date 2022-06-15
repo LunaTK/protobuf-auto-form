@@ -5,7 +5,7 @@ import DelButton from '../../common/DelButton';
 import AddButton from '../../common/AddButton';
 import PrimitiveInput from '../PrimitiveInput';
 import { FieldOptions } from '../../AutoFormField';
-import { useChildFieldOptions } from '../../utils';
+import { useChildFieldOptions } from '../../hooks';
 
 interface Props {
   name: string
