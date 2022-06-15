@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import RadioButton from '../common/RadioButton';
 import Input from './input/Input';
 import { FieldOptions } from '../AutoFormField';
-import { useChildFieldOptions } from '../hooks';
+import { useChildFields } from '../hooks';
 
 interface OneofProps {
   parentName: string
@@ -13,7 +13,7 @@ interface OneofProps {
 }
 
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
-  const fieldOptions = useChildFieldOptions(options);
+  const { fieldOptions } = useChildFields(options);
   const { watch } = useFormContext();
   const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
   // TODO: find out why default value does not work

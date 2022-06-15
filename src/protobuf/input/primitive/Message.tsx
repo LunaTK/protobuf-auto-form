@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../../Field';
-import { useChildFieldOptions } from '../../../hooks';
+import { useChildFields } from '../../../hooks';
 import { FieldOptions } from '../../../AutoFormField';
 
 interface Props {
@@ -37,7 +37,7 @@ const useMessage = (type: protobuf.Type) => {
 };
 
 const Message: React.FC<Props> = ({ type, name = '', options }) => {
-  const fieldOptions = useChildFieldOptions(options);
+  const { fieldOptions } = useChildFields(options);
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;

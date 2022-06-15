@@ -4,13 +4,25 @@ import { useAutoForm } from './context';
 import AutoFormField, { FieldOptions } from './AutoFormField';
 
 // TODO: change this into a hook using memo
-export const useChildFieldOptions = (options?: FieldOptions)
-: Record<string, FieldOptions> => useMemo(() => {
+export const useChildFields = (options?: FieldOptions) => useMemo(() => {
   const { children } = options ?? {};
-  if (!children) return {};
+  if (!children) {
+    return {
+      fieldOptions: {},
+      otherNodes: [],
+    };
+  }
   const nodes: React.ReactElement[] = Array.isArray(children) ? children : [children];
   const fieldNodes = nodes.filter((node) => node.type === AutoFormField);
-  return Object.fromEntries(fieldNodes.map(({ props }) => [props.name, props]));
+  const otherNodes = nodes.filter((node) => node.type !== AutoFormField);
+
+  const fieldOptions: Record<string, FieldOptions> = Object.fromEntries(
+    fieldNodes.map(({ props }) => [props.name, props]),
+  );
+
+  return {
+    fieldOptions, otherNodes,
+  };
 }, [options?.children]);
 
 export const useGetWellKnownComponent = () => {

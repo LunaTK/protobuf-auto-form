@@ -5,7 +5,7 @@ import DelButton from '../../common/DelButton';
 import AddButton from '../../common/AddButton';
 import PrimitiveInput from './primitive/PrimitiveInput';
 import { FieldOptions } from '../../AutoFormField';
-import { useChildFieldOptions } from '../../hooks';
+import { useChildFields } from '../../hooks';
 
 interface Props {
   name: string
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
-  const { value: valueOptions } = useChildFieldOptions(options);
+  const { value: valueOptions } = useChildFields(options).fieldOptions;
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
