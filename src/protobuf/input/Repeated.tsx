@@ -27,7 +27,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
           <DelButton onClick={() => { remove(idx); }} />
-          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={valueOptions} />
+          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={valueOptions} index={idx} />
         </div>
       ))}
     </div>

@@ -50,7 +50,7 @@ const MapKeyValueInput: React.FC<{
       <div className="label">
         <span className="label-text">{valueLabel}</span>
       </div>
-      <PrimitiveInput name={`${name}.${index}.value`} field={field} options={valueOptions} />
+      <PrimitiveInput name={`${name}.${index}.value`} field={field} options={valueOptions} index={index} />
     </div>
   );
 };

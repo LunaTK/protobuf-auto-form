@@ -11,10 +11,11 @@ interface InputProps {
   field: protobuf.Field
   name: string
   options?: FieldOptions
+  index?: number // if repeated or map field
 }
 
 const PrimitiveInput: React.FC<InputProps> = ({
-  field, options, name,
+  field, options, name, index,
 }) => {
   const { resolvedType, type } = field;
   const { control } = useFormContext();
@@ -30,6 +31,7 @@ const PrimitiveInput: React.FC<InputProps> = ({
           <WellKnownComponent
             value={value}
             onChange={onChange}
+            index={index}
           />
         )}
       />
