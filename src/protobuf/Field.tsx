@@ -1,7 +1,7 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { pascalCase } from 'change-case';
-import OneofField from './OneofField';
+import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
 import { useAutoForm } from '../context';
 import { FieldOptions } from '../AutoFormField';
@@ -19,7 +19,7 @@ const toSpaceSeperated = (name: string) => pascalCase(name)
 
 const getTypeLabel = (field: Props['field']) => {
   if (field instanceof protobuf.OneOf) {
-    return 'oneof';
+    return isProto3Optional(field) ? 'optional' : 'oneof';
   } if (field instanceof protobuf.MapField) {
     return `map<${field.keyType}, ${field.type}>`;
   }

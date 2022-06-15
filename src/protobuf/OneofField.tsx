@@ -12,13 +12,15 @@ interface OneofProps {
   options?: FieldOptions
 }
 
+export const isProto3Optional = (oneof: protobuf.OneOf) => oneof
+  .fieldsArray[0].options?.proto3_optional;
+
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
   const { watch } = useFormContext();
   const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
   // TODO: find out why default value does not work
   const selected = watch(oneofFullName) ?? oneof.fieldsArray[0].name;
-  const isProto3Optional = oneof.fieldsArray[0].options?.proto3_optional;
 
   return (
     <div>
@@ -39,7 +41,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
           )}
         </div>
       ))}
-      {isProto3Optional && (
+      {isProto3Optional(oneof) && (
       <div className="my-2">
         <RadioButton name={oneofFullName} label="None" />
       </div>
