@@ -1,11 +1,11 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { Controller, useFormContext } from 'react-hook-form';
-import BasicInput, { isBasicType } from './input/Basic';
-import EnumInput from './input/Enum';
-import Message from './input/Message';
-import { useGetWellKnownComponent } from '../hooks';
-import { FieldOptions } from '../AutoFormField';
+import BasicInput, { isBasicType } from './Basic';
+import EnumInput from './Enum';
+import Message from './Message';
+import { useGetWellKnownComponent } from '../../../hooks';
+import { FieldOptions } from '../../../AutoFormField';
 
 interface InputProps {
   field: protobuf.Field

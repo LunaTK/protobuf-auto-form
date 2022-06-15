@@ -2,7 +2,7 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
 import RadioButton from '../common/RadioButton';
-import Input from './Input';
+import Input from './input/Input';
 import { FieldOptions } from '../AutoFormField';
 import { useChildFieldOptions } from '../hooks';
 

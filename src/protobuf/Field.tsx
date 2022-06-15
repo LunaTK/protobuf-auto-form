@@ -2,7 +2,7 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { pascalCase } from 'change-case';
 import OneofField from './OneofField';
-import Input from './Input';
+import Input from './input/Input';
 import { useAutoForm } from '../context';
 import { FieldOptions } from '../AutoFormField';
 
