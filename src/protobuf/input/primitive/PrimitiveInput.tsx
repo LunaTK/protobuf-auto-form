@@ -18,7 +18,7 @@ const PrimitiveInput: React.FC<InputProps> = ({
   field, options, name, index,
 }) => {
   const { resolvedType, type } = field;
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const getWellKnownComponent = useGetWellKnownComponent();
 
   const WellKnownComponent = getWellKnownComponent(field);
@@ -27,11 +27,11 @@ const PrimitiveInput: React.FC<InputProps> = ({
       <Controller
         name={name}
         control={control}
-        render={({ field: { value, onChange } }) => (
+        render={({ field: fieldProps }) => (
           <WellKnownComponent
-            value={value}
-            onChange={onChange}
+            watch={watch}
             index={index}
+            {...fieldProps}
           />
         )}
       />
