@@ -7,7 +7,7 @@ import DelButton from '../../common/DelButton';
 import PrimitiveInput from '../PrimitiveInput';
 import BasicInput from './Basic';
 import { FieldOptions } from '../../AutoFormField';
-import { extractFields } from '../../utils';
+import { useChildFieldOptions } from '../../utils';
 
 interface MapProps {
   name: string
@@ -71,7 +71,7 @@ const MapInput: React.FC<MapProps> = ({
     });
   };
 
-  const { key: keyOptions, value: valueOptions } = extractFields(options?.children);
+  const { key: keyOptions, value: valueOptions } = useChildFieldOptions(options);
 
   return (
     <div>
