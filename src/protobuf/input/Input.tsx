@@ -27,4 +27,17 @@ const Input: React.FC<InputProps> = ({
   return <PrimitiveInput field={field} name={name} options={options} />;
 };
 
-export default Input;
+const withPrependAppend = <T extends { options?: FieldOptions }>(
+  Component: React.FunctionComponent<T>,
+) => (props: T) => {
+    const { options } = props;
+    return (
+      <div>
+        {options?.prepend}
+        <Component {...props} />
+        {options?.append}
+      </div>
+    );
+  };
+
+export default withPrependAppend(Input);

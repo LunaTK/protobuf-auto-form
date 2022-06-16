@@ -7,6 +7,8 @@ export interface FieldOptions {
   render?: React.FunctionComponent<OverriddenFieldProps>
   disabled?: boolean
   hidden?: boolean
+  append?: React.ReactNode
+  prepend?: React.ReactNode
   children?: React.ReactNode
 }
 
