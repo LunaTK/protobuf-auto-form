@@ -21,6 +21,17 @@ const PrimitiveInput: React.FC<InputProps> = ({
   const { control, watch } = useFormContext();
   const getWellKnownComponent = useGetWellKnownComponent();
 
+  const { render } = options ?? {};
+  if (render) {
+    return (
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: fieldProps }) => (render({ ...fieldProps, watch })!)}
+      />
+    );
+  }
+
   const WellKnownComponent = getWellKnownComponent(field);
   if (WellKnownComponent) {
     return (
