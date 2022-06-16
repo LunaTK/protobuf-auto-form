@@ -10,9 +10,14 @@ interface Props {
   options?: FieldOptions
 }
 
+const getDefaultSelected = (type: protobuf.Enum) => {
+  const firstId = Number(Object.keys(type.valuesById)[0]);
+  return type.valuesById[firstId];
+};
+
 const EnumInput: React.FC<Props> = ({ type, name, options }) => {
   const { watch } = useFormContext();
-  const selected = watch(name) ?? type.valuesById['1'];
+  const selected = watch(name) ?? getDefaultSelected(type);
 
   return (
     <div className="flex gap-4 flex-wrap">
