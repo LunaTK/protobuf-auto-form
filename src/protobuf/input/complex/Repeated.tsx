@@ -1,11 +1,11 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import DelButton from '../../common/DelButton';
-import AddButton from '../../common/AddButton';
-import PrimitiveInput from './primitive/PrimitiveInput';
-import { FieldOptions } from '../../AutoFormField';
-import { useChildFields } from '../../hooks';
+import DelButton from '../../../common/DelButton';
+import AddButton from '../../../common/AddButton';
+import PrimitiveInput from '../primitive/PrimitiveInput';
+import { FieldOptions } from '../../../AutoFormField';
+import { useChildFields } from '../../../hooks';
 
 interface Props {
   name: string

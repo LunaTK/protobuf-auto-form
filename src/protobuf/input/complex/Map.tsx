@@ -2,12 +2,12 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import get from 'lodash.get';
-import AddButton from '../../common/AddButton';
-import DelButton from '../../common/DelButton';
-import PrimitiveInput from './primitive/PrimitiveInput';
-import BasicInput from './primitive/Basic';
-import { FieldOptions } from '../../AutoFormField';
-import { useChildFields } from '../../hooks';
+import AddButton from '../../../common/AddButton';
+import DelButton from '../../../common/DelButton';
+import PrimitiveInput from '../primitive/PrimitiveInput';
+import BasicInput from '../primitive/Basic';
+import { FieldOptions } from '../../../AutoFormField';
+import { useChildFields } from '../../../hooks';
 
 interface MapProps {
   name: string
