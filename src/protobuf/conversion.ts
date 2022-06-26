@@ -38,17 +38,18 @@ const formToProtoObj = (
   formState: unknown,
   type: protobuf.Type | protobuf.Enum | null,
 ) => {
+  if (formState === undefined) return undefined;
   if (!(type instanceof protobuf.Type)) return formState;
   const ret = { ...(formState as Record<string, unknown>) };
 
   type.fieldsArray.forEach((f) => {
     if (f.repeated) {
       ret[f.name] = (ret[f.name] as Record<string, unknown>[])
-        .map(({ value }) => formToProtoObj(value, f.resolvedType));
+        ?.map(({ value }) => formToProtoObj(value, f.resolvedType));
     } else if (f.map) {
       ret[f.name] = Object.fromEntries(
         (ret[f.name] as Record<string, unknown>[])
-          .map(({ key, value }) => [key, formToProtoObj(value, f.resolvedType)]),
+          ?.map(({ key, value }) => [key, formToProtoObj(value, f.resolvedType)]),
       );
     } else if (isUnselectedOneofField(ret, f)) {
       delete ret[f.name];
