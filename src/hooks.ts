@@ -9,7 +9,9 @@ export const useChildFields = (options?: FieldOptions) => useMemo(() => {
   if (!children) {
     return {
       fieldOptions: {},
+      fieldNodes: [],
       otherNodes: [],
+      nodes: [],
     };
   }
   const nodes: React.ReactElement[] = Array.isArray(children) ? children : [children];
@@ -21,7 +23,7 @@ export const useChildFields = (options?: FieldOptions) => useMemo(() => {
   );
 
   return {
-    fieldOptions, otherNodes,
+    fieldOptions, fieldNodes, otherNodes, nodes,
   };
 }, [options?.children]);
 

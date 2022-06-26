@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../../Field';
 import { useChildFields } from '../../../hooks';
-import { FieldOptions } from '../../../AutoFormField';
+import AutoFormField, { FieldOptions } from '../../../AutoFormField';
+import { useAutoForm } from '../../../context';
 
 interface Props {
   type: protobuf.Type
@@ -37,13 +38,16 @@ const useMessage = (type: protobuf.Type) => {
 };
 
 const Message: React.FC<Props> = ({ type, name = '', options }) => {
-  const { fieldOptions } = useChildFields(options);
+  const {
+    fieldOptions, nodes, otherNodes, fieldNodes,
+  } = useChildFields(options);
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
+  const { mode } = useAutoForm();
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
 
-  const content = (
+  const content = (mode === 'autofill' || fieldNodes.length === 0) ? (
     <>
       {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
       {
@@ -53,12 +57,31 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
             field={field}
             key={field.name}
             hideLabel={shouldHideLabel}
-            options={{
-              ...fieldOptions[field.name],
-            }}
+            options={fieldOptions[field.name]}
           />
         ))
       }
+      {otherNodes}
+    </>
+  ) : (
+    <>
+      {nodes.map((n) => {
+        if (n.type === AutoFormField) {
+          const fieldOption = n.props as FieldOptions;
+          const field = type.fields[fieldOption.name] || type.oneofs[fieldOption.name];
+          return (
+            <Field
+              parentName={name}
+              field={field}
+              key={field.name}
+              hideLabel={shouldHideLabel}
+              options={fieldOption}
+            />
+          );
+        }
+
+        return n;
+      })}
     </>
   );
 

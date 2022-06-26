@@ -4,6 +4,7 @@ import RepeatedInput from './complex/Repeated';
 import MapInput from './complex/Map';
 import { FieldOptions } from '../../AutoFormField';
 import PrimitiveInput from './primitive/PrimitiveInput';
+import { useChildFields } from '../../hooks';
 
 interface InputProps {
   field: protobuf.Field
@@ -31,11 +32,14 @@ const withPrependAppend = <T extends { options?: FieldOptions }>(
   Component: React.FunctionComponent<T>,
 ) => (props: T) => {
     const { options } = props;
+    const { otherNodes } = useChildFields(options);
+
     return (
       <div>
         {options?.prepend}
         <Component {...props} />
         {options?.append}
+        {otherNodes}
       </div>
     );
   };

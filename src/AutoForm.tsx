@@ -8,17 +8,13 @@ import { finalize, protoObjToForm } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 import AutoFormField from './AutoFormField';
 
-interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
+export type AutoFormProps<T = any> = {
   namespace: protobuf.Namespace
   messageType: string
   form?: UseFormReturn
   initialState?: T
   onSubmitValid?: (values: T) => void
-  hideFieldType?: AutoFormContext['hideFieldType']
-  camelCaseLabel?: AutoFormContext['camelCaseLabel']
-  wellKnownFields?: AutoFormContext['wellKnownFields']
-  wellKnownTypes?: AutoFormContext['wellKnownTypes']
-}
+} & React.HTMLAttributes<HTMLFormElement> & Partial<AutoFormContext>
 
 const AutoForm = <T, >(props: AutoFormProps<T>) => {
   const {
@@ -31,6 +27,7 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     camelCaseLabel = true,
     wellKnownFields = {},
     wellKnownTypes = {},
+    mode = 'autofill',
     ...rest
   } = props;
   const reflectionObj = useMemo(() => {
@@ -56,7 +53,7 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
   return (
     <FormProvider {...methods}>
       <AutoFormProvider value={{
-        hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes,
+        hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes, mode,
       }}
       >
         <form
