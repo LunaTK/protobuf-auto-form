@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 import './index.css';
@@ -28,8 +28,11 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     wellKnownFields = {},
     wellKnownTypes = {},
     mode = 'autofill',
+    form,
     ...rest
   } = props;
+  const dedicatedForm = useForm();
+  const methods = form ?? dedicatedForm;
   const reflectionObj = useMemo(() => {
     try {
       return namespace.resolveAll().lookupType(messageType);
@@ -37,14 +40,12 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
       return null;
     }
   }, [namespace, messageType]);
-  const defaultValues = useMemo(() => {
-    if (!initialState || !reflectionObj) return undefined;
+  useEffect(() => {
+    if (!initialState || !reflectionObj) return;
 
     const formState = protoObjToForm(initialState, reflectionObj);
-    return formState as Record<string, {}>;
+    methods.reset(formState as Record<string, {}>);
   }, [initialState, reflectionObj]);
-
-  const methods = useForm({ defaultValues });
 
   if (!reflectionObj) {
     return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
