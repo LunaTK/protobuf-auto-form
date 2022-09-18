@@ -61,9 +61,7 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            if (onSubmitValid) {
-              onSubmitValid(finalize(values, reflectionObj));
-            }
+            onSubmitValid?.(finalize(values, reflectionObj));
           })}
         >
           <Message type={reflectionObj} />
