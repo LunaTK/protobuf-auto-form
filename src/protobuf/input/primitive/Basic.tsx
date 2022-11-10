@@ -47,8 +47,8 @@ const BasicInput: React.FC<Props> = ({
   return (
     <div className="form-control w-full">
       <input
-        className={`input input-bordered input-sm flex-1 ${error ? 'input-error' : ''}`}
-        {...register(name, { required: { value: true, message: 'Empty input.' }, validate })}
+        className={`input input-bordered input-sm ${type !== 'bool' ? 'flex-1' : ''} ${error ? 'input-error' : ''}`}
+        {...register(name, { required: { value: type !== 'bool', message: 'Empty input.' }, validate })}
         type={getInputType(type as BasicType)}
         placeholder={type}
         step="any"
@@ -56,12 +56,11 @@ const BasicInput: React.FC<Props> = ({
       />
       {
         error && (
-        <div className="text-xs text-red-500 p-1">
-          {error.message}
-        </div>
+          <div className="text-xs text-red-500 p-1">
+            {error.message}
+          </div>
         )
       }
-
     </div>
   );
 };
