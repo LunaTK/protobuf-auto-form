@@ -26,6 +26,13 @@ const Comment: React.VFC<
 
 const initial = {
   title: 'hello',
+  referrers: {
+    user1: 123,
+    user2: 321,
+  },
+  content: 'hihi',
+  userId: 321,
+  author: 'userId',
 };
 
 const App = () => (

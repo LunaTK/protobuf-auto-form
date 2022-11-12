@@ -17,7 +17,7 @@ const isMap = (field: protobuf.Field, value: unknown): value is { $key: unknown,
 }
 
 export const form2ProtoObj = (context: AutoFormContext) => {
-  const encode = (formState: unknown, type: protobuf.Type | protobuf.Enum | null, fieldOptions?: FieldOptions): any => {
+  const encode = (formState: unknown, type: protobuf.Type | protobuf.Enum | null, fieldOptions: FieldOptions | undefined): any => {
     if (formState === undefined || formState === null) return undefined
     if (!(type instanceof protobuf.Type)) return formState;
     if (typeof formState !== 'object') throw new Error('Invalid formState type', {cause: `Expected: object, Got: ${typeof formState}`})

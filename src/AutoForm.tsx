@@ -9,14 +9,15 @@ import { AutoFormContext, AutoFormProvider } from './context';
 import AutoFormField from './AutoFormField';
 
 export type AutoFormProps<T = any> = {
-  namespace: protobuf.Namespace
-  messageType: string
-  form?: UseFormReturn
-  initialState?: T
-  onSubmitValid?: (values: T) => void
-} & React.HTMLAttributes<HTMLFormElement> & Partial<AutoFormContext>
+  namespace: protobuf.Namespace;
+  messageType: string;
+  form?: UseFormReturn;
+  initialState?: T;
+  onSubmitValid?: (values: T) => void;
+} & React.HTMLAttributes<HTMLFormElement> &
+  Partial<AutoFormContext>;
 
-const AutoForm = <T, >(props: AutoFormProps<T>) => {
+const AutoForm = <T,>(props: AutoFormProps<T>) => {
   const {
     namespace,
     messageType,
@@ -31,6 +32,14 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     form,
     ...rest
   } = props;
+
+  const context: AutoFormContext = {
+    hideFieldType,
+    camelCaseLabel,
+    wellKnownFields,
+    wellKnownTypes,
+    mode,
+  };
   const dedicatedForm = useForm();
   const methods = form ?? dedicatedForm;
   const reflectionObj = useMemo(() => {
@@ -41,9 +50,10 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     }
   }, [namespace, messageType]);
   useEffect(() => {
-    if (!initialState || !reflectionObj) return;
+    if (!(initialState && reflectionObj)) return;
 
-    const formState = protoObj2Form(initialState, reflectionObj);
+    const formState = protoObj2Form(context)(initialState, reflectionObj, undefined);
+    console.log('Initial state decoded', formState);
     methods.reset(formState as Record<string, {}>);
   }, [initialState, reflectionObj]);
 
@@ -51,18 +61,13 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
   }
 
-  const context: AutoFormContext = {
-    hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes, mode,
-  }
-
   return (
     <FormProvider {...methods}>
-      <AutoFormProvider value={context}
-      >
+      <AutoFormProvider value={context}>
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            onSubmitValid?.(form2ProtoObj(context)(values, reflectionObj));
+            onSubmitValid?.(form2ProtoObj(context)(values, reflectionObj, undefined));
           })}
         >
           <Message type={reflectionObj} options={{ children, name: '' }} />
