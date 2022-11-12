@@ -28,7 +28,9 @@ const App = () => (
         console.log(values);
       }}
     >
-      <button type="submit" className="btn btn-xs btn-accent">Submit</button>
+      <button type="submit" className="btn btn-xs btn-accent">
+        Submit
+      </button>
     </AutoForm>
   </div>
 );
