@@ -26,4 +26,7 @@ export const parseChildOptions = (children: ReactNode | undefined) => {
   };
 };
 
-export const getWellKnownComponent = ({ wellKnownTypes, wellKnownFields }: AutoFormContext) => (field: protobuf.Field) => wellKnownTypes[field.resolvedType?.fullName ?? ''] ?? wellKnownFields[field.name ?? '']
+export const getWellKnownComponent =
+  ({ wellKnownTypes, wellKnownFields }: AutoFormContext) =>
+  (field: protobuf.Field) =>
+    wellKnownTypes[field.resolvedType?.fullName ?? ''] ?? wellKnownFields[field.name ?? ''];
