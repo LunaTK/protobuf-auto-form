@@ -49,10 +49,11 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
       return null;
     }
   }, [namespace, messageType]);
+  const options = { children, name: '' }
   useEffect(() => {
     if (!(initialState && reflectionObj)) return;
 
-    const formState = proto2Form(context)(initialState, reflectionObj, undefined);
+    const formState = proto2Form(context)(initialState, reflectionObj, options);
     console.log('Initial state decoded', formState);
     methods.reset(formState as Record<string, {}>);
   }, [initialState, reflectionObj]);
@@ -68,10 +69,10 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
             console.log('Raw values : ', values)
-            onSubmitValid?.(form2Proto(context)(values, reflectionObj, undefined));
+            onSubmitValid?.(form2Proto(context)(values, reflectionObj, options));
           })}
         >
-          <Message type={reflectionObj} options={{ children, name: '' }} />
+          <Message type={reflectionObj} options={options} />
         </form>
       </AutoFormProvider>
     </FormProvider>

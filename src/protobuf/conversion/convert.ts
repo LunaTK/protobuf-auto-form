@@ -28,7 +28,7 @@ export const createConverter =
       if (!(type instanceof protobuf.Type)) return fromObj;
       const ret = { ...(fromObj as Record<string, unknown>) };
       const { fieldOptions: childFieldOptions } =
-        parseChildOptions(fieldOptions);
+        parseChildOptions(fieldOptions?.children);
 
       type.fieldsArray.forEach((f) => {
         const options = childFieldOptions[f.name];
@@ -40,7 +40,9 @@ export const createConverter =
         }
         if (!ret[f.name]) return;
 
-        ret[f.name] = convertValue(convert, ret[f.name], f, options);
+        if (!isCustomRender) {
+          ret[f.name] = convertValue(convert, ret[f.name], f, options);
+        }
       });
 
       return ret;
