@@ -87,6 +87,13 @@ message User {
 
   map<int32, string> mapField = 3;
   repeated int32 arrs = 4;
+
+  repeated Nested msgs = 5;
+}
+
+message Nested {
+  string foo = 1;
+  repeated int32 bar = 2;
 }
   `).root;
 
@@ -105,5 +112,13 @@ message User {
 
   it("populate default values", () => {
     const populated = createDefault(messageType);
+    expect(populated).toEqual({
+      arrs: [],
+      msgs: [],
+      mapField: {},
+      someOneof: "intValue",
+      intValue: 0,
+      stringValue: "",
+    });
   });
 });

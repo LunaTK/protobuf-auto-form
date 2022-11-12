@@ -1,6 +1,8 @@
 import protobuf from "protobufjs";
 
-export const createDefault = (typeOrEnum: protobuf.Type | protobuf.Enum | null) => {
+export const createDefault = (
+  typeOrEnum: protobuf.Type | protobuf.Enum | null
+) => {
   if (typeOrEnum instanceof protobuf.Type) {
     const created = typeOrEnum.toObject(typeOrEnum.create({}), {
       defaults: true,
@@ -32,13 +34,28 @@ export const fillDefaults = (
 
   type.fieldsArray.forEach((field) => {
     if (data[field.name] === null || data[field.name] === undefined) {
-      data[field.name] = field.defaultValue || field.typeDefault;
+      if (field.repeated) {
+        data[field.name] = [];
+      } else if (field.map) {
+        data[field.name] = {};
+      } else {
+        data[field.name] = field.defaultValue || field.typeDefault;
+      }
+      return;
     }
 
     if (data[field.name] === null || data[field.name] === undefined) {
       data[field.name] = createDefault(type.fields[field.name].resolvedType);
-    } else if (typeof data[field.name] === "object") {
-      fillDefaults(data[field.name], type.fields[field.name].resolvedType);
+    } else if (field.repeated) {
+      data[field.name].forEach((value: any) =>
+        fillDefaults(value, field.resolvedType)
+      );
+    } else if (field.map) {
+      Object.keys(data[field.name]).forEach((value: any) =>
+        fillDefaults(value, field.resolvedType)
+      );
+    } else if (field.resolvedType instanceof protobuf.Type) {
+      fillDefaults(data[field.name], field.resolvedType);
     }
   });
 
