@@ -2,6 +2,7 @@ import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext, Validate } from 'react-hook-form';
 import get from 'lodash.get';
+import { FieldOptions } from '../../../models';
 
 type BasicType = keyof typeof types.basic
 const protobufNumberTypes = new Set([
@@ -25,6 +26,7 @@ interface Props {
   type: string
   name: string
   validate?: Validate<unknown>
+  options?: FieldOptions
 }
 
 const getInputType = (type: BasicType) => {
@@ -36,27 +38,29 @@ const getInputType = (type: BasicType) => {
   return 'text';
 };
 
-const BasicInput: React.FC<Props> = ({ type, name, validate }) => {
+const BasicInput: React.FC<Props> = ({
+  type, name, validate, options,
+}) => {
   const { register, formState: { errors } } = useFormContext();
   const error = get(errors, name);
 
   return (
     <div className="form-control w-full">
       <input
-        className={`input input-bordered input-sm flex-1 ${error ? 'input-error' : ''}`}
-        {...register(name, { required: { value: true, message: 'Empty input.' }, validate })}
+        className={`input input-bordered input-sm ${type !== 'bool' ? 'flex-1' : ''} ${error ? 'input-error' : ''}`}
+        {...register(name, { required: { value: type !== 'bool', message: 'Empty input.' }, validate })}
         type={getInputType(type as BasicType)}
         placeholder={type}
         step="any"
+        disabled={options?.disabled}
       />
       {
         error && (
-        <div className="text-xs text-red-500 p-1">
-          {error.message}
-        </div>
+          <div className="text-xs text-red-500 p-1">
+            {error.message}
+          </div>
         )
       }
-
     </div>
   );
 };

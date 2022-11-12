@@ -1,25 +1,23 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 import './index.css';
-import Message from './protobuf/input/Message';
+import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
-import { finalize, protoObjToForm } from './protobuf/conversion';
+import { form2Proto, proto2Form } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
+import AutoFormField from './AutoFormField';
 
-interface AutoFormProps<T = any> extends React.HTMLAttributes<HTMLFormElement> {
-  namespace: protobuf.Namespace
-  messageType: string
-  form?: UseFormReturn
-  initialState?: T
-  onSubmitValid?: (values: T) => void
-  hideFieldType?: AutoFormContext['hideFieldType']
-  camelCaseLabel?: AutoFormContext['camelCaseLabel']
-  wellKnownFields?: AutoFormContext['wellKnownFields']
-  wellKnownTypes?: AutoFormContext['wellKnownTypes']
-}
+export type AutoFormProps<T = any> = {
+  namespace: protobuf.Namespace;
+  messageType: string;
+  form?: UseFormReturn;
+  initialState?: T;
+  onSubmitValid?: (values: T) => void;
+} & React.HTMLAttributes<HTMLFormElement> &
+  Partial<AutoFormContext>;
 
-const AutoForm = <T, >(props: AutoFormProps<T>) => {
+const AutoForm = <T,>(props: AutoFormProps<T>) => {
   const {
     namespace,
     messageType,
@@ -30,8 +28,20 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     camelCaseLabel = true,
     wellKnownFields = {},
     wellKnownTypes = {},
+    mode = 'autofill',
+    form,
     ...rest
   } = props;
+
+  const context: AutoFormContext = {
+    hideFieldType,
+    camelCaseLabel,
+    wellKnownFields,
+    wellKnownTypes,
+    mode,
+  };
+  const dedicatedForm = useForm();
+  const methods = form ?? dedicatedForm;
   const reflectionObj = useMemo(() => {
     try {
       return namespace.resolveAll().lookupType(messageType);
@@ -39,14 +49,14 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
       return null;
     }
   }, [namespace, messageType]);
-  const defaultValues = useMemo(() => {
-    if (!initialState || !reflectionObj) return undefined;
+  const options = { children, name: '' }
+  useEffect(() => {
+    if (!(initialState && reflectionObj)) return;
 
-    const formState = protoObjToForm(initialState, reflectionObj);
-    return formState as Record<string, {}>;
+    const formState = proto2Form(context)(initialState, reflectionObj, options);
+    console.log('Initial state decoded', formState);
+    methods.reset(formState as Record<string, {}>);
   }, [initialState, reflectionObj]);
-
-  const methods = useForm({ defaultValues });
 
   if (!reflectionObj) {
     return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
@@ -54,22 +64,21 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
 
   return (
     <FormProvider {...methods}>
-      <AutoFormProvider value={{
-        hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes,
-      }}
-      >
+      <AutoFormProvider value={context}>
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            onSubmitValid?.(finalize(values, reflectionObj));
+            console.log('Raw values : ', values)
+            onSubmitValid?.(form2Proto(context)(values, reflectionObj, options));
           })}
         >
-          <Message type={reflectionObj} />
-          {children}
+          <Message type={reflectionObj} options={options} />
         </form>
       </AutoFormProvider>
     </FormProvider>
   );
 };
+
+AutoForm.Field = AutoFormField;
 
 export default AutoForm;

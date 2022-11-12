@@ -1,16 +1,23 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
-import RadioButton from '../../common/RadioButton';
+import RadioButton from '../../../common/RadioButton';
+import { FieldOptions } from '../../../models';
 
 interface Props {
   type: protobuf.Enum
   name: string
+  options?: FieldOptions
 }
 
-const EnumInput: React.FC<Props> = ({ type, name }) => {
+const getDefaultSelected = (type: protobuf.Enum) => {
+  const firstId = Number(Object.keys(type.valuesById)[0]);
+  return type.valuesById[firstId];
+};
+
+const EnumInput: React.FC<Props> = ({ type, name, options }) => {
   const { watch } = useFormContext();
-  const selected = watch(name) ?? type.valuesById['1'];
+  const selected = watch(name) ?? getDefaultSelected(type);
 
   return (
     <div className="flex gap-4 flex-wrap">
@@ -20,6 +27,7 @@ const EnumInput: React.FC<Props> = ({ type, name }) => {
           value={label}
           name={name}
           key={label}
+          disabled={options?.disabled}
           defaultChecked={selected === label}
         />
       ))}

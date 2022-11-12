@@ -1,14 +1,16 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import { pascalCase } from 'change-case';
-import OneofField from './OneofField';
-import Input from './Input';
+import OneofField, { isProto3Optional } from './OneofField';
+import Input from './input/Input';
 import { useAutoForm } from '../context';
+import { FieldOptions } from '../models';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf
   parentName: string
   hideLabel?: boolean
+  options?: FieldOptions
 }
 
 const toSpaceSeperated = (name: string) => pascalCase(name)
@@ -17,7 +19,7 @@ const toSpaceSeperated = (name: string) => pascalCase(name)
 
 const getTypeLabel = (field: Props['field']) => {
   if (field instanceof protobuf.OneOf) {
-    return 'oneof';
+    return isProto3Optional(field) ? 'optional' : 'oneof';
   } if (field instanceof protobuf.MapField) {
     return `map<${field.keyType}, ${field.type}>`;
   }
@@ -25,14 +27,15 @@ const getTypeLabel = (field: Props['field']) => {
 };
 
 const Label: React.FC<{
+  label?: string
   field: Props['field']
-}> = ({ field }) => {
+}> = ({ field, label }) => {
   const { camelCaseLabel, hideFieldType } = useAutoForm();
 
   return (
     <span className="text-right inline-flex flex-col">
       <span className="leading-tight font-bold">
-        { camelCaseLabel ? field.name : toSpaceSeperated(field.name)}
+        {label || (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
       </span>
       <span className="text-slate-400 text-sm">
         {!hideFieldType && getTypeLabel(field)}
@@ -41,13 +44,19 @@ const Label: React.FC<{
   );
 };
 
-const Field: React.FC<Props> = ({ field, parentName, hideLabel = false }) => (
-  <>
-    {!hideLabel && <Label field={field} />}
-    {field instanceof protobuf.OneOf
-      ? <OneofField parentName={parentName} oneof={field} />
-      : <Input name={parentName ? `${parentName}.${field.name}` : field.name} field={field} />}
-  </>
-);
+const Field: React.FC<Props> = ({
+  field, parentName, hideLabel = false, options,
+}) => {
+  if (options?.hidden === true) return null;
+
+  return (
+    <>
+      {!hideLabel && <Label field={field} label={options?.label} />}
+      {field instanceof protobuf.OneOf
+        ? <OneofField parentName={parentName} oneof={field} options={options} />
+        : <Input parentName={parentName} field={field} options={options} />}
+    </>
+  );
+};
 
 export default Field;
