@@ -8,14 +8,16 @@ const namespace = protobuf.Namespace.fromJSON('', descriptor);
 
 const { Field } = AutoForm;
 
-const Comment: React.VFC<OverriddenFieldProps<{
-  author: string
-  content: string
+const Comment: React.VFC<
+  OverriddenFieldProps<{
+    author: string;
+    content: string;
 
-  _something: 's1' | 'type'
-  s1?: string
-  type?: 'SIMPLE' | 'DETAILED'
-}>> = ({ value }) => (
+    _something: 's1' | 'type';
+    s1?: string;
+    type?: 'SIMPLE' | 'DETAILED';
+  }>
+> = ({ value }) => (
   <div>
     <div>{value.author}</div>
     <div>{value.content}</div>
@@ -56,7 +58,9 @@ const App = () => (
         </Field>
       </Field> */}
 
-      <button type="submit" className="btn btn-xs btn-accent">Submit</button>
+      <button type="submit" className="btn btn-xs btn-accent">
+        Submit
+      </button>
     </AutoForm>
   </div>
 );
