@@ -2,6 +2,7 @@ import protobuf from "protobufjs";
 import { getWellKnownComponent, parseChildOptions } from "../../childField";
 import { AutoFormContext } from "../../context";
 import { FieldOptions } from "../../models";
+import { createDefault } from "./defaults";
 
 export type Convert = (
   from: unknown,
@@ -30,13 +31,14 @@ export const createConverter =
         parseChildOptions(fieldOptions);
 
       type.fieldsArray.forEach((f) => {
-        if (!ret[f.name]) return;
-
         const options = childFieldOptions[f.name];
         const isCustomRender =
           !!options?.render || !!getWellKnownComponent(context)(f);
 
-        if (isCustomRender) return;
+        if (isCustomRender && !ret[f.name]) {
+          ret[f.name] = createDefault(f.resolvedType);
+        }
+        if (!ret[f.name]) return;
 
         ret[f.name] = convertValue(convert, ret[f.name], f, options);
       });

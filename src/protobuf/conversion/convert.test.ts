@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
 import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
-import { fillDefaults, proto2Form } from "./proto2Form";
+import { proto2Form } from "./proto2Form";
 import { form2Proto, pruneUnselectedOneofValues } from "./form2Proto";
+import { createDefault } from "./defaults";
 
 describe("Protobuf Conversion", () => {
   const namespace = protobuf.parse(`
@@ -89,7 +90,7 @@ message User {
   });
 
   it("populate default values", () => {
-    const populated = fillDefaults({}, messageType);
+    const populated = createDefault(messageType);
     console.log({ populated })
   })
 });
