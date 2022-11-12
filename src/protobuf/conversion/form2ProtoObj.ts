@@ -1,58 +1,36 @@
-import protobuf from "protobufjs"
-import { getWellKnownComponent, parseChildOptions } from "../../childField";
-import { AutoFormContext } from "../../context"
-import { FieldOptions } from "../../models"
+import protobuf from "protobufjs";
+import { ConvertValue, createConverter } from "./convert";
+import type { MapElement, RepeatedElement } from "../../models";
 
-const isUnselectedOneofField = (data: any, field: protobuf.Field) => {
-  if (!field.partOf) return false;
-  return data[field.partOf.name] !== field.name;
+const isRepeated = (
+  field: protobuf.Field,
+  value: unknown
+): value is RepeatedElement[] => {
+  return field.repeated;
 };
 
-const isRepeated = (field: protobuf.Field, value: unknown): value is { $value: unknown }[] => {
-  return field.repeated
-}
+const isMap = (
+  field: protobuf.Field,
+  value: unknown
+): value is MapElement[] => {
+  return field.map;
+};
 
-const isMap = (field: protobuf.Field, value: unknown): value is { $key: unknown, $value: unknown }[] => {
-  return field.map
-}
-
-export const form2ProtoObj = (context: AutoFormContext) => {
-  const encode = (formState: unknown, type: protobuf.Type | protobuf.Enum | null, fieldOptions: FieldOptions | undefined): any => {
-    if (formState === undefined || formState === null) return undefined
-    if (!(type instanceof protobuf.Type)) return formState;
-    if (typeof formState !== 'object') throw new Error('Invalid formState type', {cause: `Expected: object, Got: ${typeof formState}`})
-    
-    const { fieldOptions: childFieldOptions } = parseChildOptions(fieldOptions)
-
-    const oneofSelection = Object.entries(formState).filter(([key]) => key in type.oneofs)
-
-    const entries = Object.entries(formState)
-      .filter(([key]) => {
-        const isUnknownField = !(key in type.fields)
-        return !isUnknownField && !isUnselectedOneofField(formState, type.fields[key])
-      })
-      .map(([key, value]) => {
-        const field = type.fields[key]
-        const options = childFieldOptions[key]
-
-        const isCustomRender = () => {
-          return !!options?.render || !!getWellKnownComponent(context)(field)
-        }
-        
-        if (isCustomRender()){
-          return [key, value]
-        } if (isRepeated(field, value)) {
-          return [key, value.map(({ $value }) => encode($value, field.resolvedType, options))]
-        } else if (isMap(field, value)) {
-          return [key, Object.fromEntries(value.map(({ $key, $value }) => [$key, encode($value, field.resolvedType, options)]))]
-        }
-
-        return [key, encode(value, field.resolvedType, options)]
-      })
-    console.log({entries, oneofSelection})
-
-    return Object.fromEntries(entries.concat(oneofSelection))
+const encodeValue: ConvertValue = (encode, value, field, options) => {
+  if (isRepeated(field, value)) {
+    return value.map(({ $value }) =>
+      encode($value, field.resolvedType, options)
+    );
   }
+  if (isMap(field, value)) {
+    return Object.fromEntries(
+      value.map(({ $key, $value }) => [
+        $key,
+        encode($value, field.resolvedType, options),
+      ])
+    );
+  }
+  return encode(value, field.resolvedType, options);
+};
 
-  return encode
-}
+export const form2ProtoObj = createConverter(encodeValue);

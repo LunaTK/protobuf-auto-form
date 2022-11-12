@@ -30,3 +30,12 @@ export interface ChildFieldProps {
   $value?: FieldOptions;
   [k: string]: FieldOptions | undefined;
 }
+
+export type RepeatedElement<T = unknown> = {
+  $value: T
+}
+
+export type MapElement<K = string, V = unknown> = {
+  $key: K
+  $value: V
+}
