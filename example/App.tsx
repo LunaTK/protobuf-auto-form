@@ -19,10 +19,14 @@ const Comment: React.VFC<
   }>
 > = ({ value }) => (
   <div>
-    <div>{value.author}</div>
-    <div>{value.content}</div>
+    <div>Author : {value?.author}</div>
+    <div>Content: {value?.content}</div>
   </div>
 );
+
+const initial = {
+  title: 'hello',
+};
 
 const App = () => (
   <div>
@@ -32,17 +36,18 @@ const App = () => (
       onSubmitValid={(values) => {
         console.log(values);
       }}
+      initialState={initial}
     >
-      <Field name="title" label="타이틀" disabled />
+      <AutoForm.Field name="title" label="타이틀" disabled />
       <Field name="tags" hidden />
 
       <Field name="referrers" label="참조">
-        <Field name="key" label="주소" />
-        <Field name="value" label="횟수" />
+        <Field name="$key" label="주소" />
+        <Field name="$value" label="횟수" />
       </Field>
 
       <Field name="comments" label="댓글" prepend={<b>오우예압</b>}>
-        <Field name="value" render={Comment} />
+        <Field name="$value" render={Comment} />
       </Field>
 
       <Field name="author" label="글쓴이">

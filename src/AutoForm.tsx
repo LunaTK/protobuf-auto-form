@@ -51,16 +51,18 @@ const AutoForm = <T, >(props: AutoFormProps<T>) => {
     return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
   }
 
+  const context: AutoFormContext = {
+    hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes, mode,
+  }
+
   return (
     <FormProvider {...methods}>
-      <AutoFormProvider value={{
-        hideFieldType, camelCaseLabel, wellKnownFields, wellKnownTypes, mode,
-      }}
+      <AutoFormProvider value={context}
       >
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            onSubmitValid?.(finalize(values, reflectionObj));
+            onSubmitValid?.(finalize(values, reflectionObj, context));
           })}
         >
           <Message type={reflectionObj} options={{ children, name: '' }} />

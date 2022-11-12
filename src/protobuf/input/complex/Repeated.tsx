@@ -14,7 +14,7 @@ interface Props {
 }
 
 const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
-  const { value: valueOptions } = useChildFields(options).fieldOptions;
+  const { $value: valueOptions } = useChildFields(options).fieldOptions;
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
@@ -23,11 +23,11 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
 
   return (
     <div>
-      <AddButton onClick={() => append({ value: '' })} />
+      <AddButton onClick={() => append({ $value: '' })} />
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
           <DelButton onClick={() => { remove(idx); }} />
-          <PrimitiveInput name={`${name}.${idx}.value`} field={field} options={valueOptions} index={idx} />
+          <PrimitiveInput name={`${name}.${idx}.$value`} field={field} options={valueOptions} index={idx} />
         </div>
       ))}
     </div>

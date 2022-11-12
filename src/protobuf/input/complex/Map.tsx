@@ -29,7 +29,7 @@ const MapKeyValueInput: React.FC<{
   const { getValues } = useFormContext();
   const validate = (value: unknown) => {
     const isDuplicated = (get(getValues(), name) as any[])
-      .some(({ key }, i) => i !== index && key === value);
+      .some(({ $key }, i) => i !== index && $key === value);
     return !isDuplicated || 'Same key exists';
   };
   const keyLabel = keyOptions?.label ?? 'Key';
@@ -41,7 +41,7 @@ const MapKeyValueInput: React.FC<{
         <span className="label-text">{keyLabel}</span>
       </div>
       <BasicInput
-        name={`${name}.${index}.key`}
+        name={`${name}.${index}.$key`}
         type={keyType}
         validate={validate}
         options={keyOptions}
@@ -50,7 +50,7 @@ const MapKeyValueInput: React.FC<{
       <div className="label">
         <span className="label-text">{valueLabel}</span>
       </div>
-      <PrimitiveInput name={`${name}.${index}.value`} field={field} options={valueOptions} index={index} />
+      <PrimitiveInput name={`${name}.${index}.$value`} field={field} options={valueOptions} index={index} />
     </div>
   );
 };
@@ -66,12 +66,12 @@ const MapInput: React.FC<MapProps> = ({
 
   const add = () => {
     append({
-      key: '',
-      value: {},
+      $key: '',
+      $value: {},
     });
   };
 
-  const { key: keyOptions, value: valueOptions } = useChildFields(options).fieldOptions;
+  const { $key: keyOptions, $value: valueOptions } = useChildFields(options).fieldOptions;
 
   return (
     <div>

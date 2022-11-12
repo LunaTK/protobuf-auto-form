@@ -4,7 +4,8 @@
     "rules": {
       "recommended": true,
       "style": {
-        "noImplicitBoolean": "off"
+        "noImplicitBoolean": "off",
+        "useBlockStatements": "off"
       }
     }
   },

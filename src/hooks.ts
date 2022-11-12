@@ -3,9 +3,15 @@ import protobuf from 'protobufjs';
 import { useAutoForm } from './context';
 import AutoFormField, { FieldOptions } from './AutoFormField';
 
+type ChildFieldOptions = {
+  $key?: FieldOptions
+  $value?: FieldOptions
+  [k: string]: FieldOptions | undefined
+}
+
 // TODO: change this into a hook using memo
-export const useChildFields = (options?: FieldOptions) => useMemo(() => {
-  const { children } = options ?? {};
+export const useChildFields = (option?: FieldOptions) => useMemo(() => {
+  const { children } = option ?? {};
   if (!children) {
     return {
       fieldOptions: {},
@@ -18,14 +24,14 @@ export const useChildFields = (options?: FieldOptions) => useMemo(() => {
   const fieldNodes = nodes.filter((node) => node.type === AutoFormField);
   const otherNodes = nodes.filter((node) => node.type !== AutoFormField);
 
-  const fieldOptions: Record<string, FieldOptions> = Object.fromEntries(
+  const fieldOptions: ChildFieldOptions = Object.fromEntries(
     fieldNodes.map(({ props }) => [props.name, props]),
   );
 
   return {
     fieldOptions, fieldNodes, otherNodes, nodes,
   };
-}, [options?.children]);
+}, [option?.children]);
 
 export const useGetWellKnownComponent = () => {
   const { wellKnownFields, wellKnownTypes } = useAutoForm();
