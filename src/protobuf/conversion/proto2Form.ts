@@ -17,4 +17,4 @@ const decodeValue: ConvertValue = (decode, value, field, options) => {
   return decode(value, field.resolvedType, options);
 };
 
-export const protoObj2Form = createConverter(decodeValue);
+export const proto2Form = createConverter(decodeValue);

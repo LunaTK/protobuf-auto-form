@@ -1,2 +1,2 @@
-export * from './protoObj2Form'
-export * from './form2ProtoObj'
+export * from './proto2Form'
+export * from './form2Proto'

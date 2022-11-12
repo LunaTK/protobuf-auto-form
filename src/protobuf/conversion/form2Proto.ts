@@ -33,4 +33,4 @@ const encodeValue: ConvertValue = (encode, value, field, options) => {
   return encode(value, field.resolvedType, options);
 };
 
-export const form2ProtoObj = createConverter(encodeValue);
+export const form2Proto = createConverter(encodeValue);
