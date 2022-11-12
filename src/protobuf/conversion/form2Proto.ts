@@ -34,3 +34,39 @@ const encodeValue: ConvertValue = (encode, value, field, options) => {
 };
 
 export const form2Proto = createConverter(encodeValue);
+
+const isUnselectedOneofField = (data: any, field: protobuf.Field) => {
+  if (!field.partOf) return false;
+  return data[field.partOf.name] !== field.name;
+};
+
+export const pruneUnselectedOneofValues = (
+  _data: any,
+  type: protobuf.Type,
+  isRepeated: boolean = false
+) => {
+  if (!_data) return _data;
+  if (isRepeated) {
+    return _data.map((element: any) =>
+      pruneUnselectedOneofValues(element, type)
+    );
+  }
+
+  const data = JSON.parse(JSON.stringify(_data));
+
+  type.fieldsArray.forEach((field) => {
+    if (isUnselectedOneofField(data, field)) {
+      delete data[field.name];
+      return;
+    }
+    if (field.resolvedType instanceof protobuf.Type) {
+      data[field.name] = pruneUnselectedOneofValues(
+        data[field.name],
+        field.resolvedType,
+        field.repeated
+      );
+    }
+  });
+
+  return data;
+};

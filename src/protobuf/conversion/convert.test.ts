@@ -2,9 +2,10 @@ import { describe, expect, it } from "vitest";
 import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
 import { proto2Form } from "./proto2Form";
-import { form2Proto } from "./form2Proto";
+import { form2Proto, pruneUnselectedOneofValues } from "./form2Proto";
 
-const namespace = protobuf.parse(`
+describe("Protobuf Conversion", () => {
+  const namespace = protobuf.parse(`
 syntax = "proto3";
 
 message User {
@@ -12,26 +13,29 @@ message User {
   string name = 2;
   repeated int32 friends = 3;
   map<int32, string> items = 4;
+
+  oneof someOneof {
+    int32 intValue = 10;
+    string stringValue = 11;
+  }
 }
-`).root;
+  `).root;
 
-const protoObj = {
-  userId: 123,
-  name: "Alice",
-  friends: [4, 1],
-  items: {
-    9999: "four nine",
-  },
-};
+  const protoObj = {
+    userId: 123,
+    name: "Alice",
+    friends: [4, 1],
+    items: {
+      9999: "four nine",
+    },
+  };
 
-const formObj = {
-  userId: 123,
-  name: "Alice",
-  friends: [{ $value: 4 }, { $value: 1 }],
-  items: [{ $key: "9999", $value: "four nine" }],
-};
-
-describe("Protobuf Conversion", () => {
+  const formObj = {
+    userId: 123,
+    name: "Alice",
+    friends: [{ $value: 4 }, { $value: 1 }],
+    items: [{ $key: "9999", $value: "four nine" }],
+  };
   const messageType = namespace.resolveAll().lookupType("User");
   const context: AutoFormContext = {
     camelCaseLabel: true,
@@ -53,5 +57,31 @@ describe("Protobuf Conversion", () => {
   it("form => proto", () => {
     const encoded = form2Proto(context)(formObj, messageType, undefined);
     expect(encoded).toEqual(protoObj);
+  });
+});
+
+describe("Prune / Populate", () => {
+  const namespace = protobuf.parse(`
+syntax = "proto3";
+
+message User {
+  oneof someOneof {
+    int32 intValue = 1;
+    string stringValue = 2;
+  }
+}
+  `).root;
+
+  const messageType = namespace.resolveAll().lookupType("User");
+
+  const formObj = {
+    intValue: 123,
+    stringValue: "foo",
+    someOneof: "stringValue",
+  };
+
+  it("prune unselected oneof", () => {
+    const pruned = pruneUnselectedOneofValues(formObj, messageType);
+    expect(pruned.intValue).toBeUndefined();
   });
 });
