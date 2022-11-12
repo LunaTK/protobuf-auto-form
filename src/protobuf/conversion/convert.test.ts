@@ -19,6 +19,13 @@ message User {
     int32 intValue = 10;
     string stringValue = 11;
   }
+
+  repeated Nested msgs = 5;
+}
+
+message Nested {
+  string foo = 1;
+  repeated int32 bar = 2;
 }
   `).root;
 
@@ -29,6 +36,12 @@ message User {
     items: {
       9999: "four nine",
     },
+    msgs: [
+      {
+        foo: "foo",
+        bar: [111],
+      },
+    ],
   };
 
   const formObj = {
@@ -36,6 +49,7 @@ message User {
     name: "Alice",
     friends: [{ $value: 4 }, { $value: 1 }],
     items: [{ $key: "9999", $value: "four nine" }],
+    msgs: [{ $value: { foo: "foo", bar: [{ $value: 111 }] } }],
   };
   const messageType = namespace.resolveAll().lookupType("User");
   const context: AutoFormContext = {
@@ -91,6 +105,5 @@ message User {
 
   it("populate default values", () => {
     const populated = createDefault(messageType);
-    console.log({ populated })
-  })
+  });
 });
