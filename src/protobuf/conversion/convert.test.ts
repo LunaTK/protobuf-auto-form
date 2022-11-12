@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
 import { proto2Form } from "./proto2Form";
+import { form2Proto } from "./form2Proto";
 
 const namespace = protobuf.parse(`
 syntax = "proto3";
@@ -23,6 +24,13 @@ const protoObj = {
   },
 };
 
+const formObj = {
+  userId: 123,
+  name: "Alice",
+  friends: [{ $value: 4 }, { $value: 1 }],
+  items: [{ $key: "9999", $value: "four nine" }],
+};
+
 describe("Protobuf Conversion", () => {
   const messageType = namespace.resolveAll().lookupType("User");
   const context: AutoFormContext = {
@@ -33,14 +41,17 @@ describe("Protobuf Conversion", () => {
     wellKnownTypes: {},
   };
 
-  it("proto => form", () => {
-
-    const converted = proto2Form(context)(protoObj, messageType, undefined);
+  it("message type defined", () => {
     expect(messageType, "protobuf reflection").toBeDefined();
-    expect(converted.friends, "repeated field").toEqual([
-      { $value: 4 },
-      { $value: 1 },
-    ]);
-    expect(converted.items, 'map field').toEqual([{ $key: "9999", $value: "four nine" }]);
+  });
+
+  it("proto => form", () => {
+    const decoded = proto2Form(context)(protoObj, messageType, undefined);
+    expect(decoded).toEqual(formObj);
+  });
+
+  it("form => proto", () => {
+    const encoded = form2Proto(context)(formObj, messageType, undefined);
+    expect(encoded).toEqual(protoObj);
   });
 });
