@@ -6,7 +6,7 @@ import AddButton from '../../../common/AddButton';
 import DelButton from '../../../common/DelButton';
 import PrimitiveInput from '../primitive/PrimitiveInput';
 import BasicInput from '../primitive/Basic';
-import { FieldOptions } from '../../../AutoFormField';
+import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
 
 interface MapProps {
