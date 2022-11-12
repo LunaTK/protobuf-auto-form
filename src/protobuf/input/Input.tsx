@@ -2,7 +2,7 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import RepeatedInput from './complex/Repeated';
 import MapInput from './complex/Map';
-import { FieldOptions } from '../../AutoFormField';
+import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive/PrimitiveInput';
 import { useChildFields } from '../../hooks';
 

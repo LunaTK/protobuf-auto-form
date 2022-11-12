@@ -2,7 +2,7 @@ import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext, Validate } from 'react-hook-form';
 import get from 'lodash.get';
-import { FieldOptions } from '../../../AutoFormField';
+import { FieldOptions } from '../../../models';
 
 type BasicType = keyof typeof types.basic
 const protobufNumberTypes = new Set([

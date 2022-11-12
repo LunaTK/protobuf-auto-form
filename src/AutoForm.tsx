@@ -4,7 +4,7 @@ import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
-import { form2ProtoObj, protoObj2Form } from './protobuf/conversion';
+import { form2Proto, proto2Form } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 import AutoFormField from './AutoFormField';
 
@@ -52,7 +52,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
   useEffect(() => {
     if (!(initialState && reflectionObj)) return;
 
-    const formState = protoObj2Form(context)(initialState, reflectionObj, undefined);
+    const formState = proto2Form(context)(initialState, reflectionObj, undefined);
     console.log('Initial state decoded', formState);
     methods.reset(formState as Record<string, {}>);
   }, [initialState, reflectionObj]);
@@ -67,7 +67,8 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            onSubmitValid?.(form2ProtoObj(context)(values, reflectionObj, undefined));
+            console.log('Raw values : ', values)
+            onSubmitValid?.(form2Proto(context)(values, reflectionObj, undefined));
           })}
         >
           <Message type={reflectionObj} options={{ children, name: '' }} />

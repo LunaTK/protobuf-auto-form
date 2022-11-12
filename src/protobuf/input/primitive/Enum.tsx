@@ -2,7 +2,7 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
 import RadioButton from '../../../common/RadioButton';
-import { FieldOptions } from '../../../AutoFormField';
+import { FieldOptions } from '../../../models';
 
 interface Props {
   type: protobuf.Enum

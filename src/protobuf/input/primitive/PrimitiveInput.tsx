@@ -5,7 +5,7 @@ import BasicInput, { isBasicType } from './Basic';
 import EnumInput from './Enum';
 import Message from './Message';
 import { useGetWellKnownComponent } from '../../../hooks';
-import { FieldOptions } from '../../../AutoFormField';
+import { FieldOptions } from '../../../models';
 
 interface InputProps {
   field: protobuf.Field

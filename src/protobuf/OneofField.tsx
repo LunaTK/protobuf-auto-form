@@ -3,7 +3,7 @@ import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
 import RadioButton from '../common/RadioButton';
 import Input from './input/Input';
-import { FieldOptions } from '../AutoFormField';
+import { FieldOptions } from '../models';
 import { useChildFields } from '../hooks';
 
 interface OneofProps {

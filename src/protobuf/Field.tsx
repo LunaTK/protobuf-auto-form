@@ -4,7 +4,7 @@ import { pascalCase } from 'change-case';
 import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
 import { useAutoForm } from '../context';
-import { FieldOptions } from '../AutoFormField';
+import { FieldOptions } from '../models';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf
