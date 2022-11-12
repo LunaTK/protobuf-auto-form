@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
-import { proto2Form } from "./proto2Form";
+import { fillDefaults, proto2Form } from "./proto2Form";
 import { form2Proto, pruneUnselectedOneofValues } from "./form2Proto";
 
 describe("Protobuf Conversion", () => {
@@ -69,6 +69,9 @@ message User {
     int32 intValue = 1;
     string stringValue = 2;
   }
+
+  map<int32, string> mapField = 3;
+  repeated int32 arrs = 4;
 }
   `).root;
 
@@ -84,4 +87,9 @@ message User {
     const pruned = pruneUnselectedOneofValues(formObj, messageType);
     expect(pruned.intValue).toBeUndefined();
   });
+
+  it("populate default values", () => {
+    const populated = fillDefaults({}, messageType);
+    console.log({ populated })
+  })
 });
