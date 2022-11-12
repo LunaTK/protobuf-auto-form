@@ -45,7 +45,7 @@ export const fillDefaults = (
     }
 
     if (data[field.name] === null || data[field.name] === undefined) {
-      data[field.name] = createDefault(type.fields[field.name].resolvedType);
+      data[field.name] = createDefault(field.resolvedType);
     } else if (field.repeated) {
       data[field.name].forEach((value: any) =>
         fillDefaults(value, field.resolvedType)

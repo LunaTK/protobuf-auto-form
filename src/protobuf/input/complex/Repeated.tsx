@@ -6,6 +6,7 @@ import AddButton from '../../../common/AddButton';
 import PrimitiveInput from '../primitive/PrimitiveInput';
 import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
+import { createDefault } from '../../conversion/defaults';
 
 interface Props {
   name: string;
@@ -23,7 +24,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
 
   return (
     <div>
-      <AddButton onClick={() => append({ $value: '' })} />
+      <AddButton onClick={() => append({ $value: createDefault(field.resolvedType) })} />
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
           <DelButton
