@@ -1,10 +1,10 @@
-import React from 'react';
-import protobuf from 'protobufjs';
-import descriptor from './proto.json';
-import AutoForm from '../src/AutoForm';
-import { OverriddenFieldProps } from '../src/models';
+import React from "react";
+import protobuf from "protobufjs";
+import descriptor from "./proto.json";
+import AutoForm from "../src/AutoForm";
+import { OverriddenFieldProps } from "../src/models";
 
-const namespace = protobuf.Namespace.fromJSON('', descriptor);
+const namespace = protobuf.Namespace.fromJSON("", descriptor);
 
 const { Field } = AutoForm;
 
@@ -13,26 +13,39 @@ const Comment: React.VFC<
     author: string;
     content: string;
 
-    _something: 's1' | 'type';
+    _something: "s1" | "type";
     s1?: string;
-    type?: 'SIMPLE' | 'DETAILED';
+    type?: "SIMPLE" | "DETAILED";
   }>
-> = ({ value }) => (
+> = ({ value, onChange }) => (
   <div>
-    <div>Author : {value?.author}</div>
+    <input
+      placeholder="Author"
+      className="text-red-500"
+      value={value?.author}
+      onChange={(e) => onChange({ ...value, author: e.target.value })}
+    />
     <div>Content: {value?.content}</div>
   </div>
 );
 
+const Referrers: React.VFC<
+  OverriddenFieldProps<{
+    [key: string]: number;
+  }>
+> = ({ value }) => {
+  return <>{JSON.stringify(value, null, 2)}</>;
+};
+
 const initial = {
-  title: 'hello',
+  title: "hello",
   referrers: {
     user1: 123,
     user2: 321,
   },
-  content: 'hihi',
+  content: "hihi",
   userId: 321,
-  author: 'userId',
+  author: "userId",
 };
 
 const App = () => (
@@ -45,10 +58,10 @@ const App = () => (
       }}
       initialState={initial}
     >
-      <AutoForm.Field name="title" label="타이틀" disabled />
+      <AutoForm.Field name="title" label="타이틀" />
       <Field name="tags" hidden />
 
-      <Field name="referrers" label="참조">
+      <Field name="referrers" label="참조" render={Referrers}>
         <Field name="$key" label="주소" />
         <Field name="$value" label="횟수" />
       </Field>
