@@ -2,7 +2,7 @@ import protobuf from "protobufjs";
 import { getWellKnownComponent, parseChildOptions } from "../../childField";
 import { AutoFormContext } from "../../context";
 import { FieldOptions } from "../../models";
-import { createDefault } from "./defaults";
+import { getInitialValue } from "./initial";
 
 export type Convert = (
   from: unknown,
@@ -36,7 +36,7 @@ export const createConverter =
           !!options?.render || !!getWellKnownComponent(context)(f);
 
         if (isCustomRender && !ret[f.name]) {
-          ret[f.name] = createDefault(f.resolvedType);
+          ret[f.name] = getInitialValue(f);
         }
         if (!ret[f.name]) return;
 
