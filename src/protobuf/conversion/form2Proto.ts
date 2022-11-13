@@ -1,17 +1,17 @@
-import protobuf from "protobufjs";
-import { ConvertValue, createConverter } from "./convert";
-import type { MapElement, RepeatedElement } from "../../models";
+import protobuf from 'protobufjs';
+import { ConvertValue, createConverter } from './convert';
+import type { MapElement, RepeatedElement } from '../../models';
 
 const isRepeated = (
   field: protobuf.Field,
-  value: unknown
+  value: unknown,
 ): value is RepeatedElement[] => {
   return field.repeated;
 };
 
 const isMap = (
   field: protobuf.Field,
-  value: unknown
+  value: unknown,
 ): value is MapElement[] => {
   return field.map;
 };
@@ -19,7 +19,7 @@ const isMap = (
 const encodeValue: ConvertValue = (encode, value, field, options) => {
   if (isRepeated(field, value)) {
     return value.map(({ $value }) =>
-      encode($value, field.resolvedType, options)
+      encode($value, field.resolvedType, options),
     );
   }
   if (isMap(field, value)) {
@@ -27,7 +27,7 @@ const encodeValue: ConvertValue = (encode, value, field, options) => {
       value.map(({ $key, $value }) => [
         $key,
         encode($value, field.resolvedType, options),
-      ])
+      ]),
     );
   }
   return encode(value, field.resolvedType, options);
@@ -43,12 +43,12 @@ const isUnselectedOneofField = (data: any, field: protobuf.Field) => {
 export const pruneUnselectedOneofValues = (
   _data: any,
   type: protobuf.Type,
-  isRepeated: boolean = false
+  isRepeated: boolean = false,
 ) => {
   if (!_data) return _data;
   if (isRepeated) {
     return _data.map((element: any) =>
-      pruneUnselectedOneofValues(element, type)
+      pruneUnselectedOneofValues(element, type),
     );
   }
 
@@ -63,7 +63,7 @@ export const pruneUnselectedOneofValues = (
       data[field.name] = pruneUnselectedOneofValues(
         data[field.name],
         field.resolvedType,
-        field.repeated
+        field.repeated,
       );
     }
   });

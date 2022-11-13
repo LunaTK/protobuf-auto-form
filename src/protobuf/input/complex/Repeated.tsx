@@ -32,7 +32,12 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
               remove(idx);
             }}
           />
-          <PrimitiveInput name={`${name}.${idx}.$value`} field={field} options={valueOptions} index={idx} />
+          <PrimitiveInput
+            name={`${name}.${idx}.$value`}
+            field={field}
+            options={valueOptions}
+            index={idx}
+          />
         </div>
       ))}
     </div>

@@ -5,9 +5,9 @@ import RadioButton from '../../../common/RadioButton';
 import { FieldOptions } from '../../../models';
 
 interface Props {
-  type: protobuf.Enum
-  name: string
-  options?: FieldOptions
+  type: protobuf.Enum;
+  name: string;
+  options?: FieldOptions;
 }
 
 const getDefaultSelected = (type: protobuf.Enum) => {

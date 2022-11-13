@@ -49,7 +49,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
       return null;
     }
   }, [namespace, messageType]);
-  const options = { children, name: '' }
+  const options = { children, name: '' };
   useEffect(() => {
     if (!(initialState && reflectionObj)) return;
 
@@ -59,7 +59,9 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
   }, [initialState, reflectionObj]);
 
   if (!reflectionObj) {
-    return <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>;
+    return (
+      <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>
+    );
   }
 
   return (
@@ -68,8 +70,10 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            console.log('Raw values : ', values)
-            onSubmitValid?.(form2Proto(context)(values, reflectionObj, options));
+            console.log('Raw values : ', values);
+            onSubmitValid?.(
+              form2Proto(context)(values, reflectionObj, options),
+            );
           })}
         >
           <Message type={reflectionObj} options={options} />

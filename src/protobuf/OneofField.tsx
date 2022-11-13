@@ -7,13 +7,13 @@ import { FieldOptions } from '../models';
 import { useChildFields } from '../hooks';
 
 interface OneofProps {
-  parentName: string
-  oneof: protobuf.OneOf
-  options?: FieldOptions
+  parentName: string;
+  oneof: protobuf.OneOf;
+  options?: FieldOptions;
 }
 
-export const isProto3Optional = (oneof: protobuf.OneOf) => oneof
-  .fieldsArray[0].options?.proto3_optional;
+export const isProto3Optional = (oneof: protobuf.OneOf) =>
+  oneof.fieldsArray[0].options?.proto3_optional;
 
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
@@ -33,20 +33,19 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
             defaultChecked={selected === f.name}
           />
           {selected === f.name && (
-          <Input
-            parentName={parentName}
-            field={f}
-            options={fieldOptions[f.name]}
-          />
+            <Input
+              parentName={parentName}
+              field={f}
+              options={fieldOptions[f.name]}
+            />
           )}
         </div>
       ))}
       {isProto3Optional(oneof) && (
-      <div className="my-2">
-        <RadioButton name={oneofFullName} label="None" />
-      </div>
+        <div className="my-2">
+          <RadioButton name={oneofFullName} label="None" />
+        </div>
       )}
-
     </div>
   );
 };

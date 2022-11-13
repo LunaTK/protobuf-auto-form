@@ -2,21 +2,28 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
-  value?: string
-  name: string
-  label?: string
-  defaultChecked?: boolean
-  disabled?: boolean
+  value?: string;
+  name: string;
+  label?: string;
+  defaultChecked?: boolean;
+  disabled?: boolean;
 }
 
 const RadioButton: React.FC<Props> = ({
-  value, name, label = value, disabled, defaultChecked = false,
+  value,
+  name,
+  label = value,
+  disabled,
+  defaultChecked = false,
 }) => {
   const { register } = useFormContext();
   const id = `${name}.${value}`;
 
   return (
-    <label htmlFor={id} className="cursor-pointer inline-flex items-center justify-start space-x-2">
+    <label
+      htmlFor={id}
+      className="cursor-pointer inline-flex items-center justify-start space-x-2"
+    >
       <input
         type="radio"
         className="radio-xs"
@@ -26,9 +33,7 @@ const RadioButton: React.FC<Props> = ({
         defaultChecked={defaultChecked}
         {...register(name)}
       />
-      <span className="label-text">
-        {label}
-      </span>
+      <span className="label-text">{label}</span>
     </label>
   );
 };

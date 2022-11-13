@@ -32,10 +32,10 @@ export interface ChildFieldProps {
 }
 
 export type RepeatedElement<T = unknown> = {
-  $value: T
-}
+  $value: T;
+};
 
 export type MapElement<K = string, V = unknown> = {
-  $key: K
-  $value: V
-}
+  $key: K;
+  $value: V;
+};

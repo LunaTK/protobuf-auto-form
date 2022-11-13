@@ -1,11 +1,11 @@
-import { describe, expect, it } from "vitest";
-import protobuf from "protobufjs";
-import { AutoFormContext } from "../../context";
-import { proto2Form } from "./proto2Form";
-import { form2Proto, pruneUnselectedOneofValues } from "./form2Proto";
-import { fillInitialValues } from "./initial";
+import { describe, expect, it } from 'vitest';
+import protobuf from 'protobufjs';
+import { AutoFormContext } from '../../context';
+import { proto2Form } from './proto2Form';
+import { form2Proto, pruneUnselectedOneofValues } from './form2Proto';
+import { fillInitialValues } from './initial';
 
-describe("Protobuf Conversion", () => {
+describe('Protobuf Conversion', () => {
   const namespace = protobuf.parse(`
 syntax = "proto3";
 
@@ -31,14 +31,14 @@ message Nested {
 
   const protoObj = {
     userId: 123,
-    name: "Alice",
+    name: 'Alice',
     friends: [4, 1],
     items: {
-      9999: "four nine",
+      9999: 'four nine',
     },
     msgs: [
       {
-        foo: "foo",
+        foo: 'foo',
         bar: [111],
       },
     ],
@@ -46,36 +46,36 @@ message Nested {
 
   const formObj = {
     userId: 123,
-    name: "Alice",
+    name: 'Alice',
     friends: [{ $value: 4 }, { $value: 1 }],
-    items: [{ $key: "9999", $value: "four nine" }],
-    msgs: [{ $value: { foo: "foo", bar: [{ $value: 111 }] } }],
+    items: [{ $key: '9999', $value: 'four nine' }],
+    msgs: [{ $value: { foo: 'foo', bar: [{ $value: 111 }] } }],
   };
-  const messageType = namespace.resolveAll().lookupType("User");
+  const messageType = namespace.resolveAll().lookupType('User');
   const context: AutoFormContext = {
     camelCaseLabel: true,
     hideFieldType: true,
-    mode: "mount",
+    mode: 'mount',
     wellKnownFields: {},
     wellKnownTypes: {},
   };
 
-  it("message type defined", () => {
-    expect(messageType, "protobuf reflection").toBeDefined();
+  it('message type defined', () => {
+    expect(messageType, 'protobuf reflection').toBeDefined();
   });
 
-  it("proto => form", () => {
+  it('proto => form', () => {
     const decoded = proto2Form(context)(protoObj, messageType, undefined);
     expect(decoded).toEqual(formObj);
   });
 
-  it("form => proto", () => {
+  it('form => proto', () => {
     const encoded = form2Proto(context)(formObj, messageType, undefined);
     expect(encoded).toEqual(protoObj);
   });
 });
 
-describe("Prune / Populate", () => {
+describe('Prune / Populate', () => {
   const namespace = protobuf.parse(`
 syntax = "proto3";
 
@@ -97,36 +97,36 @@ message Nested {
 }
   `).root;
 
-  const messageType = namespace.resolveAll().lookupType("User");
+  const messageType = namespace.resolveAll().lookupType('User');
 
   const formObj = {
     intValue: 123,
-    stringValue: "foo",
-    someOneof: "stringValue",
+    stringValue: 'foo',
+    someOneof: 'stringValue',
   };
 
-  it("prune unselected oneof", () => {
+  it('prune unselected oneof', () => {
     const pruned = pruneUnselectedOneofValues(formObj, messageType);
     expect(pruned.intValue).toBeUndefined();
   });
 
-  it("populate default values", () => {
+  it('populate default values', () => {
     const populated = fillInitialValues({}, messageType);
     expect(populated).toEqual({
       arrs: [],
       msgs: [],
       mapField: {},
-      someOneof: "intValue",
+      someOneof: 'intValue',
       intValue: 0,
-      stringValue: "",
+      stringValue: '',
     });
   });
 
-  it("fill nested fields with defaults", () => {
+  it('fill nested fields with defaults', () => {
     const protoObj = {
-      msgs: [{ foo: "initial value" }],
+      msgs: [{ foo: 'initial value' }],
     };
     const filled = fillInitialValues(protoObj, messageType);
-    expect(filled.msgs).toEqual([{ foo: "initial value", bar: [] }]);
+    expect(filled.msgs).toEqual([{ foo: 'initial value', bar: [] }]);
   });
 });

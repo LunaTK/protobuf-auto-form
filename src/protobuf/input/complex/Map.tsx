@@ -11,26 +11,25 @@ import { useChildFields } from '../../../hooks';
 import { getInitialValue } from '../../conversion/initial';
 
 interface MapProps {
-  name: string
-  field: protobuf.Field
-  keyType: string
-  options?: FieldOptions
+  name: string;
+  field: protobuf.Field;
+  keyType: string;
+  options?: FieldOptions;
 }
 
 const MapKeyValueInput: React.FC<{
-  index: number
-  name: string
-  keyType: string
-  field: protobuf.Field
-  keyOptions?: FieldOptions
-  valueOptions?: FieldOptions
-}> = ({
-  index, name, keyType, field, keyOptions, valueOptions,
-}) => {
+  index: number;
+  name: string;
+  keyType: string;
+  field: protobuf.Field;
+  keyOptions?: FieldOptions;
+  valueOptions?: FieldOptions;
+}> = ({ index, name, keyType, field, keyOptions, valueOptions }) => {
   const { getValues } = useFormContext();
   const validate = (value: unknown) => {
-    const isDuplicated = (get(getValues(), name) as any[])
-      .some(({ $key }, i) => i !== index && $key === value);
+    const isDuplicated = (get(getValues(), name) as any[]).some(
+      ({ $key }, i) => i !== index && $key === value,
+    );
     return !isDuplicated || 'Same key exists';
   };
   const keyLabel = keyOptions?.label ?? 'Key';
@@ -51,14 +50,17 @@ const MapKeyValueInput: React.FC<{
       <div className="label">
         <span className="label-text">{valueLabel}</span>
       </div>
-      <PrimitiveInput name={`${name}.${index}.$value`} field={field} options={valueOptions} index={index} />
+      <PrimitiveInput
+        name={`${name}.${index}.$value`}
+        field={field}
+        options={valueOptions}
+        index={index}
+      />
     </div>
   );
 };
 
-const MapInput: React.FC<MapProps> = ({
-  name, field, keyType, options,
-}) => {
+const MapInput: React.FC<MapProps> = ({ name, field, keyType, options }) => {
   const { control } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
@@ -72,7 +74,8 @@ const MapInput: React.FC<MapProps> = ({
     });
   };
 
-  const { $key: keyOptions, $value: valueOptions } = useChildFields(options).fieldOptions;
+  const { $key: keyOptions, $value: valueOptions } =
+    useChildFields(options).fieldOptions;
 
   return (
     <div>

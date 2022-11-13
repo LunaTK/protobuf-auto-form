@@ -4,7 +4,7 @@ import { useFormContext, Validate } from 'react-hook-form';
 import get from 'lodash.get';
 import { FieldOptions } from '../../../models';
 
-type BasicType = keyof typeof types.basic
+type BasicType = keyof typeof types.basic;
 const protobufNumberTypes = new Set([
   'double',
   'float',
@@ -20,47 +20,49 @@ const protobufNumberTypes = new Set([
   'sfixed64',
 ]);
 
-export const isBasicType = (type: string): type is BasicType => protobufNumberTypes.has(type) || type === 'string' || type === 'bool';
+export const isBasicType = (type: string): type is BasicType =>
+  protobufNumberTypes.has(type) || type === 'string' || type === 'bool';
 
 interface Props {
-  type: string
-  name: string
-  validate?: Validate<unknown>
-  options?: FieldOptions
+  type: string;
+  name: string;
+  validate?: Validate<unknown>;
+  options?: FieldOptions;
 }
 
 const getInputType = (type: BasicType) => {
   if (type === 'bool') {
     return 'checkbox';
-  } if (protobufNumberTypes.has(type)) {
+  }
+  if (protobufNumberTypes.has(type)) {
     return 'number';
   }
   return 'text';
 };
 
-const BasicInput: React.FC<Props> = ({
-  type, name, validate, options,
-}) => {
-  const { register, formState: { errors } } = useFormContext();
+const BasicInput: React.FC<Props> = ({ type, name, validate, options }) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const error = get(errors, name);
 
   return (
     <div className="form-control w-full">
       <input
-        className={`input input-bordered input-sm ${type !== 'bool' ? 'flex-1' : ''} ${error ? 'input-error' : ''}`}
-        {...register(name, { required: { value: type !== 'bool', message: 'Empty input.' }, validate })}
+        className={`input input-bordered input-sm ${
+          type !== 'bool' ? 'flex-1' : ''
+        } ${error ? 'input-error' : ''}`}
+        {...register(name, {
+          required: { value: type !== 'bool', message: 'Empty input.' },
+          validate,
+        })}
         type={getInputType(type as BasicType)}
         placeholder={type}
         step="any"
         disabled={options?.disabled}
       />
-      {
-        error && (
-          <div className="text-xs text-red-500 p-1">
-            {error.message}
-          </div>
-        )
-      }
+      {error && <div className="text-xs text-red-500 p-1">{error.message}</div>}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { DOMAttributes } from 'react';
 import MinusIcon from '../icon/MinusIcon';
 
 interface Props {
-    onClick?: DOMAttributes<HTMLButtonElement>['onClick']
+  onClick?: DOMAttributes<HTMLButtonElement>['onClick'];
 }
 
 const AddButton: React.FC<Props> = ({ onClick }) => (

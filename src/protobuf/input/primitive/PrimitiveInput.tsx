@@ -8,14 +8,17 @@ import { useGetWellKnownComponent } from '../../../hooks';
 import { FieldOptions } from '../../../models';
 
 interface InputProps {
-  field: protobuf.Field
-  name: string
-  options?: FieldOptions
-  index?: number // if repeated or map field
+  field: protobuf.Field;
+  name: string;
+  options?: FieldOptions;
+  index?: number; // if repeated or map field
 }
 
 const PrimitiveInput: React.FC<InputProps> = ({
-  field, options, name, index,
+  field,
+  options,
+  name,
+  index,
 }) => {
   const { resolvedType, type } = field;
   const { control, watch } = useFormContext();
@@ -27,7 +30,7 @@ const PrimitiveInput: React.FC<InputProps> = ({
       <Controller
         name={name}
         control={control}
-        render={({ field: fieldProps }) => (render({ ...fieldProps, watch })!)}
+        render={({ field: fieldProps }) => render({ ...fieldProps, watch })!}
       />
     );
   }
@@ -39,11 +42,7 @@ const PrimitiveInput: React.FC<InputProps> = ({
         name={name}
         control={control}
         render={({ field: fieldProps }) => (
-          <WellKnownComponent
-            watch={watch}
-            index={index}
-            {...fieldProps}
-          />
+          <WellKnownComponent watch={watch} index={index} {...fieldProps} />
         )}
       />
     );
@@ -51,9 +50,11 @@ const PrimitiveInput: React.FC<InputProps> = ({
 
   if (isBasicType(type)) {
     return <BasicInput name={name} type={type} options={options} />;
-  } if (resolvedType instanceof protobuf.Enum) {
+  }
+  if (resolvedType instanceof protobuf.Enum) {
     return <EnumInput name={name} type={resolvedType} options={options} />;
-  } if (resolvedType instanceof protobuf.Type) {
+  }
+  if (resolvedType instanceof protobuf.Type) {
     return <Message name={name} type={resolvedType} options={options} />;
   }
 
