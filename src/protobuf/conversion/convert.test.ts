@@ -3,7 +3,7 @@ import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
 import { proto2Form } from "./proto2Form";
 import { form2Proto, pruneUnselectedOneofValues } from "./form2Proto";
-import { createDefault, fillDefaults } from "./defaults";
+import { fillInitialValues } from "./initial";
 
 describe("Protobuf Conversion", () => {
   const namespace = protobuf.parse(`
@@ -111,7 +111,7 @@ message Nested {
   });
 
   it("populate default values", () => {
-    const populated = createDefault(messageType);
+    const populated = fillInitialValues({}, messageType);
     expect(populated).toEqual({
       arrs: [],
       msgs: [],
@@ -126,7 +126,7 @@ message Nested {
     const protoObj = {
       msgs: [{ foo: "initial value" }],
     };
-    const filled = fillDefaults(protoObj, messageType);
+    const filled = fillInitialValues(protoObj, messageType);
     expect(filled.msgs).toEqual([{ foo: "initial value", bar: [] }]);
   });
 });

@@ -8,7 +8,7 @@ import PrimitiveInput from '../primitive/PrimitiveInput';
 import BasicInput from '../primitive/Basic';
 import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
-import { createDefault } from '../../conversion/defaults';
+import { getInitialValue } from '../../conversion/initial';
 
 interface MapProps {
   name: string
@@ -68,7 +68,7 @@ const MapInput: React.FC<MapProps> = ({
   const add = () => {
     append({
       $key: '',
-      $value: createDefault(field.resolvedType),
+      $value: getInitialValue(field),
     });
   };
 
