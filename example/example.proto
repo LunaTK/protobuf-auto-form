@@ -34,8 +34,10 @@ message User {
     int32 user_id = 1;
     string name = 2;
     repeated int32 friends = 3;
+    UserDetail detail = 4;
 }
 
-message Guild {
-    repeated User members = 1;
+message UserDetail {
+    string address = 1;
+    string role = 2;
 }

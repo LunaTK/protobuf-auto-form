@@ -52,9 +52,11 @@ const Field: React.FC<Props> = ({
 }) => {
   if (options?.hidden === true) return null;
 
+  const ignoreLabel = hideLabel || options?.flatten === true;
+
   return (
     <>
-      {!hideLabel && <Label field={field} label={options?.label} />}
+      {!ignoreLabel && <Label field={field} label={options?.label} />}
       {field instanceof protobuf.OneOf ? (
         <OneofField parentName={parentName} oneof={field} options={options} />
       ) : (

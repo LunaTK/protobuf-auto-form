@@ -61,12 +61,12 @@ const withPrependAppend =
     const { otherNodes } = useChildFields(options);
 
     return (
-      <div>
+      <>
         {options?.prepend}
         <Component {...props} />
         {options?.append}
         {otherNodes}
-      </div>
+      </>
     );
   };
 

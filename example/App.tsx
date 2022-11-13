@@ -1,10 +1,10 @@
-import React from "react";
-import protobuf from "protobufjs";
-import descriptor from "./proto.json";
-import AutoForm from "../src/AutoForm";
-import { OverriddenFieldProps } from "../src/models";
+import React from 'react';
+import protobuf from 'protobufjs';
+import descriptor from './proto.json';
+import AutoForm from '../src/AutoForm';
+import { OverriddenFieldProps } from '../src/models';
 
-const namespace = protobuf.Namespace.fromJSON("", descriptor);
+const namespace = protobuf.Namespace.fromJSON('', descriptor);
 
 const { Field } = AutoForm;
 
@@ -13,9 +13,9 @@ const Comment: React.VFC<
     author: string;
     content: string;
 
-    _something: "s1" | "type";
+    _something: 's1' | 'type';
     s1?: string;
-    type?: "SIMPLE" | "DETAILED";
+    type?: 'SIMPLE' | 'DETAILED';
   }>
 > = ({ value, onChange }) => (
   <div>
@@ -38,14 +38,14 @@ const Referrers: React.VFC<
 };
 
 const initial = {
-  title: "hello",
+  title: 'hello',
   referrers: {
     user1: 123,
     user2: 321,
   },
-  content: "hihi",
+  content: 'hihi',
   userId: 321,
-  author: "userId",
+  author: 'userId',
 };
 
 const App = () => (

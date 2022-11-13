@@ -103,15 +103,22 @@
           "rule": "repeated",
           "type": "int32",
           "id": 3
+        },
+        "detail": {
+          "type": "UserDetail",
+          "id": 4
         }
       }
     },
-    "Guild": {
+    "UserDetail": {
       "fields": {
-        "members": {
-          "rule": "repeated",
-          "type": "User",
+        "address": {
+          "type": "string",
           "id": 1
+        },
+        "role": {
+          "type": "string",
+          "id": 2
         }
       }
     }

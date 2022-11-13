@@ -86,6 +86,10 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
       </>
     );
 
+  if (options?.flatten) {
+    return <>{content}</>;
+  }
+
   if (shouldHideLabel) {
     return <div className="flex-1">{content}</div>;
   }
