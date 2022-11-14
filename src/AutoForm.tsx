@@ -7,6 +7,7 @@ import ErrorAlert from './common/ErrorAlert';
 import { form2Proto, proto2Form } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 import AutoFormField from './AutoFormField';
+import { fillInitialValues } from './protobuf/conversion/initial';
 
 export type AutoFormProps<T = any> = {
   namespace: protobuf.Namespace;
@@ -55,7 +56,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
 
     const formState = proto2Form(context)(initialState, reflectionObj, options);
     console.log('Initial state decoded', formState);
-    methods.reset(formState as Record<string, {}>);
+    methods.reset(formState);
   }, [initialState, reflectionObj]);
 
   if (!reflectionObj) {
@@ -70,7 +71,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            console.log('Raw values : ', values);
+            console.log('AutoForm Submitted : ', values);
             onSubmitValid?.(
               form2Proto(context)(values, reflectionObj, options),
             );

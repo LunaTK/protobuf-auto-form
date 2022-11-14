@@ -14,7 +14,6 @@ const RadioButton: React.FC<Props> = ({
   name,
   label = value,
   disabled,
-  defaultChecked = false,
 }) => {
   const { register } = useFormContext();
   const id = `${name}.${value}`;
@@ -30,7 +29,6 @@ const RadioButton: React.FC<Props> = ({
         id={id}
         value={value}
         disabled={disabled}
-        defaultChecked={defaultChecked}
         {...register(name)}
       />
       <span className="label-text">{label}</span>

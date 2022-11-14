@@ -1,3 +1,4 @@
+import protobuf from 'protobufjs';
 import { type ConvertValue, createConverter } from './convert';
 import type { MapElement, RepeatedElement } from '../../models';
 
@@ -15,6 +16,11 @@ const decodeValue: ConvertValue = (decode, value, field, options) => {
         $value: decode($value, field.resolvedType, options),
       }),
     );
+  } else if (
+    field.resolvedType instanceof protobuf.Enum &&
+    !Number.isNaN(Number(value))
+  ) {
+    return field.resolvedType.valuesById[Number(value)];
   }
   return decode(value, field.resolvedType, options);
 };
