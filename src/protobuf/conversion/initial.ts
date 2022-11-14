@@ -97,7 +97,7 @@ function getInitialMessageValue(type: protobuf.Type) {
   }
 }
 
-function getInitialEnumValue(enumType: protobuf.Enum) {
+export function getInitialEnumValue(enumType: protobuf.Enum) {
   return Object.entries(enumType.valuesById)[0][1];
 }
 

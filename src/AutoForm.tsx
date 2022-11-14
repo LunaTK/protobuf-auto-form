@@ -55,7 +55,6 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
     if (!(initialState && reflectionObj)) return;
 
     const formState = proto2Form(context)(initialState, reflectionObj, options);
-    fillInitialValues(formState, reflectionObj);
     console.log('Initial state decoded', formState);
     methods.reset(formState);
   }, [initialState, reflectionObj]);
@@ -72,7 +71,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
         <form
           {...rest}
           onSubmit={methods.handleSubmit((values) => {
-            console.log('Raw values : ', values);
+            console.log('AutoForm Submitted : ', values);
             onSubmitValid?.(
               form2Proto(context)(values, reflectionObj, options),
             );
