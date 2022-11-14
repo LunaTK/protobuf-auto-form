@@ -28,7 +28,6 @@ const EnumInput: React.FC<Props> = ({ type, name, options }) => {
           name={name}
           key={label}
           disabled={options?.disabled}
-          defaultChecked={selected === label}
         />
       ))}
     </div>

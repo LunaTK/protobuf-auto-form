@@ -30,7 +30,6 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
             value={f.name}
             name={oneofFullName}
             label={fieldOptions[f.name]?.label}
-            defaultChecked={selected === f.name}
           />
           {selected === f.name && (
             <Input
