@@ -18,6 +18,7 @@ message Article {
 
     map<string, int32> referrers = 10;
     repeated Comment comments = 11;
+    UserDetail detail = 12;
 }
 
 message Comment {
@@ -34,8 +35,14 @@ message User {
     int32 user_id = 1;
     string name = 2;
     repeated int32 friends = 3;
+    UserDetail detail = 4;
 }
 
-message Guild {
-    repeated User members = 1;
+message UserDetail {
+    string address = 1;
+    SomeInner role = 2;
+}
+
+message SomeInner {
+    string str = 1;
 }

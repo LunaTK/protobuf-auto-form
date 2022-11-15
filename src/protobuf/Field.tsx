@@ -5,6 +5,7 @@ import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
 import { useAutoForm } from '../context';
 import { FieldOptions } from '../models';
+import withPrependAppend from '../hoc/withPrependAppend';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf;
@@ -33,7 +34,7 @@ const Label: React.FC<{
   const { camelCaseLabel, hideFieldType } = useAutoForm();
 
   return (
-    <span className="text-right inline-flex flex-col">
+    <span className="af-label">
       <span className="leading-tight font-bold">
         {label || (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
       </span>
@@ -52,9 +53,12 @@ const Field: React.FC<Props> = ({
 }) => {
   if (options?.hidden === true) return null;
 
+  const isFlattenedMessage = 'resolvedType' in field && options?.flatten;
+  const ignoreLabel = hideLabel || isFlattenedMessage;
+
   return (
     <>
-      {!hideLabel && <Label field={field} label={options?.label} />}
+      {!ignoreLabel && <Label field={field} label={options?.label} />}
       {field instanceof protobuf.OneOf ? (
         <OneofField parentName={parentName} oneof={field} options={options} />
       ) : (
@@ -64,4 +68,4 @@ const Field: React.FC<Props> = ({
   );
 };
 
-export default Field;
+export default withPrependAppend(Field);

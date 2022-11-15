@@ -86,16 +86,16 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
       </>
     );
 
+  if (options?.flatten) {
+    return <>{content}</>;
+  }
+
   if (shouldHideLabel) {
     return <div className="flex-1">{content}</div>;
   }
 
   return (
-    <div
-      className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${
-        !isRoot ? 'af-repeat-ele' : ''
-      }`}
-    >
+    <div className={`af-msg-grid ${!isRoot ? 'af-repeat-ele' : ''}`}>
       {content}
     </div>
   );

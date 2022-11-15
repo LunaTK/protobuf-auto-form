@@ -4,7 +4,6 @@ import RepeatedInput from './complex/Repeated';
 import MapInput from './complex/Map';
 import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive/PrimitiveInput';
-import { useChildFields } from '../../hooks';
 import { Controller, useFormContext } from 'react-hook-form';
 
 interface InputProps {
@@ -52,22 +51,4 @@ const Input: React.FC<InputProps> = ({
   return <PrimitiveInput field={field} name={name} options={options} />;
 };
 
-const withPrependAppend =
-  <T extends { options?: FieldOptions }>(
-    Component: React.FunctionComponent<T>,
-  ) =>
-  (props: T) => {
-    const { options } = props;
-    const { otherNodes } = useChildFields(options);
-
-    return (
-      <div>
-        {options?.prepend}
-        <Component {...props} />
-        {options?.append}
-        {otherNodes}
-      </div>
-    );
-  };
-
-export default withPrependAppend(Input);
+export default Input;
