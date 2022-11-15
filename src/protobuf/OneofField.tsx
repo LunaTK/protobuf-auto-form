@@ -27,7 +27,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   return (
     <div>
       {oneof.fieldsArray.map((f) => (
-        <div key={f.name} className="my-2">
+        <div key={f.name} className="my-2 not-first-desc:ml-8">
           <RadioButton
             value={f.name}
             name={oneofFullName}

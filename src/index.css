@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    box-sizing: border-box
+}
+
 .af-repeat-ele {
     @apply border-2 border-dashed border-slate-400/50 rounded;
 }
