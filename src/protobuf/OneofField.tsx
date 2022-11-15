@@ -17,10 +17,12 @@ export const isProto3Optional = (oneof: protobuf.OneOf) =>
 
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
-  const { watch } = useFormContext();
+  const { watch, getValues, setValue } = useFormContext();
   const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
-  // TODO: find out why default value does not work
-  const selected = watch(oneofFullName) ?? oneof.fieldsArray[0].name;
+  if (!getValues(oneofFullName)) {
+    setValue(oneofFullName, oneof.fieldsArray[0].name);
+  }
+  const selected = watch(oneofFullName);
 
   return (
     <div>
@@ -30,7 +32,6 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
             value={f.name}
             name={oneofFullName}
             label={fieldOptions[f.name]?.label}
-            defaultChecked={selected === f.name}
           />
           {selected === f.name && (
             <Input
@@ -43,7 +44,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
       ))}
       {isProto3Optional(oneof) && (
         <div className="my-2">
-          <RadioButton name={oneofFullName} label="None" />
+          <RadioButton name={oneofFullName} label="None" value="__unset__" />
         </div>
       )}
     </div>

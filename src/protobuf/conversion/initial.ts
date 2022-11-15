@@ -10,14 +10,14 @@ export const getInitialValue = (field: protobuf.Field) => {
   if (field.resolvedType instanceof protobuf.Type) {
     return getInitialMessageValue(field.resolvedType);
   }
+  if (field.resolvedType instanceof protobuf.Enum) {
+    return getInitialEnumValue(field.resolvedType);
+  }
   if (!isUnset(field.defaultValue)) {
     return field.defaultValue;
   }
   if (!isUnset(field.typeDefault)) {
     return field.typeDefault;
-  }
-  if (field.resolvedType instanceof protobuf.Enum) {
-    return getInitialEnumValue(field.resolvedType);
   }
   throw new Error('Unknown type: ' + field);
 };
@@ -97,9 +97,8 @@ function getInitialMessageValue(type: protobuf.Type) {
   }
 }
 
-function getInitialEnumValue(enumType: protobuf.Enum) {
-  const name = Object.keys(enumType.valuesById)[0];
-  return enumType.values[name];
+export function getInitialEnumValue(enumType: protobuf.Enum) {
+  return Object.entries(enumType.valuesById)[0][1];
 }
 
 function isUnset(value: unknown) {
