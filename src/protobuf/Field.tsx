@@ -33,7 +33,7 @@ const Label: React.FC<{
   const { camelCaseLabel, hideFieldType } = useAutoForm();
 
   return (
-    <span className="text-right inline-flex flex-col">
+    <span className="af-label">
       <span className="leading-tight font-bold">
         {label || (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
       </span>
