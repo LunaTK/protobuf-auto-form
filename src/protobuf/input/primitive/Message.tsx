@@ -96,7 +96,7 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
 
   return (
     <div
-      className={`grid grid-cols-[fit-content(200px)_1fr] gap-x-4 gap-y-8 p-4 flex-1 ${
+      className={`grid grid-cols-msg gap-x-4 gap-y-8 p-4 flex-1 ${
         !isRoot ? 'af-repeat-ele' : ''
       }`}
     >
