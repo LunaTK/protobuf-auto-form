@@ -27,7 +27,7 @@ export const fillInitialValues = (
   type: protobuf.Type | protobuf.Enum | null,
 ) => {
   if (!(type instanceof protobuf.Type)) {
-    return;
+    return data;
   }
 
   type.fieldsArray.forEach((field) => {
@@ -89,6 +89,7 @@ function getInitialMessageValue(type: protobuf.Type) {
         oneofs: false, // don't know why it's not working...
         longs: Number,
       });
+      fillInitialValues(created, type);
       // TODO(@LunaTK): remove if oneofs option from protobufjs works.
       type.oneofsArray.forEach((oneof) => {
         created[oneof.name] = oneof.fieldsArray[0].name;

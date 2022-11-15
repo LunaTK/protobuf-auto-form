@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
-import { FormProvider, useForm, UseFormReturn } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
@@ -47,12 +47,13 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
       return null;
     }
   }, [namespace, messageType]);
-  const methods = useForm({
-    defaultValues: fillInitialValues(
-      proto2Form(context)(initialState, reflectionObj, options),
-      reflectionObj,
-    ),
-  });
+  const methods = useForm();
+  useEffect(() => {
+    const initial = proto2Form(context)(initialState, reflectionObj, options);
+    fillInitialValues(initial, reflectionObj);
+    console.log('<AutoForm> initial', initial);
+    methods.reset(initial);
+  }, [initialState]);
 
   if (!reflectionObj) {
     return (

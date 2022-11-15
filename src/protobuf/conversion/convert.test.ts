@@ -95,6 +95,18 @@ message Nested {
   string foo = 1;
   repeated int32 bar = 2;
 }
+
+message A {
+  B b = 1;
+}
+
+message B {
+  C c = 1;
+}
+
+message C {
+  int32 x = 1;
+}
   `).root;
 
   const messageType = namespace.resolveAll().lookupType('User');
@@ -109,6 +121,15 @@ message Nested {
     const pruned = pruneUnselectedOneofValues(formObj, messageType);
     expect(pruned.intValue).toBeUndefined();
   });
+
+  it('populate deeply nested message', () => {
+    const aType = namespace.resolveAll().lookupType('A');
+    const bType = namespace.resolveAll().lookupType('B');
+    const populatedA = fillInitialValues({}, aType);
+    const populatedB = fillInitialValues({}, bType);
+    expect(populatedB).toEqual({ c: { x: 0} })
+    expect(populatedA).toEqual({b: { c: { x: 0} }})
+  })
 
   it('populate default values', () => {
     const populated = fillInitialValues({}, messageType);
