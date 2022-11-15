@@ -7,6 +7,8 @@ import { FieldOptions } from './models';
  * @param props Render options for protobuf fields
  * @returns null
  */
-const AutoFormField = (props: FieldOptions) => 'this should not be rendered';
+const AutoFormField = (props: FieldOptions) => (
+  <>{'this should not be rendered'}</>
+);
 
 export default AutoFormField;
