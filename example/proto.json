@@ -58,6 +58,10 @@
           "rule": "repeated",
           "type": "Comment",
           "id": 11
+        },
+        "detail": {
+          "type": "UserDetail",
+          "id": 12
         }
       }
     },
@@ -117,8 +121,16 @@
           "id": 1
         },
         "role": {
-          "type": "string",
+          "type": "SomeInner",
           "id": 2
+        }
+      }
+    },
+    "SomeInner": {
+      "fields": {
+        "str": {
+          "type": "string",
+          "id": 1
         }
       }
     }

@@ -66,12 +66,16 @@ const App = () => (
         <Field name="$value" label="횟수" />
       </Field>
 
-      <Field name="comments" label="댓글" prepend={<b>오우예압</b>}>
+      <Field name="comments" label="댓글" append={<b>Some appendix</b>}>
         <Field name="$value" render={Comment} />
       </Field>
 
       <Field name="author" label="글쓴이">
         <Field name="nickname" label="닉네임" render={() => <div>hi</div>} />
+      </Field>
+
+      <Field name="detail">
+        <Field name="role" label="내용" />
       </Field>
 
       {/* <Field name="members">
