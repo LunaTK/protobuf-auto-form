@@ -1,3 +1,4 @@
+import React from 'react';
 import { useChildFields } from '../hooks';
 import { FieldOptions } from '../models';
 
@@ -6,15 +7,17 @@ const withPrependAppend =
     Component: React.FunctionComponent<T>,
   ) =>
   (props: T) => {
-    const { options } = props;
-    const { otherNodes } = useChildFields(options);
+    const { append, prepend, ...rest } = props.options ?? {};
+    const { otherNodes } = useChildFields(props.options);
 
     return (
       <>
-        {options?.prepend}
-        <Component {...props} />
-        {options?.append}
+        {prepend}
+        <Component {...props} options={rest} />
+        {append}
         {otherNodes}
       </>
     );
   };
+
+export default withPrependAppend;

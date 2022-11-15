@@ -5,6 +5,7 @@ import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
 import { useAutoForm } from '../context';
 import { FieldOptions } from '../models';
+import withPrependAppend from '../hoc/withPrependAppend';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf;
@@ -67,4 +68,4 @@ const Field: React.FC<Props> = ({
   );
 };
 
-export default Field;
+export default withPrependAppend(Field);
