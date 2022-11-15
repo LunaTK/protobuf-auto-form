@@ -4,7 +4,6 @@ import RepeatedInput from './complex/Repeated';
 import MapInput from './complex/Map';
 import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive/PrimitiveInput';
-import { useChildFields } from '../../hooks';
 import { Controller, useFormContext } from 'react-hook-form';
 
 interface InputProps {

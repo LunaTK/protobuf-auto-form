@@ -52,7 +52,8 @@ const Field: React.FC<Props> = ({
 }) => {
   if (options?.hidden === true) return null;
 
-  const ignoreLabel = hideLabel || options?.flatten === true;
+  const isFlattenedMessage = 'resolvedType' in field && options?.flatten;
+  const ignoreLabel = hideLabel || isFlattenedMessage;
 
   return (
     <>
