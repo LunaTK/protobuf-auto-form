@@ -48,7 +48,7 @@ const BasicInput: React.FC<Props> = ({ type, name, validate, options }) => {
   const error = get(errors, name);
 
   return (
-    <div className="form-control w-full">
+    <div className="form-control w-auto">
       <input
         className={`input input-bordered input-sm ${
           type !== 'bool' ? 'flex-1' : ''
