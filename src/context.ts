@@ -4,7 +4,6 @@ import { OverriddenFieldProps } from './models';
 export interface AutoFormContext {
   hideFieldType: boolean;
   camelCaseLabel: boolean;
-  mode: 'mount' | 'autofill';
   wellKnownFields: Record<string, React.FC<OverriddenFieldProps>>;
   wellKnownTypes: Record<string, React.FC<OverriddenFieldProps>>;
 }
@@ -12,7 +11,6 @@ export interface AutoFormContext {
 const context = createContext<AutoFormContext>({
   hideFieldType: false,
   camelCaseLabel: false,
-  mode: 'autofill',
   wellKnownFields: {},
   wellKnownTypes: {},
 });

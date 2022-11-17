@@ -11,4 +11,11 @@ const AutoFormField = (props: FieldOptions) => (
   <>{'this should not be rendered'}</>
 );
 
+const AutoFormRestFields: React.FC = (props: {}) => {
+  console.warn('This component should not be rendered');
+  return null;
+};
+
+AutoFormField.Rest = AutoFormRestFields
+
 export default AutoFormField;

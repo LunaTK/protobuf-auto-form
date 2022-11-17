@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../../Field';
 import { useChildFields } from '../../../hooks';
 import AutoFormField from '../../../AutoFormField';
-import { useAutoForm } from '../../../context';
 import { FieldOptions } from '../../../models';
 
 interface Props {
@@ -39,52 +38,55 @@ const useMessage = (type: protobuf.Type) => {
   return info;
 };
 
+const useRestFields = (
+  fields: protobuf.Field[],
+  fieldNodes: ReactElement<FieldOptions>[],
+) => {
+  const fieldNodeSet = new Set(fieldNodes.map(({ props }) => props.name));
+  return fields.filter((field) => !fieldNodeSet.has(field.name));
+};
+
 const Message: React.FC<Props> = ({ type, name = '', options }) => {
-  const { fieldOptions, nodes, otherNodes, fieldNodes } =
-    useChildFields(options);
+  const { fieldOptions, nodes, fieldNodes } = useChildFields(options);
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
-  const { mode } = useAutoForm();
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
+  const restFields = useRestFields(fields, fieldNodes);
 
-  const content =
-    mode === 'autofill' || fieldNodes.length === 0 ? (
-      <>
-        {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
-        {[...fields, ...oneofs].map((field) => (
-          <Field
-            parentName={name}
-            field={field}
-            key={field.name}
-            hideLabel={shouldHideLabel}
-            options={fieldOptions[field.name]}
-          />
-        ))}
-        {otherNodes}
-      </>
-    ) : (
-      <>
-        {nodes.map((n) => {
-          if (n.type === AutoFormField) {
-            const fieldOption = n.props as FieldOptions;
-            const field =
-              type.fields[fieldOption.name] || type.oneofs[fieldOption.name];
-            return (
-              <Field
-                parentName={name}
-                field={field}
-                key={field.name}
-                hideLabel={shouldHideLabel}
-                options={fieldOption}
-              />
-            );
-          }
+  const content = (
+    <>
+      {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
+      {(nodes.length > 0 ? nodes : [<AutoFormField.Rest />]).map((n) => {
+        if (n.type === AutoFormField) {
+          const fieldOption = n.props as FieldOptions;
+          const field =
+            type.fields[fieldOption.name] || type.oneofs[fieldOption.name];
+          return (
+            <Field
+              parentName={name}
+              field={field}
+              key={field.name}
+              hideLabel={shouldHideLabel}
+              options={fieldOption}
+            />
+          );
+        } else if (n.type === AutoFormField.Rest) {
+          console.log({restFields, fieldOptions})
+          return restFields.map((field) => (
+            <Field
+              parentName={name}
+              field={field}
+              key={field.name}
+              hideLabel={shouldHideLabel}
+            />
+          ));
+        }
 
-          return n;
-        })}
-      </>
-    );
+        return n;
+      })}
+    </>
+  );
 
   if (options?.flatten) {
     return <>{content}</>;

@@ -28,7 +28,6 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
     camelCaseLabel = true,
     wellKnownFields = {},
     wellKnownTypes = {},
-    mode = 'autofill',
     ...rest
   } = props;
 
@@ -37,7 +36,6 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
     camelCaseLabel,
     wellKnownFields,
     wellKnownTypes,
-    mode,
   };
   const options = { children, name: '' };
   const reflectionObj = useMemo(() => {
