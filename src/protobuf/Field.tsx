@@ -6,6 +6,7 @@ import Input from './input/Input';
 import { useAutoForm } from '../context';
 import { FieldOptions } from '../models';
 import withPrependAppend from '../hoc/withPrependAppend';
+import AutoFormLabel from '../AutoFormLabel';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf;
@@ -27,30 +28,13 @@ const getTypeLabel = (field: Props['field']) => {
   return field.type;
 };
 
-const Label: React.FC<{
-  label?: string;
-  field: Props['field'];
-}> = ({ field, label }) => {
-  const { camelCaseLabel, hideFieldType } = useAutoForm();
-
-  return (
-    <span className="af-label">
-      <span className="leading-tight font-bold">
-        {label || (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
-      </span>
-      <span className="text-slate-400 text-sm">
-        {!hideFieldType && getTypeLabel(field)}
-      </span>
-    </span>
-  );
-};
-
 const Field: React.FC<Props> = ({
   field,
   parentName,
   hideLabel = false,
   options,
 }) => {
+  const { camelCaseLabel, hideFieldType } = useAutoForm();
   if (options?.hidden === true) return null;
 
   const isFlattenedMessage = 'resolvedType' in field && options?.flatten;
@@ -58,7 +42,13 @@ const Field: React.FC<Props> = ({
 
   return (
     <>
-      {!ignoreLabel && <Label field={field} label={options?.label} />}
+      {!ignoreLabel && (
+        <AutoFormLabel typeLabel={!hideFieldType && getTypeLabel(field)}>
+          {options?.label ||
+            (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}
+        </AutoFormLabel>
+      )}
+
       {field instanceof protobuf.OneOf ? (
         <OneofField parentName={parentName} oneof={field} options={options} />
       ) : (
