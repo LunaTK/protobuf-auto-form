@@ -24,13 +24,14 @@ const PrimitiveInput: React.FC<InputProps> = ({
   const { control, watch } = useFormContext();
   const getWellKnownComponent = useGetWellKnownComponent();
 
-  const { render } = options ?? {};
+  const { render, rules } = options ?? {};
   if (render) {
     return (
       <Controller
         name={name}
         control={control}
         render={({ field: fieldProps }) => render({ ...fieldProps, watch })!}
+        rules={rules}
       />
     );
   }
@@ -44,6 +45,7 @@ const PrimitiveInput: React.FC<InputProps> = ({
         render={({ field: fieldProps }) => (
           <WellKnownComponent watch={watch} index={index} {...fieldProps} />
         )}
+        rules={rules}
       />
     );
   }

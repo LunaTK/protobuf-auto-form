@@ -23,13 +23,14 @@ const Input: React.FC<InputProps> = ({
   const { control, watch } = useFormContext();
   const name = parentName ? `${parentName}.${field.name}` : field.name;
 
-  const { render } = options ?? {};
+  const { render, rules } = options ?? {};
   if (render) {
     return (
       <Controller
         name={name}
         control={control}
         render={({ field: fieldProps }) => render({ ...fieldProps, watch })!}
+        rules={rules}
       />
     );
   }
