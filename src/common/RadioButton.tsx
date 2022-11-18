@@ -6,14 +6,14 @@ interface Props {
   name: string;
   label?: string;
   defaultChecked?: boolean;
-  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 const RadioButton: React.FC<Props> = ({
   value,
   name,
   label = value,
-  disabled,
+  readOnly,
 }) => {
   const { register } = useFormContext();
   const id = `${name}.${value}`;
@@ -28,7 +28,7 @@ const RadioButton: React.FC<Props> = ({
         className="radio-xs"
         id={id}
         value={value}
-        disabled={disabled}
+        readOnly={readOnly}
         {...register(name)}
       />
       <span className="label-text">{label}</span>

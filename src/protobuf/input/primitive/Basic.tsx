@@ -65,7 +65,7 @@ const BasicInput: React.FC<Props> = ({ type, name, validate, options }) => {
         type={getInputType(type as BasicType)}
         placeholder={type}
         step="any"
-        disabled={options?.disabled}
+        readOnly={options?.readOnly}
       />
       {error && <div className="text-xs text-red-500 p-1">{error.message}</div>}
     </div>

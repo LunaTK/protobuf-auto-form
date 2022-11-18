@@ -25,7 +25,7 @@ const EnumInput: React.FC<Props> = ({ type, name, options }) => {
           value={label}
           name={name}
           key={label}
-          disabled={options?.disabled}
+          readOnly={options?.readOnly}
         />
       ))}
     </div>

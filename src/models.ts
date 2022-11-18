@@ -18,7 +18,7 @@ export interface FieldOptions {
   name: string;
   label?: string;
   render?: React.FunctionComponent<OverriddenFieldProps>;
-  disabled?: boolean;
+  readOnly?: boolean;
   hidden?: boolean;
   flatten?: boolean;
   append?: React.ReactNode;
