@@ -25,7 +25,7 @@
 .af-label {
     @apply text-right inline-flex flex-col;
     grid-column-start: 1;
-    grid-column-start: 2;
+    grid-column-end: 2;
 }
 
 /* div which is a direct child of af-msg-grid */
