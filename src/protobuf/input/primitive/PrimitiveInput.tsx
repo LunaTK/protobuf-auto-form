@@ -5,16 +5,14 @@ import BasicInput, { isBasicType } from './Basic';
 import EnumInput from './Enum';
 import Message from './Message';
 import { useGetWellKnownComponent } from '../../../hooks';
-import { FieldOptions } from '../../../models';
+import { InputProps } from '../../../models';
 
-interface InputProps {
+interface PrimitiveInputProps extends InputProps {
   field: protobuf.Field;
-  name: string;
-  options?: FieldOptions;
   index?: number; // if repeated or map field
 }
 
-const PrimitiveInput: React.FC<InputProps> = ({
+const PrimitiveInput: React.FC<PrimitiveInputProps> = ({
   field,
   options,
   name,

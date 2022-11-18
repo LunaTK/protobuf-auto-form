@@ -41,3 +41,8 @@ export type MapElement<K = string, V = unknown> = {
   $key: K;
   $value: V;
 };
+export interface InputProps {
+  name: string;
+  error?: any;
+  options?: FieldOptions;
+}

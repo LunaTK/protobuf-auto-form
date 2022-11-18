@@ -2,13 +2,11 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFormContext } from 'react-hook-form';
 import RadioButton from '../../../common/RadioButton';
-import { FieldOptions } from '../../../models';
+import { InputProps } from '../../../models';
 import { getInitialEnumValue } from '../../conversion/initial';
 
-interface Props {
+interface Props extends InputProps {
   type: protobuf.Enum;
-  name: string;
-  options?: FieldOptions;
 }
 
 const EnumInput: React.FC<Props> = ({ type, name, options }) => {

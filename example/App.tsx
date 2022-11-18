@@ -58,7 +58,9 @@ const App = () => (
       }}
       initialState={initial}
     >
-      <AutoForm.Field name="title" label="타이틀" />
+      <AutoForm.Field name="title" label="타이틀" rules={{
+        required: '타이틀은 필수입니다.'
+      }}/>
       <Field name="tags" hidden />
 
       <Field name="referrers" label="참조" render={Referrers}>

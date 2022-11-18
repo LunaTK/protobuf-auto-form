@@ -3,12 +3,10 @@ import protobuf from 'protobufjs';
 import Field from '../../Field';
 import { useChildFields } from '../../../hooks';
 import AutoFormField from '../../../AutoFormField';
-import { FieldOptions } from '../../../models';
+import { FieldOptions, InputProps } from '../../../models';
 
-interface Props {
+interface Props extends InputProps {
   type: protobuf.Type;
-  name?: string;
-  options?: FieldOptions;
 }
 
 const useMessage = (type: protobuf.Type) => {

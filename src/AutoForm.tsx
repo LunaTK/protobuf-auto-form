@@ -74,7 +74,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
             );
           })}
         >
-          <Message type={reflectionObj} options={options} />
+          <Message type={reflectionObj} options={options} name="" />
         </form>
       </AutoFormProvider>
     </FormProvider>
