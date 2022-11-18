@@ -33,14 +33,6 @@ export interface ChildFieldProps {
   [k: string]: FieldOptions | undefined;
 }
 
-export type RepeatedElement<T = unknown> = {
-  $value: T;
-};
-
-export type MapElement<K = string, V = unknown> = {
-  $key: K;
-  $value: V;
-};
 export interface InputProps {
   name: string;
   error?: any;

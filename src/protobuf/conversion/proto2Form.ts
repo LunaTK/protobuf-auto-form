@@ -1,6 +1,6 @@
 import protobuf from 'protobufjs';
 import { type ConvertValue, createConverter } from './convert';
-import type { MapElement, RepeatedElement } from '../../models';
+import type { MapElement, RepeatedElement } from '../../types/autoFormState';
 
 const decodeValue: ConvertValue = (decode, value, field, options) => {
   if (field.repeated) {
