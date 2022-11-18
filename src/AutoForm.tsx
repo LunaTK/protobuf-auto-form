@@ -23,7 +23,7 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
     messageType,
     children,
     onSubmitValid,
-    initialState = {},
+    initialState,
     hideFieldType = false,
     camelCaseLabel = true,
     wellKnownFields = {},
@@ -47,8 +47,11 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
   }, [namespace, messageType]);
   const methods = useForm();
   useEffect(() => {
-    const initial = proto2Form(context)(initialState, reflectionObj, options);
-    fillInitialValues(initial, reflectionObj);
+    const initial = proto2Form(context)(
+      fillInitialValues(initialState ?? {}, reflectionObj),
+      reflectionObj,
+      options,
+    );
     console.log('<AutoForm> initial', initial);
     methods.reset(initial);
   }, [initialState]);

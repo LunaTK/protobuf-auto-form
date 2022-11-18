@@ -126,9 +126,9 @@ message C {
     const bType = namespace.resolveAll().lookupType('B');
     const populatedA = fillInitialValues({}, aType);
     const populatedB = fillInitialValues({}, bType);
-    expect(populatedB).toEqual({ c: { x: 0} })
-    expect(populatedA).toEqual({b: { c: { x: 0} }})
-  })
+    expect(populatedB).toEqual({ c: { x: 0 } });
+    expect(populatedA).toEqual({ b: { c: { x: 0 } } });
+  });
 
   it('populate default values', () => {
     const populated = fillInitialValues({}, messageType);
