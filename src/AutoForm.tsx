@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
-import { FormProvider, useForm } from 'react-hook-form';
+import { DefaultValues, FormProvider, useForm } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
@@ -12,7 +12,7 @@ import { fillInitialValues } from './protobuf/conversion/initial';
 export type AutoFormProps<T = any> = {
   namespace: protobuf.Namespace;
   messageType: string;
-  initialState?: T;
+  initialState?: DefaultValues<T>;
   onSubmitValid?: (values: T) => void;
 } & React.HTMLAttributes<HTMLFormElement> &
   Partial<AutoFormContext>;
