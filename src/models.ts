@@ -1,4 +1,4 @@
-import { UseFormWatch } from 'react-hook-form';
+import type { RegisterOptions, UseFormWatch } from 'react-hook-form';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
@@ -24,6 +24,7 @@ export interface FieldOptions {
   append?: React.ReactNode;
   prepend?: React.ReactNode;
   children?: React.ReactNode;
+  rules?: RegisterOptions<Record<string, unknown>, string>;
 }
 
 export interface ChildFieldProps {

@@ -54,8 +54,13 @@ const BasicInput: React.FC<Props> = ({ type, name, validate, options }) => {
           type !== 'bool' ? 'flex-1' : ''
         } ${error ? 'input-error' : ''}`}
         {...register(name, {
-          required: { value: type !== 'bool', message: 'Empty input.' },
-          validate,
+          ...options?.rules,
+          validate: {
+            ...(typeof options?.rules?.validate === 'function'
+              ? { userDefined: options?.rules?.validate }
+              : options?.rules?.validate),
+            ...(validate && { autoformValidation: validate }),
+          },
         })}
         type={getInputType(type as BasicType)}
         placeholder={type}
