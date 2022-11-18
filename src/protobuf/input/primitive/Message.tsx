@@ -47,12 +47,12 @@ const useRestFields = (
 };
 
 const Message: React.FC<Props> = ({ type, name = '', options }) => {
-  const { fieldOptions, nodes, fieldNodes } = useChildFields(options);
+  const { nodes, fieldNodes } = useChildFields(options);
   const { fields, oneofs, hasOneAndOnlyField } = useMessage(type);
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
-  const restFields = useRestFields(fields, fieldNodes);
+  const restFields = useRestFields(type.fieldsArray, fieldNodes);
 
   const content = (
     <>
@@ -72,7 +72,6 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
             />
           );
         } else if (n.type === AutoFormField.Rest) {
-          console.log({restFields, fieldOptions})
           return restFields.map((field) => (
             <Field
               parentName={name}
