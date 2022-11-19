@@ -26,9 +26,12 @@ export type AutoFormProps<T = any> = {
 
 type AutoForm<TFieldValues extends FieldValues> = {
   (props: AutoFormProps<TFieldValues>): JSX.Element;
-  Field: <TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>(
-    props: FieldOptions<TFieldValues, TName>,
-  ) => JSX.Element;
+  Field: {
+    <TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>(
+      props: FieldOptions<TFieldValues, TName>,
+    ): JSX.Element;
+    Rest: React.FC;
+  };
 };
 
 export const createAutoForm = <

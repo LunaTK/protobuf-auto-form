@@ -1,7 +1,6 @@
 import React from 'react';
-import { FieldName, FieldPath, FieldValues } from 'react-hook-form';
+import { FieldPath, FieldValues } from 'react-hook-form';
 import { FieldOptions } from './models';
-import { AutoFormState } from './types/autoFormState';
 
 /**
  * This component delivers it's props to internal protobuf representation.

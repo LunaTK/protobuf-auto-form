@@ -3,33 +3,13 @@ import protobuf from 'protobufjs';
 import descriptor from './proto.json';
 import { createAutoForm } from '../src/AutoForm';
 import { OverriddenFieldProps } from '../src/models';
+import { Article__Output } from './pb/Article';
 
 const namespace = protobuf.Namespace.fromJSON('', descriptor);
 
-const { AutoForm } = createAutoForm<typeof initial>();
+const { AutoForm } = createAutoForm<Article__Output>();
 
 const { Field } = AutoForm;
-
-const Comment: React.VFC<
-  OverriddenFieldProps<{
-    author: string;
-    content: string;
-
-    _something: 's1' | 'type';
-    s1?: string;
-    type?: 'SIMPLE' | 'DETAILED';
-  }>
-> = ({ value, onChange }) => (
-  <div>
-    <input
-      placeholder="Author"
-      className="text-red-500"
-      value={value?.author}
-      onChange={(e) => onChange({ ...value, author: e.target.value })}
-    />
-    <div>Content: {value?.content}</div>
-  </div>
-);
 
 const Referrers: React.VFC<
   OverriddenFieldProps<{
@@ -59,9 +39,6 @@ const App = () => (
       onSubmitValid={(values) => {
         console.log(values);
       }}
-      initialState={{
-        author: 'userId',
-      }}
     >
       <AutoForm.Field
         name="title"
@@ -70,6 +47,15 @@ const App = () => (
           required: '타이틀은 필수입니다.',
         }}
       />
+
+      <AutoForm.Field name="detail">
+        <AutoForm.Field name="detail.address" label="Your Address" />
+
+        <AutoForm.Field name="detail.role" label="Your Role" flatten />
+        <AutoForm.Field.Rest />
+      </AutoForm.Field>
+
+      <AutoForm.Field.Rest />
 
       <button type="submit" className="btn btn-xs btn-accent">
         Submit
