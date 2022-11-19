@@ -1,4 +1,11 @@
-import type { RegisterOptions, UseFormWatch } from 'react-hook-form';
+import type {
+  FieldPath,
+  FieldPathValue,
+  FieldValues,
+  RegisterOptions,
+  UseFormWatch,
+} from 'react-hook-form';
+import { AutoFormState } from './types/autoFormState';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
@@ -14,17 +21,22 @@ export interface OverriddenFieldProps<T = any> {
   name: string;
 }
 
-export interface FieldOptions {
-  name: string;
+export interface FieldOptions<
+  TFieldValues extends FieldValues = FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> {
+  name: TFieldName;
   label?: string;
-  render?: React.FunctionComponent<OverriddenFieldProps>;
+  render?: React.FC<
+    OverriddenFieldProps<FieldPathValue<TFieldValues, TFieldName>>
+  >;
   readOnly?: boolean;
   hidden?: boolean;
   flatten?: boolean;
   append?: React.ReactNode;
   prepend?: React.ReactNode;
   children?: React.ReactNode;
-  rules?: RegisterOptions<Record<string, unknown>, string>;
+  rules?: RegisterOptions<TFieldValues, TFieldName>;
 }
 
 export interface ChildFieldProps {

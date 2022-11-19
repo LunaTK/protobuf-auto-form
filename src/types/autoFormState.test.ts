@@ -12,6 +12,7 @@ type T6 = AutoFormState<{
   maps: { [key: string]: Foo };
 }>;
 
+// TODO: Compile this file only when the test is run.
 const t1: T1 = 123;
 const t2: T2 = { foo: 'bar' };
 const t3: T3 = { list: [{ $value: { foo: 'bar' } }] };
