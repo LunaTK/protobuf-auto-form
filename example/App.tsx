@@ -55,6 +55,12 @@ const App = () => (
         <AutoForm.Field.Rest />
       </AutoForm.Field>
 
+      <AutoForm.Field name="comments" label="코멘트">
+        <AutoForm.Field name="comments.0">
+          <AutoForm.Field name="comments.0.content" label="코멘트 내용" />
+        </AutoForm.Field>
+      </AutoForm.Field>
+
       <AutoForm.Field.Rest />
 
       <button type="submit" className="btn btn-xs btn-accent">

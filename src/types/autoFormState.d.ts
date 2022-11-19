@@ -1,3 +1,7 @@
+export type KeyId = '$key';
+export type ValueId = '$value';
+export type RepeatId = KeyId | ValueId;
+
 export type RepeatedElement<T = unknown> = {
   $value: T;
 };

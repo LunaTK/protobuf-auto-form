@@ -5,7 +5,7 @@ import type {
   RegisterOptions,
   UseFormWatch,
 } from 'react-hook-form';
-import { AutoFormState } from './types/autoFormState';
+import { RepeatId } from './types/autoFormState';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
@@ -25,7 +25,7 @@ export interface FieldOptions<
   TFieldValues extends FieldValues = FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > {
-  name: TFieldName;
+  name: TFieldName | RepeatId;
   label?: string;
   render?: React.FC<
     OverriddenFieldProps<FieldPathValue<TFieldValues, TFieldName>>

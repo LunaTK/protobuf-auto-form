@@ -14,7 +14,12 @@ export const isAutoFormField = (
 
 const parseFieldName = (name: string) => {
   const parts = name.split('.');
-  return parts[parts.length - 1];
+  const last = parts[parts.length - 1];
+  if (!Number.isNaN(Number(last))) {
+    return '$value';
+  }
+
+  return last;
 };
 
 const parseNodes = (children: ReactNode) => {
