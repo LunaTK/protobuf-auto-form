@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import {
   DefaultValues,
-  FieldPath,
   FieldValues,
   FormProvider,
   useForm,
@@ -12,9 +11,7 @@ import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
 import { form2Proto, proto2Form } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
-import AutoFormField from './AutoFormField';
 import { fillInitialValues } from './protobuf/conversion/initial';
-import { FieldOptions } from './models';
 
 export type AutoFormProps<T = any> = {
   namespace: protobuf.Namespace;
@@ -24,83 +21,77 @@ export type AutoFormProps<T = any> = {
 } & React.HTMLAttributes<HTMLFormElement> &
   Partial<AutoFormContext>;
 
-type AutoForm<TFieldValues extends FieldValues> = {
-  (props: AutoFormProps<TFieldValues>): JSX.Element;
-  Field: {
-    <TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>(
-      props: FieldOptions<TFieldValues, TName>,
-    ): JSX.Element;
-    Rest: React.FC;
+/**
+ * @deprecated Dont use this directly, use `createAutoForm` instead.
+ *
+ * You cannot make use of `AutoFormField` withouth `createAutoForm`.
+ *
+ * If fully auto-generated form is enough, you may use this alone.
+ */
+const AutoForm = <TFieldValues extends FieldValues>(
+  props: AutoFormProps<TFieldValues>,
+) => {
+  const {
+    namespace,
+    messageType,
+    children,
+    onSubmitValid,
+    initialState,
+    hideFieldType = false,
+    camelCaseLabel = true,
+    wellKnownFields = {},
+    wellKnownTypes = {},
+    ...rest
+  } = props;
+
+  const context: AutoFormContext = {
+    hideFieldType,
+    camelCaseLabel,
+    wellKnownFields,
+    wellKnownTypes,
   };
-};
-
-export const createAutoForm = <
-  TFieldValues extends FieldValues = FieldValues,
->() => {
-  const AutoForm: AutoForm<TFieldValues> = (props) => {
-    const {
-      namespace,
-      messageType,
-      children,
-      onSubmitValid,
-      initialState,
-      hideFieldType = false,
-      camelCaseLabel = true,
-      wellKnownFields = {},
-      wellKnownTypes = {},
-      ...rest
-    } = props;
-
-    const context: AutoFormContext = {
-      hideFieldType,
-      camelCaseLabel,
-      wellKnownFields,
-      wellKnownTypes,
-    };
-    const options = { children, name: '' };
-    const reflectionObj = useMemo(() => {
-      try {
-        return namespace.resolveAll().lookupType(messageType);
-      } catch (e) {
-        return null;
-      }
-    }, [namespace, messageType]);
-    const methods = useForm();
-    useEffect(() => {
-      const initial = proto2Form(context)(
-        fillInitialValues(initialState ?? {}, reflectionObj),
-        reflectionObj,
-        options,
-      );
-      console.log('<AutoForm> initial', initial);
-      methods.reset(initial);
-    }, [initialState]);
-
-    if (!reflectionObj) {
-      return (
-        <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>
-      );
+  const options = { children, name: '' };
+  const reflectionObj = useMemo(() => {
+    try {
+      return namespace.resolveAll().lookupType(messageType);
+    } catch (e) {
+      return null;
     }
-
-    return (
-      <FormProvider {...methods}>
-        <AutoFormProvider value={context}>
-          <form
-            {...rest}
-            onSubmit={methods.handleSubmit((values) => {
-              console.log('AutoForm Submitted : ', values);
-              onSubmitValid?.(
-                form2Proto(context)(values, reflectionObj, options),
-              );
-            })}
-          >
-            <Message type={reflectionObj} options={options} name="" />
-          </form>
-        </AutoFormProvider>
-      </FormProvider>
+  }, [namespace, messageType]);
+  const methods = useForm();
+  useEffect(() => {
+    const initial = proto2Form(context)(
+      fillInitialValues(initialState ?? {}, reflectionObj),
+      reflectionObj,
+      options,
     );
-  };
-  AutoForm.Field = AutoFormField;
+    console.log('<AutoForm> initial', initial);
+    methods.reset(initial);
+  }, [initialState]);
 
-  return { AutoForm };
+  if (!reflectionObj) {
+    return (
+      <ErrorAlert>{`Cannot find message type: ${messageType}`}</ErrorAlert>
+    );
+  }
+
+  return (
+    <FormProvider {...methods}>
+      <AutoFormProvider value={context}>
+        <form
+          {...rest}
+          onSubmit={methods.handleSubmit((values) => {
+            console.log('AutoForm Submitted : ', values);
+            onSubmitValid?.(
+              form2Proto(context)(values, reflectionObj, options),
+            );
+          })}
+        >
+          <Message type={reflectionObj} options={options} name="" />
+        </form>
+      </AutoFormProvider>
+    </FormProvider>
+  );
 };
+
+export default AutoForm;

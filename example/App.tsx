@@ -1,15 +1,13 @@
 import React from 'react';
 import protobuf from 'protobufjs';
 import descriptor from './proto.json';
-import { createAutoForm } from '../src/AutoForm';
 import { OverriddenFieldProps } from '../src/models';
 import { Article__Output } from './pb/Article';
+import createAutoForm from '../src/createAutoForm';
 
 const namespace = protobuf.Namespace.fromJSON('', descriptor);
 
-const { AutoForm } = createAutoForm<Article__Output>();
-
-const { Field } = AutoForm;
+const { AutoForm, Field, FieldUntyped } = createAutoForm<Article__Output>();
 
 const Referrers: React.VFC<
   OverriddenFieldProps<{
@@ -40,7 +38,7 @@ const App = () => (
         console.log(values);
       }}
     >
-      <AutoForm.Field
+      <Field
         name="title"
         label="타이틀"
         rules={{
@@ -48,20 +46,24 @@ const App = () => (
         }}
       />
 
-      <AutoForm.Field name="detail">
-        <AutoForm.Field name="detail.address" label="Your Address" />
+      <Field name="detail">
+        <Field name="detail.address" label="Your Address" />
 
-        <AutoForm.Field name="detail.role" label="Your Role" flatten />
-        <AutoForm.Field.Rest />
-      </AutoForm.Field>
+        <Field name="detail.role" label="Your Role" flatten />
+        <Field.Rest />
+      </Field>
 
-      <AutoForm.Field name="comments" label="코멘트">
-        <AutoForm.Field name="comments.0">
-          <AutoForm.Field name="comments.0.content" label="코멘트 내용" />
-        </AutoForm.Field>
-      </AutoForm.Field>
+      <Field name="comments" label="코멘트">
+        <Field name="$value">
+          <Field name="comments.0.content" label="코멘트 내용" />
+        </Field>
+      </Field>
 
-      <AutoForm.Field.Rest />
+      <FieldUntyped name="referrers">
+        <FieldUntyped name="$key" label="Test Key"></FieldUntyped>
+      </FieldUntyped>
+
+      <Field.Rest />
 
       <button type="submit" className="btn btn-xs btn-accent">
         Submit
