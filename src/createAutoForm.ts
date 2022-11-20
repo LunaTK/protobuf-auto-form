@@ -2,9 +2,10 @@ import { FieldPath, FieldValues } from "react-hook-form";
 import AutoForm from "./AutoForm";
 import AutoFormField from "./AutoFormField";
 import { FieldOptions } from "./models";
+import { AFFieldPath } from "./types/path";
 
 type TypedField<TFieldValues extends FieldValues> = {
-  <TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>(
+  <TName extends AFFieldPath<TFieldValues> = AFFieldPath<TFieldValues>>(
     props: FieldOptions<TFieldValues, TName>,
   ): JSX.Element;
   Rest: React.FC;
@@ -19,5 +20,3 @@ export const createAutoForm = <
 
   return { AutoForm: TAutoForm, Field: TField, FieldUntyped: TFieldUntyped };
 };
-
-export default createAutoForm;

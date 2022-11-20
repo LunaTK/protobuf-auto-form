@@ -41,7 +41,9 @@ const useRestFields = (
   fields: protobuf.Field[],
   fieldNodes: ReactElement<FieldOptions>[],
 ) => {
-  const fieldNodeSet = new Set(fieldNodes.map(({ props }) => props.name));
+  const fieldNodeSet = new Set(
+    fieldNodes.map(({ props }) => props.name as string),
+  );
   return fields.filter((field) => !fieldNodeSet.has(field.name));
 };
 

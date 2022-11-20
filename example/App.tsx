@@ -3,7 +3,9 @@ import protobuf from 'protobufjs';
 import descriptor from './proto.json';
 import { OverriddenFieldProps } from '../src/models';
 import { Article__Output } from './pb/Article';
-import createAutoForm from '../src/createAutoForm';
+import { createAutoForm } from '../src/createAutoForm';
+import { AFFieldPath } from '../src/types/path';
+import { FieldPath } from 'react-hook-form';
 
 const namespace = protobuf.Namespace.fromJSON('', descriptor);
 
@@ -16,6 +18,8 @@ const Referrers: React.VFC<
 > = ({ value }) => {
   return <>{JSON.stringify(value, null, 2)}</>;
 };
+
+const t: AFFieldPath<Article__Output> = 'comments';
 
 const initial = {
   title: 'hello',
@@ -54,14 +58,14 @@ const App = () => (
       </Field>
 
       <Field name="comments" label="코멘트">
-        <Field name="$value">
-          <Field name="comments.0.content" label="코멘트 내용" />
+        <Field name="comments.$value">
+          <Field name="comments.$value.content" label="코멘트 내용" />
         </Field>
       </Field>
 
-      <FieldUntyped name="referrers">
-        <FieldUntyped name="$key" label="Test Key"></FieldUntyped>
-      </FieldUntyped>
+      <Field name="referrers">
+        <Field name="referrers.$key" label="Test Key"></Field>
+      </Field>
 
       <Field.Rest />
 

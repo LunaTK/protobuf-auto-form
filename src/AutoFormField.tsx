@@ -1,6 +1,7 @@
 import React from 'react';
-import { FieldPath, FieldValues } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 import { FieldOptions } from './models';
+import { AFFieldPath } from './types/path';
 
 /**
  * AutoFormField allows you to customize each field in AutoForm.
@@ -10,14 +11,17 @@ import { FieldOptions } from './models';
  * @param props Render options of protobuf field.
  * @returns null
  */
-const AutoFormField = <
-  TFieldValues extends FieldValues,
-  TFieldName extends FieldPath<TFieldValues>,
->(
-  props: FieldOptions<TFieldValues, TFieldName>,
-) => <>{'this should not be rendered'}</>;
+const AutoFormField: {
+  <
+    TFieldValues extends FieldValues,
+    TFieldName extends AFFieldPath<TFieldValues> = AFFieldPath<TFieldValues>,
+  >(
+    props: FieldOptions<TFieldValues, TFieldName>,
+  ): JSX.Element;
+  Rest: React.VFC;
+} = (props) => <>{'this should not be rendered'}</>;
 
-const AutoFormRestFields: React.FC = (props: {}) => {
+const AutoFormRestFields: React.VFC = (props: {}) => {
   console.warn('This component should not be rendered');
   return null;
 };
