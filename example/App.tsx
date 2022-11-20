@@ -4,7 +4,7 @@ import descriptor from './proto.json';
 import { OverriddenFieldProps } from '../src/models';
 import { Article__Output } from './pb/Article';
 import { createAutoForm } from '../src/createAutoForm';
-import { AFFieldPath } from '../src/types/path';
+import { AfFieldPath, AfFieldPathValue, Path } from '../src/types/path';
 import { FieldPath } from 'react-hook-form';
 
 const namespace = protobuf.Namespace.fromJSON('', descriptor);
@@ -18,8 +18,6 @@ const Referrers: React.VFC<
 > = ({ value }) => {
   return <>{JSON.stringify(value, null, 2)}</>;
 };
-
-const t: AFFieldPath<Article__Output> = 'comments';
 
 const initial = {
   title: 'hello',

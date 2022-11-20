@@ -4,7 +4,7 @@ import type {
   UseFormWatch,
   Validate,
 } from 'react-hook-form';
-import { AFFieldPath, AFFieldPathValue } from './types/path';
+import { AfFieldPath, AfFieldPathValue } from './types/path';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
@@ -22,12 +22,12 @@ export interface OverriddenFieldProps<T = any> {
 
 export interface FieldOptions<
   TFieldValues extends FieldValues = any,
-  TFieldName extends AFFieldPath<TFieldValues> = AFFieldPath<TFieldValues>,
+  TFieldName extends AfFieldPath<TFieldValues> = AfFieldPath<TFieldValues>,
 > {
   name: TFieldName;
   label?: string;
   render?: React.FC<
-    OverriddenFieldProps<AFFieldPathValue<TFieldValues, TFieldName>>
+    OverriddenFieldProps<AfFieldPathValue<TFieldValues, TFieldName>>
   >;
   readOnly?: boolean;
   hidden?: boolean;
@@ -52,10 +52,10 @@ export interface InputProps {
 
 export type AfRegisterOptions<
   TFieldValues extends FieldValues,
-  TFieldName extends AFFieldPath<TFieldValues>,
+  TFieldName extends AfFieldPath<TFieldValues>,
 > = Omit<RegisterOptions, 'validate' | 'value'> & {
   validate?:
-    | Validate<AFFieldPathValue<TFieldValues, TFieldName>>
-    | Record<string, Validate<AFFieldPathValue<TFieldValues, TFieldName>>>;
-  value?: AFFieldPathValue<TFieldValues, TFieldName>;
+    | Validate<AfFieldPathValue<TFieldValues, TFieldName>>
+    | Record<string, Validate<AfFieldPathValue<TFieldValues, TFieldName>>>;
+  value?: AfFieldPathValue<TFieldValues, TFieldName>;
 };

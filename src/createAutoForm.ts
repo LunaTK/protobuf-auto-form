@@ -2,10 +2,10 @@ import { FieldPath, FieldValues } from "react-hook-form";
 import AutoForm from "./AutoForm";
 import AutoFormField from "./AutoFormField";
 import { FieldOptions } from "./models";
-import { AFFieldPath } from "./types/path";
+import { AfFieldPath } from "./types/path";
 
 type TypedField<TFieldValues extends FieldValues> = {
-  <TName extends AFFieldPath<TFieldValues> = AFFieldPath<TFieldValues>>(
+  <TName extends AfFieldPath<TFieldValues> = AfFieldPath<TFieldValues>>(
     props: FieldOptions<TFieldValues, TName>,
   ): JSX.Element;
   Rest: React.FC;

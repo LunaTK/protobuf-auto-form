@@ -39,7 +39,7 @@ export type Path<T> = T extends ReadonlyArray<infer V>
       [K in keyof T]-?: PathImpl<K & string, T[K]>;
     }[keyof T];
 
-export type AFFieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>;
+export type AfFieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>;
 
 type PathValue<T, P extends Path<T>> = T extends any
   ? P extends `${infer K}.${infer R}`
@@ -61,7 +61,7 @@ type PathValue<T, P extends Path<T>> = T extends any
     : never
   : never;
 
-export type AFFieldPathValue<
+export type AfFieldPathValue<
   TFieldValues extends FieldValues,
-  TFieldPath extends AFFieldPath<TFieldValues>,
+  TFieldPath extends AfFieldPath<TFieldValues>,
 > = PathValue<TFieldValues, TFieldPath>;

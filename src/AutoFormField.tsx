@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldValues } from 'react-hook-form';
 import { FieldOptions } from './models';
-import { AFFieldPath } from './types/path';
+import { AfFieldPath } from './types/path';
 
 /**
  * AutoFormField allows you to customize each field in AutoForm.
@@ -14,7 +14,7 @@ import { AFFieldPath } from './types/path';
 const AutoFormField: {
   <
     TFieldValues extends FieldValues,
-    TFieldName extends AFFieldPath<TFieldValues> = AFFieldPath<TFieldValues>,
+    TFieldName extends AfFieldPath<TFieldValues> = AfFieldPath<TFieldValues>,
   >(
     props: FieldOptions<TFieldValues, TFieldName>,
   ): JSX.Element;
