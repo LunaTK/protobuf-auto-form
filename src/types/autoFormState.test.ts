@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import type { AutoFormState } from './autoFormState';
 
 type Foo = { foo: string };
@@ -22,3 +23,14 @@ const t6: T6 = {
   repeateds: [{ $value: 123 }],
   maps: [{ $key: 'foo', $value: { foo: 'bar' } }],
 };
+
+describe('AutoForm internal representation', () => {
+  it('compiled', () => {
+    expect(t1).toBe(t1);
+    expect(t2).toBe(t2);
+    expect(t3).toBe(t3);
+    expect(t4).toBe(t4);
+    expect(t5).toBe(t5);
+    expect(t6).toBe(t6);
+  });
+});
