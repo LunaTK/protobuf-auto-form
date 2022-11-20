@@ -1,9 +1,4 @@
-import type {
-  FieldPathValue,
-  FieldValues,
-  IsFlatObject,
-  Primitive,
-} from 'react-hook-form';
+import type { FieldValues, Primitive } from 'react-hook-form';
 import type {
   IsTuple,
   TupleKeys,
@@ -30,7 +25,7 @@ type PathImpl<K extends string | number, V> = V extends Primitive
   ? `${K}`
   : `${K}` | `${K}.${Path<V>}`;
 
-type Path<T> = T extends ReadonlyArray<infer V>
+export type Path<T> = T extends ReadonlyArray<infer V>
   ? IsTuple<T> extends true
     ? {
         [K in TupleKeys<T>]-?: PathImpl<K & string, T[K]>;
@@ -45,3 +40,28 @@ type Path<T> = T extends ReadonlyArray<infer V>
     }[keyof T];
 
 export type AFFieldPath<TFieldValues extends FieldValues> = Path<TFieldValues>;
+
+type PathValue<T, P extends Path<T>> = T extends any
+  ? P extends `${infer K}.${infer R}`
+    ? K extends keyof T
+      ? R extends Path<T[K]>
+        ? PathValue<T[K], R>
+        : never
+      : K extends ValueId
+      ? T extends ReadonlyArray<infer V>
+        ? PathValue<V, R & Path<V>>
+        : never
+      : never
+    : P extends keyof T
+    ? T[P]
+    : P extends ValueId
+    ? T extends ReadonlyArray<infer V>
+      ? V
+      : never
+    : never
+  : never;
+
+export type AFFieldPathValue<
+  TFieldValues extends FieldValues,
+  TFieldPath extends AFFieldPath<TFieldValues>,
+> = PathValue<TFieldValues, TFieldPath>;
