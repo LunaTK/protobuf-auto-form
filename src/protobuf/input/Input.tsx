@@ -8,7 +8,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 interface InputProps {
   field: protobuf.Field;
-  parentName: string;
+  name: string;
   ignoreRepeatAndMap?: boolean;
   options?: FieldOptions;
 }
@@ -16,12 +16,11 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
   field,
   options,
-  parentName,
+  name,
   ignoreRepeatAndMap,
 }) => {
   const { repeated } = field;
   const { control, watch } = useFormContext();
-  const name = parentName ? `${parentName}.${field.name}` : field.name;
 
   const { render, rules } = options ?? {};
   if (render) {

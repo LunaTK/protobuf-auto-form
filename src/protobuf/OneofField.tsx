@@ -5,6 +5,7 @@ import RadioButton from '../common/RadioButton';
 import Input from './input/Input';
 import { FieldOptions } from '../models';
 import { useChildFields } from '../hooks';
+import { join } from '../utils';
 
 interface OneofProps {
   parentName: string;
@@ -35,7 +36,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
           />
           {selected === f.name && (
             <Input
-              parentName={parentName}
+              name={join(parentName, f.name)}
               field={f}
               options={fieldOptions[f.name]}
             />
