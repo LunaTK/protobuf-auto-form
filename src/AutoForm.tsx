@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 import protobuf from 'protobufjs';
-import { DefaultValues, FormProvider, useForm } from 'react-hook-form';
+import {
+  DefaultValues,
+  FieldValues,
+  FormProvider,
+  useForm,
+} from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
 import { form2Proto, proto2Form } from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
-import AutoFormField from './AutoFormField';
 import { fillInitialValues } from './protobuf/conversion/initial';
 
 export type AutoFormProps<T = any> = {
@@ -17,7 +21,16 @@ export type AutoFormProps<T = any> = {
 } & React.HTMLAttributes<HTMLFormElement> &
   Partial<AutoFormContext>;
 
-const AutoForm = <T,>(props: AutoFormProps<T>) => {
+/**
+ * @deprecated Dont use this directly, use `createAutoForm` instead.
+ *
+ * You cannot make use of `AutoFormField` withouth `createAutoForm`.
+ *
+ * If fully auto-generated form is enough, you may use this alone.
+ */
+const AutoForm = <TFieldValues extends FieldValues>(
+  props: AutoFormProps<TFieldValues>,
+) => {
   const {
     namespace,
     messageType,
@@ -80,7 +93,5 @@ const AutoForm = <T,>(props: AutoFormProps<T>) => {
     </FormProvider>
   );
 };
-
-AutoForm.Field = AutoFormField;
 
 export default AutoForm;

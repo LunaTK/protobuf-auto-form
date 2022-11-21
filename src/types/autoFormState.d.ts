@@ -1,3 +1,9 @@
+import type { Primitive } from 'react-hook-form';
+
+export type KeyId = '$key';
+export type ValueId = '$value';
+export type RepeatId = KeyId | ValueId;
+
 export type RepeatedElement<T = unknown> = {
   $value: T;
 };
@@ -18,10 +24,10 @@ export type AutoFormState<T extends any> = T extends Record<string, any>
   ? {
       [K in keyof T]: T[K] extends (infer U)[]
         ? RepeatedElement<U>[]
-        : T[K] extends Record<string | number, any>
-        ? number extends keyof T[K]
-          ? MapElement<Calibrate<keyof T[K]>, T[K][keyof T[K]]>[]
-          : AutoFormState<T[K]>
-        : T[K];
+        : T[K] extends Primitive
+        ? T[K]
+        : number extends keyof T[K]
+        ? MapElement<Calibrate<keyof T[K]>, T[K][keyof T[K]]>[]
+        : AutoFormState<T[K]>;
     }
   : T;

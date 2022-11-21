@@ -1,9 +1,10 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { isValidElement, ReactElement, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../../Field';
 import { useChildFields } from '../../../hooks';
 import AutoFormField from '../../../AutoFormField';
 import { FieldOptions, InputProps } from '../../../models';
+import { isAutoFormField } from '../../../childField';
 
 interface Props extends InputProps {
   type: protobuf.Type;
@@ -40,8 +41,20 @@ const useRestFields = (
   fields: protobuf.Field[],
   fieldNodes: ReactElement<FieldOptions>[],
 ) => {
-  const fieldNodeSet = new Set(fieldNodes.map(({ props }) => props.name));
+  const fieldNodeSet = new Set(
+    fieldNodes.map(({ props }) => props.name as string),
+  );
   return fields.filter((field) => !fieldNodeSet.has(field.name));
+};
+
+const getFieldType = (type: protobuf.Type, name: string) => {
+  if (type.fields?.[name]) {
+    return type.fields?.[name];
+  }
+  if (type.oneofs?.[name]) {
+    return type.oneofs?.[name];
+  }
+  return undefined;
 };
 
 const Message: React.FC<Props> = ({ type, name = '', options }) => {
@@ -56,10 +69,16 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
     <>
       {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
       {(nodes.length > 0 ? nodes : [<AutoFormField.Rest />]).map((n) => {
-        if (n.type === AutoFormField) {
-          const fieldOption = n.props as FieldOptions;
-          const field =
-            type.fields[fieldOption.name] || type.oneofs[fieldOption.name];
+        if (!isValidElement(n)) return n;
+
+        if (isAutoFormField(n)) {
+          const fieldOption = n.props;
+          const field = getFieldType(type, fieldOption.name);
+          if (!field) {
+            console.warn('Unknown field', fieldOption.name);
+            return null;
+          }
+
           return (
             <Field
               parentName={name}

@@ -1,21 +1,31 @@
 import React from 'react';
+import { FieldValues } from 'react-hook-form';
 import { FieldOptions } from './models';
+import { AfFieldPath } from './types/path';
 
 /**
- * This component delivers it's props to internal protobuf representation.
+ * AutoFormField allows you to customize each field in AutoForm.
  *
- * @param props Render options for protobuf fields
+ * It delivers it's props to internal protobuf representation.
+ *
+ * @param props Render options of protobuf field.
  * @returns null
  */
-const AutoFormField = (props: FieldOptions) => (
-  <>{'this should not be rendered'}</>
-);
+const AutoFormField: {
+  <
+    TFieldValues extends FieldValues,
+    TFieldName extends AfFieldPath<TFieldValues> = AfFieldPath<TFieldValues>,
+  >(
+    props: FieldOptions<TFieldValues, TFieldName>,
+  ): JSX.Element;
+  Rest: React.VFC;
+} = (props) => <>{'this should not be rendered'}</>;
 
-const AutoFormRestFields: React.FC = (props: {}) => {
+const AutoFormRestFields: React.VFC = (props: {}) => {
   console.warn('This component should not be rendered');
   return null;
 };
 
-AutoFormField.Rest = AutoFormRestFields
+AutoFormField.Rest = AutoFormRestFields;
 
 export default AutoFormField;
