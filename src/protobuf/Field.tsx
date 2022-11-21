@@ -25,6 +25,9 @@ const getTypeLabel = (field: Props['field']) => {
   if (field instanceof protobuf.MapField) {
     return `map<${field.keyType}, ${field.type}>`;
   }
+  if (field.repeated) {
+    return `repeated<${field.type}>`;
+  }
   return field.type;
 };
 
