@@ -4,7 +4,7 @@ import RepeatedInput from './complex/Repeated';
 import MapInput from './complex/Map';
 import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive/PrimitiveInput';
-import { Controller, useFormContext } from 'react-hook-form';
+import withOverride from '../../hoc/withOverride';
 
 interface InputProps {
   field: protobuf.Field;
@@ -20,19 +20,6 @@ const Input: React.FC<InputProps> = ({
   ignoreRepeatAndMap,
 }) => {
   const { repeated } = field;
-  const { control, watch } = useFormContext();
-
-  const { render, rules } = options ?? {};
-  if (render) {
-    return (
-      <Controller
-        name={name}
-        control={control}
-        render={({ field: fieldProps }) => render({ ...fieldProps, watch })!}
-        rules={rules}
-      />
-    );
-  }
 
   if (!ignoreRepeatAndMap && repeated) {
     return <RepeatedInput field={field} name={name} options={options} />;
@@ -51,4 +38,4 @@ const Input: React.FC<InputProps> = ({
   return <PrimitiveInput field={field} name={name} options={options} />;
 };
 
-export default Input;
+export default withOverride(Input);
