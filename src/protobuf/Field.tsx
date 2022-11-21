@@ -7,6 +7,7 @@ import { useAutoForm } from '../context';
 import { FieldOptions } from '../models';
 import withPrependAppend from '../hoc/withPrependAppend';
 import AutoFormLabel from '../AutoFormLabel';
+import { join } from '../utils';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf;
@@ -58,7 +59,11 @@ const Field: React.FC<Props> = ({
       {field instanceof protobuf.OneOf ? (
         <OneofField parentName={parentName} oneof={field} options={options} />
       ) : (
-        <Input parentName={parentName} field={field} options={options} />
+        <Input
+          name={join(parentName, field.name)}
+          field={field}
+          options={options}
+        />
       )}
     </>
   );
