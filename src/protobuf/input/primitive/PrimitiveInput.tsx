@@ -4,7 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import BasicInput, { isBasicType } from './Basic';
 import EnumInput from './Enum';
 import Message from './Message';
-import { useGetWellKnownComponent } from '../../../hooks';
+import { useGetWellKnownComponent } from '../../../hooks/useWellKnownComponent';
 import { InputProps } from '../../../models';
 
 interface PrimitiveInputProps extends InputProps {

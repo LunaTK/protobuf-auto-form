@@ -1,10 +1,9 @@
 import React, { isValidElement, ReactElement, useMemo } from 'react';
 import protobuf from 'protobufjs';
 import Field from '../../Field';
-import { useChildFields } from '../../../hooks';
+import { isAutoFormField, useChildFields } from '../../../hooks';
 import AutoFormField from '../../../AutoFormField';
 import { FieldOptions, InputProps } from '../../../models';
-import { isAutoFormField } from '../../../childField';
 
 interface Props extends InputProps {
   type: protobuf.Type;

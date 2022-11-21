@@ -1,7 +1,6 @@
-import { isValidElement, ReactElement, ReactNode } from 'react';
-import AutoFormField from './AutoFormField';
-import { AutoFormContext } from './context';
-import { ChildFieldProps, FieldOptions } from './models';
+import { isValidElement, ReactElement, ReactNode, useMemo } from 'react';
+import AutoFormField from '../AutoFormField';
+import type { ChildFieldProps, FieldOptions } from '../models';
 
 const asArray = (children: ReactNode): React.ReactNode[] =>
   Array.isArray(children) ? children : [children];
@@ -59,8 +58,6 @@ export const parseChildOptions = (children: ReactNode) => {
   };
 };
 
-export const getWellKnownComponent =
-  ({ wellKnownTypes, wellKnownFields }: AutoFormContext) =>
-  (field: protobuf.Field) =>
-    wellKnownTypes[field.resolvedType?.fullName ?? ''] ??
-    wellKnownFields[field.name ?? ''];
+// TODO: change this into a hook using memo
+export const useChildFields = (props?: FieldOptions) =>
+  useMemo(() => parseChildOptions(props?.children), [props?.children]);

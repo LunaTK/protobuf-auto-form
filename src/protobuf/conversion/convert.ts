@@ -1,6 +1,6 @@
 import protobuf from "protobufjs";
-import { getWellKnownComponent, parseChildOptions } from "../../childField";
 import { AutoFormContext } from "../../context";
+import { parseChildOptions, getWellKnownComponent } from "../../hooks";
 import { FieldOptions } from "../../models";
 import { getInitialValue } from "./initial";
 
