@@ -39,4 +39,4 @@ const Input: React.FC<InputProps> = ({
   return <PrimitiveInput field={field} name={name} options={options} />;
 };
 
-export default withOverride(withValidationResult(Input));
+export default withValidationResult(withOverride(Input));
