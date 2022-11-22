@@ -65,6 +65,7 @@ const MapInput: React.FC<MapProps> = ({ name, field, keyType, options }) => {
   const { append, remove, fields } = useFieldArray({
     control,
     name,
+    rules: options?.rules,
   });
 
   const add = () => {

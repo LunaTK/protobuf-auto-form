@@ -49,13 +49,13 @@ const App = () => (
       />
 
       <Field name="detail">
-        <Field name="detail.address" label="Your Address" />
+        <Field name="detail.address" label="Your Address" rules={{ required: true }} />
 
         <Field name="detail.role" label="Your Role" flatten />
         <Field.Rest />
       </Field>
 
-      <Field name="comments" label="코멘트">
+      <Field name="comments" label="코멘트" rules={{ validate: (value) => value?.length === 1 }}>
         <Field name="comments.$value">
           <Field name="comments.$value.content" label="코멘트 내용" />
         </Field>

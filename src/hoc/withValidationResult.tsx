@@ -11,6 +11,19 @@ const withValidationResult = <T extends InputProps>(Component: React.FC<T>) => {
       formState: { errors },
     } = useFormContext();
     const error = get(errors, props.name);
+    const errorLabel = error && error.message && (
+      <div className="text-xs text-red-500 p-1">{error.message}</div>
+    );
+    const original = Component({ ...props, error });
+
+    if (props.options?.flatten) {
+      return (
+        <>
+          {original}
+          {errorLabel}
+        </>
+      );
+    }
 
     return (
       <div
@@ -19,10 +32,8 @@ const withValidationResult = <T extends InputProps>(Component: React.FC<T>) => {
           error && 'border input-error border-dotted border-red-400 rounded-lg',
         )}
       >
-        {Component({ ...props, error })}
-        {error && (
-          <div className="text-xs text-red-500 p-1">{error.message}</div>
-        )}
+        {original}
+        {errorLabel}
       </div>
     );
   };

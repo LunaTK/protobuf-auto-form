@@ -1,7 +1,6 @@
 import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext, Validate } from 'react-hook-form';
-import withValidationResult from '../../../hoc/withValidationResult';
 import { FieldOptions, InputProps } from '../../../models';
 
 type BasicType = keyof typeof types.basic;
@@ -70,4 +69,4 @@ const BasicInput: React.FC<Props> = ({
   );
 };
 
-export default withValidationResult(BasicInput);
+export default BasicInput;
