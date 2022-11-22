@@ -5,6 +5,7 @@ import MapInput from './complex/Map';
 import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive/PrimitiveInput';
 import withOverride from '../../hoc/withOverride';
+import withValidationResult from '../../hoc/withValidationResult';
 
 interface InputProps {
   field: protobuf.Field;
@@ -38,4 +39,4 @@ const Input: React.FC<InputProps> = ({
   return <PrimitiveInput field={field} name={name} options={options} />;
 };
 
-export default withOverride(Input);
+export default withOverride(withValidationResult(Input));
