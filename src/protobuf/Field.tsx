@@ -49,7 +49,7 @@ const Field: React.FC<Props> = ({
       {!ignoreLabel && (
         <AutoFormLabel
           typeLabel={!hideFieldType && getTypeLabel(field)}
-          required={!!options?.rules?.required}
+          required={!!options?.rules}
         >
           {options?.label ||
             (camelCaseLabel ? field.name : toSpaceSeperated(field.name))}

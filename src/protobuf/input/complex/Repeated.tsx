@@ -20,6 +20,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
   const { append, remove, fields } = useFieldArray({
     control,
     name,
+    rules: options?.rules,
   });
 
   return (

@@ -11,7 +11,7 @@ const withValidationResult = <T extends InputProps>(Component: React.FC<T>) => {
       formState: { errors },
     } = useFormContext();
     const error = get(errors, props.name);
-    const errorLabel = error && (
+    const errorLabel = error && error.message && (
       <div className="text-xs text-red-500 p-1">{error.message}</div>
     );
     const original = Component({ ...props, error });
