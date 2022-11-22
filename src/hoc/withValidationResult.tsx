@@ -3,9 +3,7 @@ import get from 'lodash.get';
 import React from 'react';
 import { InputProps } from '../models';
 
-const withValidationResult = <T extends InputProps>(
-  Component: React.FC<T>,
-) => {
+const withValidationResult = <T extends InputProps>(Component: React.FC<T>) => {
   const Wrapped: React.FC<T> = (props) => {
     const {
       formState: { errors },
@@ -14,7 +12,7 @@ const withValidationResult = <T extends InputProps>(
 
     return (
       <div className="form-control w-auto">
-        <Component {...props} error={error} />
+        {Component({ ...props, error })}
         {error && (
           <div className="text-xs text-red-500 p-1">{error.message}</div>
         )}
