@@ -2,6 +2,7 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useGetWellKnownComponent } from '../hooks';
 import { FieldOptions } from '../models';
+import { makeHocName } from '../utils';
 
 const withOverride = <
   T extends {
@@ -46,7 +47,7 @@ const withOverride = <
 
     return <Component {...props} />;
   };
-  Wrapped.displayName = `withOverride(${Component.name})`;
+  Wrapped.displayName = makeHocName(withOverride, Component);
 
   return Wrapped;
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { FieldOptions } from '../models';
+import { makeHocName } from '../utils';
 
 const withPrependAppend = <T extends { options?: FieldOptions }>(
-  Component: React.FunctionComponent<T>,
+  Component: React.FC<T>,
 ) => {
   const Wrapped: React.FC<T> = (props: T) => {
     const { append, prepend, ...rest } = props.options ?? {};
@@ -15,7 +16,7 @@ const withPrependAppend = <T extends { options?: FieldOptions }>(
       </>
     );
   };
-  Wrapped.displayName = `withPrependAppend(${Component.name})`;
+  Wrapped.displayName = makeHocName(withPrependAppend, Component);
 
   return Wrapped;
 };
