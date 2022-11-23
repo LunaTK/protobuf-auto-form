@@ -12,7 +12,7 @@ import { AutoFormConfig, AutoFormProps } from './models';
 export const createAutoForm = <TFieldValues extends FieldValues>(
   config: AutoFormConfig & { form: UseFormReturn<any> },
 ) => {
-  const AutoForm = (props: AutoFormProps<TFieldValues>) => {
+  const AutoForm: React.FC<AutoFormProps<TFieldValues>> = (props) => {
     const {
       namespace,
       messageType,
@@ -76,6 +76,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
 
   const TField: TypedField<TFieldValues> = AutoFormField;
   const TFieldUntyped: TypedField<Record<string, any>> = AutoFormField;
+  AutoForm.displayName = `AutoForm(${config.messageType})`;
 
   return { AutoForm, Field: TField, FieldUntyped: TFieldUntyped };
 };
