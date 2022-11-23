@@ -28,7 +28,7 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
   const { mode } = useAutoFormCtx();
 
   const nodesWithRest = (() => {
-    if (restFields.length === 0) {
+    if (nodes.length === 0) {
       return [<AutoFormField.Rest />];
     }
     if (mode === 'implicit' && !nodes.some((n) => isAutoFormFieldRest(n))) {
