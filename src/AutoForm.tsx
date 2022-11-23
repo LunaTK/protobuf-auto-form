@@ -46,7 +46,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
         options,
       );
       console.log('<AutoForm> initial', initial);
-      methods.reset(initial);
+      setTimeout(() => methods.reset(initial)); // TODO: why is this necessary?
     }, [initialState]);
 
     if (!reflectionObj) {
