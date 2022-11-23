@@ -29,3 +29,10 @@ const AutoFormRestFields: React.VFC = (props: {}) => {
 AutoFormField.Rest = AutoFormRestFields;
 
 export default AutoFormField;
+
+export type TypedField<TFieldValues extends FieldValues> = {
+  <TName extends AfFieldPath<TFieldValues> = AfFieldPath<TFieldValues>>(
+    props: FieldOptions<TFieldValues, TName>,
+  ): JSX.Element;
+  Rest: React.FC;
+};

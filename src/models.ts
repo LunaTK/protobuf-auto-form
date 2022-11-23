@@ -1,10 +1,12 @@
 import type {
+  DefaultValues,
   FieldValues,
   RegisterOptions,
   UseFormWatch,
   Validate,
 } from 'react-hook-form';
-import { AfFieldPath, AfFieldPathValue } from './types/path';
+import type { AutoFormContext } from './context';
+import type { AfFieldPath, AfFieldPathValue } from './types/path';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
@@ -59,3 +61,13 @@ export type AfRegisterOptions<
     | Record<string, Validate<AfFieldPathValue<TFieldValues, TFieldName>>>;
   value?: AfFieldPathValue<TFieldValues, TFieldName>;
 };
+
+export type AutoFormConfig = {
+  namespace: protobuf.Namespace;
+  messageType: string;
+} & Partial<AutoFormContext>;
+
+export type AutoFormProps<T = any> = {
+  initialState?: DefaultValues<T>;
+  onSubmitValid?: (values: T) => void;
+} & React.HTMLAttributes<HTMLFormElement>;
