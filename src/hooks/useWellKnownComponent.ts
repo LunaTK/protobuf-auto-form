@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import protobuf from 'protobufjs';
-import { AutoFormContext, useAutoForm } from '../context';
+import { AutoFormContext, useAutoFormCtx } from '../context';
 
 export const getWellKnownComponent =
   ({ wellKnownTypes, wellKnownFields }: AutoFormContext) =>
@@ -9,7 +9,7 @@ export const getWellKnownComponent =
     wellKnownFields[field.name ?? ''];
 
 export const useGetWellKnownComponent = () => {
-  const context = useAutoForm();
+  const context = useAutoFormCtx();
 
   return useCallback(
     (field: protobuf.Field) => getWellKnownComponent(context)(field),

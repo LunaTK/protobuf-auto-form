@@ -16,4 +16,4 @@ const context = createContext<AutoFormContext>({
 });
 
 export const AutoFormProvider = context.Provider;
-export const useAutoForm = () => useContext(context);
+export const useAutoFormCtx = () => useContext(context);

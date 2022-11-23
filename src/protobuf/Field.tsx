@@ -3,7 +3,7 @@ import protobuf from 'protobufjs';
 import { pascalCase } from 'change-case';
 import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
-import { useAutoForm } from '../context';
+import { useAutoFormCtx } from '../context';
 import { FieldOptions } from '../models';
 import withPrependAppend from '../hoc/withPrependAppend';
 import AutoFormLabel from '../AutoFormLabel';
@@ -38,7 +38,7 @@ const Field: React.FC<Props> = ({
   hideLabel = false,
   options,
 }) => {
-  const { camelCaseLabel, hideFieldType } = useAutoForm();
+  const { camelCaseLabel, hideFieldType } = useAutoFormCtx();
   if (options?.hidden === true) return null;
 
   const isFlattenedMessage = 'resolvedType' in field && options?.flatten;
