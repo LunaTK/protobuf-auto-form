@@ -4,7 +4,7 @@ import { createAutoForm } from './AutoForm';
 import { AutoFormConfig } from './models';
 import { AutoFormState } from './types/autoFormState';
 
-export const useAutoForm = <TFieldValues extends FieldValues>(
+export const useAutoForm = <TFieldValues extends FieldValues = any>(
   config: AutoFormConfig,
 ) => {
   type TState = AutoFormState<TFieldValues> & {};
