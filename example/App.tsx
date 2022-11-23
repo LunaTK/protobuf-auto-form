@@ -28,7 +28,7 @@ const initial = {
 };
 
 const App = () => {
-  const { AutoForm, Field, form } = useAutoForm<Article__Output>({
+  const { AutoForm, Field, form } = useAutoForm({
     messageType: 'Article',
     namespace: namespace,
   });

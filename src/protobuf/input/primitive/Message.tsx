@@ -5,6 +5,7 @@ import { isAutoFormField, useChildFields } from '../../../hooks';
 import AutoFormField from '../../../AutoFormField';
 import { InputProps } from '../../../models';
 import { getFieldType, getMessageHints, getRestFields } from './helper';
+import { useAutoFormCtx } from '../../../context';
 
 interface Props extends InputProps {
   type: protobuf.Type;
@@ -20,11 +21,22 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
   const restFields = getRestFields(type.fieldsArray, fieldNodes);
+  const { mode } = useAutoFormCtx();
+
+  const nodesWithRest = (() => {
+    if (restFields.length === 0) {
+      return [<AutoFormField.Rest />];
+    }
+    if (mode === 'implicit' && !nodes.some((n) => isAutoFormField(n))) {
+      return [<AutoFormField.Rest />, ...nodes];
+    }
+    return nodes;
+  })();
 
   const content = (
     <>
       {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
-      {(nodes.length > 0 ? nodes : [<AutoFormField.Rest />]).map((n) => {
+      {nodesWithRest.map((n) => {
         if (!isValidElement(n)) return n;
 
         if (isAutoFormField(n)) {
