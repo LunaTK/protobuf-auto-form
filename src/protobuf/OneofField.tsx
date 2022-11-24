@@ -19,7 +19,7 @@ export const isProto3Optional = (oneof: protobuf.OneOf) =>
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
   const { watch, getValues, setValue } = useFormContext();
-  const oneofFullName = parentName ? `${parentName}.${oneof.name}` : oneof.name;
+  const oneofFullName = join(parentName, oneof.name);
   if (!getValues(oneofFullName)) {
     setValue(oneofFullName, oneof.fieldsArray[0].name);
   }
