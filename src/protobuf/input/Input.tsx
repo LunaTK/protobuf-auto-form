@@ -1,11 +1,10 @@
 import React from 'react';
 import protobuf from 'protobufjs';
-import RepeatedInput from './complex/Repeated';
-import MapInput from './complex/Map';
 import { FieldOptions } from '../../models';
-import PrimitiveInput from './primitive/PrimitiveInput';
+import PrimitiveInput from './primitive';
 import withOverride from '../../hoc/withOverride';
 import withValidationResult from '../../hoc/withValidationResult';
+import { RepeatedInput, MapInput } from './arrayLike';
 
 interface InputProps {
   field: protobuf.Field;
