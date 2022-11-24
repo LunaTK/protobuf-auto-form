@@ -2,13 +2,12 @@ import React from 'react';
 import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import get from 'lodash.get';
-import AddButton from '../../../common/AddButton';
-import DelButton from '../../../common/DelButton';
 import PrimitiveInput from '../primitive';
 import BasicInput from '../primitive/Basic';
 import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
 import { getInitialValue } from '../../conversion/initial';
+import ArrayLike from './ArrayLike';
 
 interface MapProps {
   name: string;
@@ -79,23 +78,21 @@ const MapInput: React.FC<MapProps> = ({ name, field, keyType, options }) => {
     useChildFields(options).fieldOptions;
 
   return (
-    <div>
-      <AddButton onClick={add} />
-
-      {fields.map((f, idx) => (
-        <div key={f.id} className="flex items-center gap-2">
-          <DelButton onClick={() => remove(idx)} />
-          <MapKeyValueInput
-            name={name}
-            field={field}
-            index={idx}
-            keyType={keyType}
-            keyOptions={keyOptions}
-            valueOptions={valueOptions}
-          />
-        </div>
-      ))}
-    </div>
+    <ArrayLike
+      onAdd={add}
+      onRemove={remove}
+      fields={fields}
+      render={({ idx }) => (
+        <MapKeyValueInput
+          name={name}
+          field={field}
+          index={idx}
+          keyType={keyType}
+          keyOptions={keyOptions}
+          valueOptions={valueOptions}
+        />
+      )}
+    />
   );
 };
 
