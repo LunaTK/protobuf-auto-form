@@ -11,6 +11,12 @@ export const isAutoFormField = (
   return isValidElement(child) && child?.type === AutoFormField;
 };
 
+export const isAutoFormFieldRest = (
+  child: ReactNode,
+): child is ReactElement => {
+  return isValidElement(child) && child?.type === AutoFormField.Rest;
+};
+
 const parseFieldName = (name: string) => {
   const parts = name.split('.');
   const last = parts[parts.length - 1];
