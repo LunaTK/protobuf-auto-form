@@ -7,15 +7,15 @@
 }
 
 .af-repeat-ele {
-    @apply border-2 border-dashed border-slate-400/50 rounded;
+    @apply border border-dashed border-slate-400/50 rounded;
 }
 
 .af-repeat-ele .af-repeat-ele {
-    @apply border-2 border-solid;
+    @apply border border-solid;
 }
 
 .af-repeat-ele .af-repeat-ele .af-repeat-ele {
-    @apply border-2 border-dotted;
+    @apply border border-dotted;
 }
 
 .af-msg-grid {
