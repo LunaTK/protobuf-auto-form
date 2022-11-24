@@ -4,7 +4,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import get from 'lodash.get';
 import AddButton from '../../../common/AddButton';
 import DelButton from '../../../common/DelButton';
-import PrimitiveInput from '../primitive/PrimitiveInput';
+import PrimitiveInput from '../primitive';
 import BasicInput from '../primitive/Basic';
 import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';

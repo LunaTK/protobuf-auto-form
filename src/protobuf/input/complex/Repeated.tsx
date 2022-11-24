@@ -3,7 +3,7 @@ import protobuf from 'protobufjs';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import DelButton from '../../../common/DelButton';
 import AddButton from '../../../common/AddButton';
-import PrimitiveInput from '../primitive/PrimitiveInput';
+import PrimitiveInput from '../primitive';
 import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
 import { getInitialValue } from '../../conversion/initial';
