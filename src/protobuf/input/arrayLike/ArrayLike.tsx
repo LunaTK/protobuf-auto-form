@@ -23,10 +23,10 @@ const collapseIfTooMany = (nodes: ReactNode[]) => {
 const ArrayLike: React.VFC<Props> = ({ fields, onAdd, onRemove, render }) => {
   return (
     <div>
-      <span className="flex items-center gap-2 text- mb-2">
+      <header className="flex items-center gap-2 mb-2">
         <AddButton onClick={onAdd} />
         ({fields.length} items)
-      </span>
+      </header>
       {collapseIfTooMany(
         fields.map((f, idx) => (
           <div key={f.id} className="flex items-center gap-2 my-2">
