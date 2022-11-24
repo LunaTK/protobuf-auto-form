@@ -12,7 +12,10 @@ interface Props {
 const ArrayLike: React.VFC<Props> = ({ fields, onAdd, onRemove, render }) => {
   return (
     <div>
-      <AddButton onClick={onAdd} />
+      <header className="flex items-center gap-2 text-gray-400">
+        <AddButton onClick={onAdd} />
+        ({fields.length} items)
+      </header>
 
       {fields.map((f, idx) => (
         <div key={f.id} className="flex items-center gap-2 my-2">
