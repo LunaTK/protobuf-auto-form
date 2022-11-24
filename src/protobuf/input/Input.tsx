@@ -4,7 +4,7 @@ import { FieldOptions } from '../../models';
 import PrimitiveInput from './primitive';
 import withOverride from '../../hoc/withOverride';
 import withValidationResult from '../../hoc/withValidationResult';
-import { RepeatedInput, MapInput } from './complex';
+import { RepeatedInput, MapInput } from './arrayLike';
 
 interface InputProps {
   field: protobuf.Field;
