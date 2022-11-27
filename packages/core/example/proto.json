@@ -1,0 +1,138 @@
+{
+  "nested": {
+    "ArticleType": {
+      "values": {
+        "SIMPLE": 1,
+        "DETAILED": 2
+      }
+    },
+    "Article": {
+      "oneofs": {
+        "_content": {
+          "oneof": [
+            "content"
+          ]
+        },
+        "author": {
+          "oneof": [
+            "nickname",
+            "userId"
+          ]
+        }
+      },
+      "fields": {
+        "title": {
+          "type": "string",
+          "id": 1
+        },
+        "type": {
+          "type": "ArticleType",
+          "id": 2
+        },
+        "content": {
+          "type": "string",
+          "id": 3,
+          "options": {
+            "proto3_optional": true
+          }
+        },
+        "tags": {
+          "rule": "repeated",
+          "type": "string",
+          "id": 4
+        },
+        "nickname": {
+          "type": "string",
+          "id": 5
+        },
+        "userId": {
+          "type": "int32",
+          "id": 6
+        },
+        "referrers": {
+          "keyType": "string",
+          "type": "int32",
+          "id": 10
+        },
+        "comments": {
+          "rule": "repeated",
+          "type": "Comment",
+          "id": 11
+        },
+        "detail": {
+          "type": "UserDetail",
+          "id": 12
+        }
+      }
+    },
+    "Comment": {
+      "oneofs": {
+        "something": {
+          "oneof": [
+            "s1",
+            "type"
+          ]
+        }
+      },
+      "fields": {
+        "author": {
+          "type": "string",
+          "id": 1
+        },
+        "content": {
+          "type": "string",
+          "id": 2
+        },
+        "s1": {
+          "type": "string",
+          "id": 3
+        },
+        "type": {
+          "type": "ArticleType",
+          "id": 4
+        }
+      }
+    },
+    "User": {
+      "fields": {
+        "userId": {
+          "type": "int32",
+          "id": 1
+        },
+        "name": {
+          "type": "string",
+          "id": 2
+        },
+        "friends": {
+          "rule": "repeated",
+          "type": "int32",
+          "id": 3
+        },
+        "detail": {
+          "type": "UserDetail",
+          "id": 4
+        }
+      }
+    },
+    "UserDetail": {
+      "fields": {
+        "address": {
+          "type": "string",
+          "id": 1
+        },
+        "role": {
+          "type": "SomeInner",
+          "id": 2
+        }
+      }
+    },
+    "SomeInner": {
+      "fields": {
+        "str": {
+          "type": "string",
+          "id": 1
+        }
+      }
+    }
+  }
+}

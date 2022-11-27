@@ -1,0 +1,59 @@
+{
+  "name": "protobuf-auto-form",
+  "version": "0.1.0-alpha.22",
+  "description": "Automatically generate form from Protobuf schema for React",
+  "keywords": [
+    "protobuf",
+    "form"
+  ],
+  "main": "./dist/AutoForm.cjs.js",
+  "module": "./dist/AutoForm.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/LunaTK/protobuf-auto-form.git",
+  "author": "LunaTK <ahn_v3@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite example",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@grpc/proto-loader": "^0.7.3",
+    "@types/lodash.get": "^4.4.7",
+    "@types/react": "^17.0",
+    "@types/react-dom": "^17.0.2",
+    "@types/react-test-renderer": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.2",
+    "@vitest/ui": "^0.14.2",
+    "autoprefixer": "^10.4.7",
+    "change-case": "^4.1.2",
+    "daisyui": "^2.15.2",
+    "jsdom": "^19.0.0",
+    "lodash.get": "^4.4.2",
+    "postcss": "^8.4.14",
+    "protobufjs": "^6.11.2",
+    "react": "^17.0",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.39.5",
+    "react-test-renderer": "^17.0.2",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "rome": "^10.0.1",
+    "tailwindcss": "^3.0.24",
+    "typescript": "~4.7",
+    "vite": "^3.2.4",
+    "vite-plugin-dts": "^1.7.1",
+    "vitest": "^0.25.2"
+  },
+  "peerDependencies": {
+    "protobufjs": "^6.11.2",
+    "react": "^17.0",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.31.1"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1"
+  }
+}
