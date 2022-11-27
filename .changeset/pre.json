@@ -5,5 +5,7 @@
     "protobuf-auto-form-docs": "0.1.0",
     "protobuf-auto-form": "0.1.0-alpha.22"
   },
-  "changesets": []
+  "changesets": [
+    "spicy-socks-bake"
+  ]
 }
