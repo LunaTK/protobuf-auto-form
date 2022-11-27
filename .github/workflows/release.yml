@@ -21,13 +21,14 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn workspaces focus
+        working-directory: packages/core
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn workspace protobuf-auto-form build && yarn changeset publish
+          publish: yarn workspace protobuf-auto-form release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

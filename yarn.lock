@@ -11082,6 +11082,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "protobuf-auto-form@workspace:packages/core"
   dependencies:
+    "@changesets/cli": ^2.25.2
     "@grpc/proto-loader": ^0.7.3
     "@types/lodash.get": ^4.4.7
     "@types/react": ^17.0
