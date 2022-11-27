@@ -1,6 +1,4 @@
 {
-  "name": "protobuf-auto-form",
-  "version": "0.0.0",
   "private": true,
   "description": "A monorepo for protobuf-auto-form",
   "workspaces": [
