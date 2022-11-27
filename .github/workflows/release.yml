@@ -21,12 +21,8 @@ jobs:
           cache: "yarn"
           cache-dependency-path: yarn.lock
 
-      - name: Install Dependencies - root
-        run: yarn workspaces focus
-
-      - name: Install Dependencies - core
-        run: yarn workspaces focus
-        working-directory: packages/core
+      - name: Install Dependencies
+        run: yarn workspace protobuf-auto-form install
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
