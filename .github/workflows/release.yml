@@ -27,8 +27,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          cwd: ./packages/core
-          publish: yarn release
+          publish: cd packages/core && yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
