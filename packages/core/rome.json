@@ -1,0 +1,15 @@
+{
+  "linter": {
+    "enabled": false
+  },
+  "formatter": {
+    "enabled": true,
+    "ignore": ["src/protobuf/conversion/convert.ts"],
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
