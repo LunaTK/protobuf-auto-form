@@ -6,7 +6,7 @@
     "docs"
   ],
   "scripts": {
-    "release": "( yarn workspace protobuf-auto-form build ) && changeset publish"
+    "release": "yarn workspace protobuf-auto-form build && changeset publish"
   },
   "repository": {
     "type": "git",

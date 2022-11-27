@@ -21,7 +21,10 @@ jobs:
           cache: "yarn"
           cache-dependency-path: yarn.lock
 
-      - name: Install Dependencies
+      - name: Install Dependencies - root
+        run: yarn workspaces focus
+
+      - name: Install Dependencies - core
         run: yarn workspaces focus
         working-directory: packages/core
 
