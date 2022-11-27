@@ -1,6 +1,7 @@
 {
   "name": "protobuf-auto-form-docs",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
