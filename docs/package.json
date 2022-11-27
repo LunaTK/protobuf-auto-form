@@ -1,5 +1,6 @@
 {
-  "version": "*",
+  "name": "protobuf-auto-form-docs",
+  "version": "0.1.0",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",

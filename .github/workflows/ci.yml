@@ -16,7 +16,7 @@ jobs:
           node-version: 16
           cache: "yarn"
           cache-dependency-path: yarn.lock
-      - run: yarn install --frozen-lockfile --focus
+      - run: yarn install --frozen-lockfile
         working-directory: packages/core
       - name: Run type check
         run: yarn tsc --noEmit
