@@ -20,7 +20,6 @@ jobs:
           cache: yarn
 
       - name: Install dependencies
-        working-directory: docs
         run: yarn install --frozen-lockfile
       - name: Build website
         working-directory: docs
