@@ -5,8 +5,7 @@
   "description": "A monorepo for protobuf-auto-form",
   "workspaces": [
     "packages/*",
-    "docs",
-    "example"
+    "docs"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
