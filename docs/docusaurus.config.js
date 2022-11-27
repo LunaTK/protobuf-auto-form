@@ -9,7 +9,7 @@ const config = {
   title: 'Protobuf Auto Form - Documentation',
   tagline: 'Dinosaurs are cool',
   url: 'https://lunatk.github.io',
-  baseUrl: '/',
+  baseUrl: '/protobuf-auto-form/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
