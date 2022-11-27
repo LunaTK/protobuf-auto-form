@@ -18,5 +18,8 @@
     "url": "https://github.com/LunaTK/protobuf-auto-form/issues"
   },
   "homepage": "https://github.com/LunaTK/protobuf-auto-form#readme",
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.0",
+  "dependencies": {
+    "@changesets/cli": "^2.25.2"
+  }
 }
