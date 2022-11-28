@@ -18,8 +18,7 @@
   "scripts": {
     "dev": "vite example",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "release": "yarn build && changeset publish"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",

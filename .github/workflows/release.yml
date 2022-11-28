@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature/release
 
 jobs:
   release:
@@ -21,14 +22,13 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install Dependencies
-        run: yarn workspaces focus
-        working-directory: packages/core
+        run: yarn workspace protobuf-auto-form install
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn workspace protobuf-auto-form release
+          publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
