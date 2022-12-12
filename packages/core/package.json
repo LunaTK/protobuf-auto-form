@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "vite example",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "protoc": "pbjs ./example/example.proto --out ./example/proto.json"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
