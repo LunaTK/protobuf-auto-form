@@ -15,7 +15,7 @@
         },
         "author": {
           "oneof": [
-            "nickname",
+            "user",
             "userId"
           ]
         }
@@ -41,8 +41,8 @@
           "type": "string",
           "id": 4
         },
-        "nickname": {
-          "type": "string",
+        "user": {
+          "type": "User",
           "id": 5
         },
         "userId": {
