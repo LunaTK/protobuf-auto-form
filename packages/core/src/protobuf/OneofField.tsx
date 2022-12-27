@@ -32,7 +32,6 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
     setValue(oneofFullName, oneof.fieldsArray[0].name);
   }
   const selected: string = watch(oneofFullName);
-  console.log({ selected });
 
   if (options?.dropdown) {
     const selectedField = oneof.fieldsArray.find((f) => f.name === selected);
