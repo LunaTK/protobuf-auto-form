@@ -26,7 +26,7 @@ export const isProto3Optional = (oneof: protobuf.OneOf) =>
 
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
-  const { watch, getValues, setValue } = useFormContext();
+  const { watch, getValues, setValue, register } = useFormContext();
   const oneofFullName = join(parentName, oneof.name);
   if (!getValues(oneofFullName)) {
     setValue(oneofFullName, oneof.fieldsArray[0].name);
@@ -41,7 +41,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
     return (
       <>
         <select
-          name={oneofFullName}
+          {...register(oneofFullName)}
           className="select select-bordered select-sm max-w-xs"
         >
           {oneof.fieldsArray.map((f) => (
