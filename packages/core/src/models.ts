@@ -34,6 +34,7 @@ export interface FieldOptions<
   readOnly?: boolean;
   hidden?: boolean;
   flatten?: boolean;
+  dropdown?: boolean;
   append?: React.ReactNode;
   prepend?: React.ReactNode;
   children?: React.ReactNode;

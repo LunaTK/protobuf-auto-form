@@ -72,8 +72,8 @@ const App = () => {
           <Field name="referrers.$key" label="Test Key"></Field>
         </Field>
 
-        <Field name="author" label="작성자">
-          <Field name="user" label="유저" />
+        <Field name="author" label="작성자" flatten dropdown>
+          <Field name="user" label="유저" flatten />
         </Field>
 
         <Field.Rest />
