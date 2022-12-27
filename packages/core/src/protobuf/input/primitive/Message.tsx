@@ -46,6 +46,7 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
         if (isAutoFormField(n)) {
           const fieldOption = n.props;
           const field = getFieldType(type, fieldOption.name);
+          if (field instanceof protobuf.Field && field.partOf) return null; // OneOf will be rendered inside Oneof.tsx
           if (!field) {
             console.warn('Unknown field', fieldOption.name);
             return null;

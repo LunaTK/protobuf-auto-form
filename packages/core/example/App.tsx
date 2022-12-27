@@ -72,6 +72,10 @@ const App = () => {
           <Field name="referrers.$key" label="Test Key"></Field>
         </Field>
 
+        <Field name="author" label="작성자">
+          <Field name="user" label="유저" />
+        </Field>
+
         <Field.Rest />
 
         <button type="submit" className="btn btn-xs btn-accent">

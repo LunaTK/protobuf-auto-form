@@ -12,7 +12,7 @@ message Article {
     repeated string tags = 4;
 
     oneof author {
-        string nickname = 5;
+        User user = 5;
         int32 user_id = 6;
     }
 
