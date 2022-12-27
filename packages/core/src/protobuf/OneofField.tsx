@@ -26,7 +26,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const selected = watch(oneofFullName);
 
   return (
-    <div>
+    <>
       {oneof.fieldsArray.map((f) => (
         <div key={f.name} className="my-2 not-first-desc:ml-8">
           <RadioButton
@@ -48,7 +48,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
           <RadioButton name={oneofFullName} label="None" value="__unset__" />
         </div>
       )}
-    </div>
+    </>
   );
 };
 
