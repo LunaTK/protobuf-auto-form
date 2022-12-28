@@ -19,6 +19,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
       form: methods,
       hideFieldType = false,
       camelCaseLabel = true,
+      hideEmptyMessage = false,
       mode = 'implicit',
       wellKnownFields = {},
       wellKnownTypes = {},
@@ -29,6 +30,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
     const context: AutoFormContext = {
       hideFieldType,
       camelCaseLabel,
+      hideEmptyMessage,
       mode,
       wellKnownFields,
       wellKnownTypes,

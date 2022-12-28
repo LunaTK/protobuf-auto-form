@@ -55,6 +55,7 @@ message Nested {
   const context: AutoFormContext = {
     camelCaseLabel: true,
     hideFieldType: true,
+    hideEmptyMessage: true,
     mode: 'implicit',
     wellKnownFields: {},
     wellKnownTypes: {},
