@@ -29,7 +29,10 @@ const ArrayLike: React.VFC<Props> = ({ fields, onAdd, onRemove, render }) => {
       </header>
       {collapseIfTooMany(
         fields.map((f, idx) => (
-          <div key={f.id} className="flex items-center gap-2 my-2">
+          <div
+            key={f.id}
+            className="grid grid-cols-[min-content_1fr] items-center gap-2 my-2"
+          >
             <span className="w-min text-center text-gray-400">
               {idx}
               <DelButton onClick={() => onRemove(idx)} />
