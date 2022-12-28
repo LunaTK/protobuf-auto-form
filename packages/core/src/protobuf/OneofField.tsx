@@ -33,7 +33,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   }
   const selected: string = watch(oneofFullName);
 
-  if (options?.dropdown) {
+  const getDropdownContent = () => {
     const selectedField = oneof.fieldsArray.find((f) => f.name === selected);
     if (!selectedField) return null;
 
@@ -41,7 +41,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
       <>
         <select
           {...register(oneofFullName)}
-          className="select select-bordered select-sm max-w-xs"
+          className="select select-bordered select-sm max-w-xs mb-2"
         >
           {oneof.fieldsArray.map((f) => (
             <option key={f.name} value={f.name}>
@@ -58,33 +58,43 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
         />
       </>
     );
+  };
+
+  const getRadioContent = () => {
+    return (
+      <>
+        {oneof.fieldsArray.map((f) => (
+          <OneofElement key={f.name} flatten={options?.flatten}>
+            <RadioButton
+              value={f.name}
+              name={oneofFullName}
+              label={fieldOptions[f.name]?.label}
+            />
+            {selected === f.name && (
+              <Input
+                name={join(parentName, f.name)}
+                field={f}
+                options={fieldOptions[f.name]}
+              />
+            )}
+          </OneofElement>
+        ))}
+        {isProto3Optional(oneof) && (
+          <OneofElement>
+            <RadioButton name={oneofFullName} label="None" value="__unset__" />
+          </OneofElement>
+        )}
+      </>
+    );
+  };
+
+  const content = options?.dropdown ? getDropdownContent() : getRadioContent();
+
+  if (options?.flatten) {
+    return content;
   }
 
-  return (
-    <>
-      {oneof.fieldsArray.map((f) => (
-        <OneofElement key={f.name} flatten={options?.flatten}>
-          <RadioButton
-            value={f.name}
-            name={oneofFullName}
-            label={fieldOptions[f.name]?.label}
-          />
-          {selected === f.name && (
-            <Input
-              name={join(parentName, f.name)}
-              field={f}
-              options={fieldOptions[f.name]}
-            />
-          )}
-        </OneofElement>
-      ))}
-      {isProto3Optional(oneof) && (
-        <OneofElement>
-          <RadioButton name={oneofFullName} label="None" value="__unset__" />
-        </OneofElement>
-      )}
-    </>
-  );
+  return <div>{content}</div>;
 };
 
 export default OneofField;
