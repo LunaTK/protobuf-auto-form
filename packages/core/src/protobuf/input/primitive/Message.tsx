@@ -25,7 +25,7 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
   const shouldHideLabel = isRoot && hasOneAndOnlyField;
   const restFields = getRestFields(type.fieldsArray, fieldNodes);
-  const { mode } = useAutoFormCtx();
+  const { mode, hideEmptyMessage } = useAutoFormCtx();
 
   const nodesWithRest = (() => {
     if (nodes.length === 0) {
@@ -39,7 +39,9 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
 
   const content = (
     <>
-      {isEmptyMessage && <div className="text-gray-400 text-sm">empty</div>}
+      {isEmptyMessage && !hideEmptyMessage && (
+        <div className="text-gray-400 text-sm">empty</div>
+      )}
       {nodesWithRest.map((n) => {
         if (!isValidElement(n)) return n;
 
