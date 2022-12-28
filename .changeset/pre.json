@@ -6,6 +6,7 @@
     "protobuf-auto-form": "0.1.0-alpha.22"
   },
   "changesets": [
+    "angry-wolves-marry",
     "spicy-socks-bake"
   ]
 }
