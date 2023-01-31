@@ -1,11 +1,17 @@
 import protobuf from 'protobufjs';
+import { isProto3Optional } from '../OneofField';
 
-export const getInitialValue = (field: protobuf.Field) => {
-  if (field.map) {
-    return {};
-  }
-  if (field.repeated) {
-    return [];
+type InitialValueOptions = {
+  ignoreArrayLike: boolean;
+};
+export const getInitialValue = (
+  field: protobuf.Field,
+  options?: InitialValueOptions,
+) => {
+  const ignoreArrayLike = options?.ignoreArrayLike ?? false;
+  if (!ignoreArrayLike) {
+    if (field.map) return {};
+    if (field.repeated) return [];
   }
   if (field.resolvedType instanceof protobuf.Type) {
     return getInitialMessageValue(field.resolvedType);
@@ -31,6 +37,10 @@ export const fillInitialValues = (
   }
 
   type.fieldsArray.forEach((field) => {
+    if (field.partOf && isProto3Optional(field.partOf)) {
+      return;
+    }
+
     if (isUnset(data[field.name])) {
       data[field.name] = getInitialValue(field);
       return;
@@ -50,6 +60,9 @@ export const fillInitialValues = (
   });
 
   type.oneofsArray.forEach((oneof) => {
+    if (isProto3Optional(oneof)) {
+      data[oneof.name] = '__unset__';
+    }
     if (data[oneof.name]) return;
     data[oneof.name] = oneof.fieldsArray[0].name;
   });
@@ -90,10 +103,6 @@ function getInitialMessageValue(type: protobuf.Type) {
         longs: Number,
       });
       fillInitialValues(created, type);
-      // TODO(@LunaTK): remove if oneofs option from protobufjs works.
-      type.oneofsArray.forEach((oneof) => {
-        created[oneof.name] = oneof.fieldsArray[0].name;
-      });
       return created;
   }
 }
