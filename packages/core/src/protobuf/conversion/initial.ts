@@ -1,11 +1,16 @@
 import protobuf from 'protobufjs';
 
-export const getInitialValue = (field: protobuf.Field) => {
-  if (field.map) {
-    return {};
-  }
-  if (field.repeated) {
-    return [];
+type InitialValueOptions = {
+  ignoreArrayLike: boolean;
+};
+export const getInitialValue = (
+  field: protobuf.Field,
+  options?: InitialValueOptions,
+) => {
+  const ignoreArrayLike = options?.ignoreArrayLike ?? false;
+  if (!ignoreArrayLike) {
+    if (field.map) return {};
+    if (field.repeated) return [];
   }
   if (field.resolvedType instanceof protobuf.Type) {
     return getInitialMessageValue(field.resolvedType);
