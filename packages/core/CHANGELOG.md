@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.28
+
+### Patch Changes
+
+- 91e5e4f: bug: apply pruneUnselectedOneof on submit
+
 ## 0.1.0-alpha.27
 
 ### Patch Changes
