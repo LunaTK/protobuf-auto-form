@@ -1,4 +1,5 @@
 import protobuf from 'protobufjs';
+import { isProto3Optional } from '../OneofField';
 
 type InitialValueOptions = {
   ignoreArrayLike: boolean;
@@ -36,6 +37,10 @@ export const fillInitialValues = (
   }
 
   type.fieldsArray.forEach((field) => {
+    if (field.partOf && isProto3Optional(field.partOf)) {
+      return;
+    }
+
     if (isUnset(data[field.name])) {
       data[field.name] = getInitialValue(field);
       return;
