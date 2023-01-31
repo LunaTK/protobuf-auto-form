@@ -70,7 +70,7 @@ const MapInput: React.FC<MapProps> = ({ name, field, keyType, options }) => {
   const add = () => {
     append({
       $key: '',
-      $value: getInitialValue(field),
+      $value: getInitialValue(field, { ignoreArrayLike: true }),
     });
   };
 
