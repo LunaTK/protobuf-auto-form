@@ -25,7 +25,7 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
   return (
     <ArrayLike
       onAdd={() =>
-        append({ $value: getInitialValue(field, { getInitialValue: true }) })
+        append({ $value: getInitialValue(field, { ignoreArrayLike: true }) })
       }
       onRemove={remove}
       fields={fields}
