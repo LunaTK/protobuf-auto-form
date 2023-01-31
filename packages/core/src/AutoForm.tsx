@@ -3,7 +3,11 @@ import { FieldValues, FormProvider, UseFormReturn } from 'react-hook-form';
 import './index.css';
 import Message from './protobuf/input/primitive/Message';
 import ErrorAlert from './common/ErrorAlert';
-import { form2Proto, proto2Form } from './protobuf/conversion';
+import {
+  form2Proto,
+  proto2Form,
+  pruneUnselectedOneofValues,
+} from './protobuf/conversion';
 import { AutoFormContext, AutoFormProvider } from './context';
 import { fillInitialValues } from './protobuf/conversion/initial';
 import AutoFormField, { TypedField } from './AutoFormField';
@@ -66,9 +70,11 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
             {...rest}
             onSubmit={methods.handleSubmit((values) => {
               console.log('AutoForm Submitted : ', values);
-              onSubmitValid?.(
+              const finalized = pruneUnselectedOneofValues(
                 form2Proto(context)(values, reflectionObj, options),
+                reflectionObj,
               );
+              onSubmitValid?.(finalized);
             })}
           >
             <Message type={reflectionObj} options={options} name="" />
