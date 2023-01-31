@@ -1,5 +1,12 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.26
+
+### Patch Changes
+
+- 5bead2d: bug: make unset as default for optional fields
+- 4b69867: bug: fix getInitialValue on ArrayLike add callback
+
 ## 0.1.0-alpha.25
 
 ### Patch Changes
