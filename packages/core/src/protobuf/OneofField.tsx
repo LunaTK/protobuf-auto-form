@@ -13,6 +13,8 @@ interface OneofProps {
   options?: FieldOptions;
 }
 
+const OPT_UNSET = '__unset__';
+
 const OneofElement: React.FC<{ flatten?: boolean; children: ReactNode }> = ({
   flatten,
   children,
@@ -29,7 +31,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { watch, getValues, setValue, register } = useFormContext();
   const oneofFullName = join(parentName, oneof.name);
   if (!getValues(oneofFullName)) {
-    setValue(oneofFullName, oneof.fieldsArray[0].name);
+    setValue(oneofFullName, OPT_UNSET);
   }
   const selected: string = watch(oneofFullName);
 
@@ -48,7 +50,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
               {fieldOptions[f.name]?.label ?? f.name}
             </option>
           ))}
-          {isProto3Optional(oneof) && <option value="__unset__">None</option>}
+          {isProto3Optional(oneof) && <option value={OPT_UNSET}>None</option>}
         </select>
 
         <Input
@@ -81,7 +83,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
         ))}
         {isProto3Optional(oneof) && (
           <OneofElement>
-            <RadioButton name={oneofFullName} label="None" value="__unset__" />
+            <RadioButton name={oneofFullName} label="None" value={OPT_UNSET} />
           </OneofElement>
         )}
       </>
