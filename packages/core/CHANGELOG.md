@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.27
+
+### Patch Changes
+
+- 478109c: feat: allow undefined for overridden props
+
 ## 0.1.0-alpha.26
 
 ### Patch Changes
