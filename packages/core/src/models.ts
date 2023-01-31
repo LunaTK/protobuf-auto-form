@@ -10,8 +10,8 @@ import type { AfFieldPath, AfFieldPathValue } from './types/path';
 
 export interface OverriddenFieldProps<T = any> {
   watch: UseFormWatch<any>;
-  value: T;
-  onChange: (newValue?: T) => void;
+  value?: T;
+  onChange?: (newValue?: T) => void;
   /**
    * Index of repeated or map field
    */
@@ -19,7 +19,7 @@ export interface OverriddenFieldProps<T = any> {
   /**
    * Canonical field name
    */
-  name: string;
+  name?: string;
 }
 
 export interface FieldOptions<
