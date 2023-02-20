@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.29
+
+### Patch Changes
+
+- 0f11131: bug: fix oneof option parsing in conversion
+
 ## 0.1.0-alpha.28
 
 ### Patch Changes
