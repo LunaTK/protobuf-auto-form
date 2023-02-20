@@ -1,7 +1,7 @@
 import protobuf from "protobufjs";
 import { AutoFormContext } from "../../context";
 import { parseChildOptions, getWellKnownComponent } from "../../hooks";
-import { FieldOptions } from "../../models";
+import { ChildFieldProps, FieldOptions } from "../../models";
 import { getInitialValue } from "./initial";
 
 export type Convert = (
@@ -30,8 +30,8 @@ export const createConverter =
       const { fieldOptions: childFieldOptions } =
         parseChildOptions(fieldOptions?.children);
 
-      type.fieldsArray.forEach((f) => {
-        const options = childFieldOptions[f.name];
+      const convertField = (cfo?: ChildFieldProps) => (f: protobuf.Field) => {
+        const options = cfo && cfo[f.name]
         const isCustomRender =
           !!options?.render || !!getWellKnownComponent(context)(f);
 
@@ -43,6 +43,17 @@ export const createConverter =
         if (!isCustomRender) {
           ret[f.name] = convertValue(convert, ret[f.name], f, options);
         }
+      }
+
+      type.oneofsArray.forEach((oneof) => {
+        const oneofOptions = childFieldOptions[oneof.name]
+        const cfo = parseChildOptions(oneofOptions?.children).fieldOptions
+        oneof.fieldsArray.forEach(convertField(cfo))
+      })
+
+      type.fieldsArray.forEach((f) => {
+        if (f.partOf) return; // skip oneof fields
+        convertField(childFieldOptions)(f)
       });
 
       return ret;
