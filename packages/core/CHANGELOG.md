@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.30
+
+### Patch Changes
+
+- c2f45b0: chore: disable tailwind important
+
 ## 0.1.0-alpha.29
 
 ### Patch Changes
