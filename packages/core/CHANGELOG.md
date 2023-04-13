@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.31
+
+### Patch Changes
+
+- 0640f50: feat: add `withOverrideType`
+
 ## 0.1.0-alpha.30
 
 ### Patch Changes
