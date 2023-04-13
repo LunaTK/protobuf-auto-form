@@ -2,6 +2,7 @@ import { types } from 'protobufjs';
 import React from 'react';
 import { useFormContext, Validate } from 'react-hook-form';
 import { FieldOptions, InputProps } from '../../../models';
+import { withOverrideType } from '../../../hoc/withOverride';
 
 type BasicType = keyof typeof types.basic;
 const protobufNumberTypes = new Set([
@@ -69,4 +70,4 @@ const BasicInput: React.FC<Props> = ({
   );
 };
 
-export default BasicInput;
+export default withOverrideType(BasicInput);
