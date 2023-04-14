@@ -16,37 +16,38 @@ import { AutoFormConfig, AutoFormProps } from './models';
 export const createAutoForm = <TFieldValues extends FieldValues>(
   config: AutoFormConfig & { form: UseFormReturn<any> },
 ) => {
+  const {
+    namespace,
+    messageType,
+    form: methods,
+    hideFieldType = false,
+    camelCaseLabel = true,
+    hideEmptyMessage = false,
+    mode = 'implicit',
+    wellKnownFields = {},
+    wellKnownTypes = {},
+  } = config;
+
+  const context: AutoFormContext = {
+    hideFieldType,
+    camelCaseLabel,
+    hideEmptyMessage,
+    mode,
+    wellKnownFields,
+    wellKnownTypes,
+  };
+
+  const reflectionObj = (() => {
+    try {
+      return namespace.resolveAll().lookupType(messageType);
+    } catch (e) {
+      return null;
+    }
+  })();
+
   const AutoForm: React.FC<AutoFormProps<TFieldValues>> = (props) => {
-    const {
-      namespace,
-      messageType,
-      form: methods,
-      hideFieldType = false,
-      camelCaseLabel = true,
-      hideEmptyMessage = false,
-      mode = 'implicit',
-      wellKnownFields = {},
-      wellKnownTypes = {},
-    } = config;
-
     const { children, initialState, onSubmitValid, ...rest } = props;
-
-    const context: AutoFormContext = {
-      hideFieldType,
-      camelCaseLabel,
-      hideEmptyMessage,
-      mode,
-      wellKnownFields,
-      wellKnownTypes,
-    };
     const options = { children, name: '' };
-    const reflectionObj = useMemo(() => {
-      try {
-        return namespace.resolveAll().lookupType(messageType);
-      } catch (e) {
-        return null;
-      }
-    }, [namespace, messageType]);
     useEffect(() => {
       const initial = proto2Form(context)(
         fillInitialValues(initialState ?? {}, reflectionObj),
@@ -55,7 +56,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
       );
       console.log('<AutoForm> initial', initial);
       setTimeout(() => methods.reset(initial)); // TODO: why is this necessary?
-    }, [initialState]);
+    }, []);
 
     if (!reflectionObj) {
       return (
