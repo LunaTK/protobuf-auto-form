@@ -7,7 +7,7 @@
 }
 
 .af-repeat-ele {
-    @apply border border-dashed border-slate-400/50 rounded;
+    @apply border border-dashed rounded border-slate-400/50;
 }
 
 .af-repeat-ele .af-repeat-ele {
@@ -18,18 +18,40 @@
     @apply border border-dotted;
 }
 
+/* direct child of form whose class name is af-msg */
 .af-msg-grid {
-    @apply grid grid-cols-msg gap-x-4 gap-y-8 p-4;
+    @apply grid p-4 gap-x-6 gap-y-8;
+
+    /* background-color: brown; */
+    grid-template-columns: minmax(50px, 200px) 1fr;
+}
+
+form>.af-msg-grid {
+    /* background-color: aqua; */
+    grid-template-columns: repeat(var(--af-col, 1), minmax(50px, 200px) 1fr);
 }
 
 .af-label {
-    @apply text-right inline-flex flex-col;
-    grid-column-start: 1;
-    grid-column-end: 2;
+    @apply inline-flex flex-col text-right;
+    grid-column: 1;
 }
 
 /* div which is a direct child of af-msg-grid */
 .af-msg-grid> :not(.af-label) {
-    grid-column-start: 2;
-    grid-column-end: 3;
+    grid-column: 2;
+    display: grid;
+}
+
+/*
+ * 2 col grid
+*/
+
+:is(form>.af-msg-grid)>.af-label:nth-of-type(2n) {
+    /* background-color: red; */
+    grid-column: calc(var(--af-col, 1) * 2 - 1);
+}
+
+:is(form>.af-msg-grid)> :not(.af-label):nth-of-type(2n) {
+    /* background-color: yellow; */
+    grid-column: calc(var(--af-col, 1) * 2);
 }
