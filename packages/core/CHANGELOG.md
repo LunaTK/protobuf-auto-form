@@ -1,5 +1,12 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.32
+
+### Patch Changes
+
+- 4710968: feat: add double column option
+- 105fd53: feat: display flex-col in small window
+
 ## 0.1.0-alpha.31
 
 ### Patch Changes
