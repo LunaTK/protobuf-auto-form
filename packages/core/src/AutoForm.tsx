@@ -29,7 +29,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
       wellKnownTypes = {},
     } = config;
 
-    const { children, initialState, onSubmitValid, ...rest } = props;
+    const { column, children, initialState, onSubmitValid, ...rest } = props;
 
     const context: AutoFormContext = {
       hideFieldType,
@@ -67,6 +67,7 @@ export const createAutoForm = <TFieldValues extends FieldValues>(
       <FormProvider {...methods}>
         <AutoFormProvider value={context}>
           <form
+            style={{ '--af-col': column ?? 1 } as React.CSSProperties}
             {...rest}
             onSubmit={methods.handleSubmit((values) => {
               console.log('AutoForm Submitted : ', values);

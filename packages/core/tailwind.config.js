@@ -5,9 +5,7 @@ module.exports = {
   content: ['./src/**/*.{tsx,jsx}'],
   theme: {
     extend: {
-      gridTemplateColumns: {
-        msg: 'fit-content(200px) 1fr',
-      },
+      gridTemplateColumns: {},
     },
   },
   corePlugins: {
