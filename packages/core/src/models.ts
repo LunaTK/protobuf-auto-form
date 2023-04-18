@@ -71,4 +71,5 @@ export type AutoFormConfig = {
 export type AutoFormProps<T = any> = {
   initialState?: DefaultValues<T>;
   onSubmitValid?: (values: T) => void;
+  column?: 1 | 2;
 } & React.HTMLAttributes<HTMLFormElement>;
