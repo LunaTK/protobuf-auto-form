@@ -55,3 +55,20 @@ form>.af-msg-grid {
     /* background-color: yellow; */
     grid-column: calc(var(--af-col, 1) * 2);
 }
+
+
+@media screen and (max-width: 640px) {
+    .af-msg-grid {
+        @apply gap-y-2;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .af-label {
+        @apply flex-row gap-2 text-left;
+    }
+
+    .af-msg-grid> :not(.af-label) {
+        @apply mb-8;
+    }
+}
