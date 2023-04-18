@@ -23,12 +23,12 @@
     @apply grid p-4 gap-x-6 gap-y-8;
 
     /* background-color: brown; */
-    grid-template-columns: minmax(50px, 200px) 1fr;
+    grid-template-columns: fit-content(200px) 1fr;
 }
 
 form>.af-msg-grid {
     /* background-color: aqua; */
-    grid-template-columns: repeat(var(--af-col, 1), minmax(50px, 200px) 1fr);
+    grid-template-columns: repeat(var(--af-col, 1), fit-content(200px) 1fr);
 }
 
 .af-label {
