@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.33
+
+### Patch Changes
+
+- dbb3de3: bug: remove invalid diplay property
+
 ## 0.1.0-alpha.32
 
 ### Patch Changes
