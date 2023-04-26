@@ -39,7 +39,6 @@ form>.af-msg-grid {
 /* div which is a direct child of af-msg-grid */
 .af-msg-grid> :not(.af-label) {
     grid-column: 2;
-    display: grid;
 }
 
 /*
