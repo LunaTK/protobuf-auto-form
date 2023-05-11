@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.34
+
+### Patch Changes
+
+- 7d6ebce: feat: enable dark mode / hide one and only oneof field
+
 ## 0.1.0-alpha.33
 
 ### Patch Changes
