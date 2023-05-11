@@ -23,7 +23,8 @@ const Message: React.FC<Props> = ({ type, name = '', options }) => {
   );
   const isRoot = name === '';
   const isEmptyMessage = fields.length === 0 && oneofs.length === 0;
-  const shouldHideLabel = isRoot && hasOneAndOnlyField;
+  const hasOneAndOnlyOneof = oneofs.length === 1 && fields.length === 0;
+  const shouldHideLabel = (isRoot && hasOneAndOnlyField) || hasOneAndOnlyOneof;
   const restFields = getRestFields(type.fieldsArray, fieldNodes);
   const { mode, hideEmptyMessage } = useAutoFormCtx();
 
