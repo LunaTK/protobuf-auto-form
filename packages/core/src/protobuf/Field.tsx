@@ -1,13 +1,12 @@
 import React from 'react';
 import protobuf from 'protobufjs';
-import { pascalCase } from 'change-case';
 import OneofField, { isProto3Optional } from './OneofField';
 import Input from './input/Input';
 import { useAutoFormCtx } from '../context';
 import { FieldOptions } from '../models';
 import withPrependAppend from '../hoc/withPrependAppend';
 import AutoFormLabel from '../AutoFormLabel';
-import { join } from '../utils';
+import { join, toSpaceSeperated } from '../utils';
 
 interface Props {
   field: protobuf.Field | protobuf.OneOf;
@@ -15,9 +14,6 @@ interface Props {
   hideLabel?: boolean;
   options?: FieldOptions;
 }
-
-const toSpaceSeperated = (name: string) =>
-  pascalCase(name).replace(/([A-Z][a-z])/g, ' $1').replace(/(\d)/g, ' $1');
 
 const getTypeLabel = (field: Props['field']) => {
   if (field instanceof protobuf.OneOf) {

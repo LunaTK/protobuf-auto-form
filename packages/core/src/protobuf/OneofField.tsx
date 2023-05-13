@@ -5,7 +5,8 @@ import RadioButton from '../common/RadioButton';
 import Input from './input/Input';
 import { FieldOptions } from '../models';
 import { useChildFields } from '../hooks';
-import { join } from '../utils';
+import { join, toSpaceSeperated } from '../utils';
+import { useAutoFormCtx } from '../context';
 
 interface OneofProps {
   parentName: string;
@@ -28,12 +29,16 @@ export const isProto3Optional = (oneof: protobuf.OneOf) =>
 
 const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
   const { fieldOptions } = useChildFields(options);
+  const { camelCaseLabel } = useAutoFormCtx();
   const { watch, getValues, setValue, register } = useFormContext();
   const oneofFullName = join(parentName, oneof.name);
   if (!getValues(oneofFullName)) {
     setValue(oneofFullName, OPT_UNSET);
   }
   const selected: string = watch(oneofFullName);
+  const renderLabel = (f: protobuf.Field) =>
+    fieldOptions[f.name]?.label ??
+    (camelCaseLabel ? f.name : toSpaceSeperated(f.name));
 
   const getDropdownContent = () => {
     const selectedField = oneof.fieldsArray.find((f) => f.name === selected);
@@ -43,11 +48,11 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
       <>
         <select
           {...register(oneofFullName)}
-          className="select select-bordered select-sm max-w-xs mb-2"
+          className="max-w-xs mb-2 select select-bordered select-sm"
         >
           {oneof.fieldsArray.map((f) => (
             <option key={f.name} value={f.name}>
-              {fieldOptions[f.name]?.label ?? f.name}
+              {renderLabel(f)}
             </option>
           ))}
           {isProto3Optional(oneof) && <option value={OPT_UNSET}>None</option>}
@@ -70,7 +75,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
             <RadioButton
               value={f.name}
               name={oneofFullName}
-              label={fieldOptions[f.name]?.label}
+              label={renderLabel(f)}
             />
             {selected === f.name && (
               <Input
