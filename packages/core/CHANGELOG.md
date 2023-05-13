@@ -1,5 +1,12 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.35
+
+### Patch Changes
+
+- 1da4844: bug: fix fillInitialValues for map fields
+- 6215fda: fix: oneof label should conform to camelCase label option
+
 ## 0.1.0-alpha.34
 
 ### Patch Changes
