@@ -59,6 +59,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
         </select>
 
         <Input
+          key={selectedField.name}
           name={join(parentName, selectedField.name)}
           field={selectedField}
           options={fieldOptions[selectedField.name]}
@@ -79,6 +80,7 @@ const OneofField: React.FC<OneofProps> = ({ parentName, oneof, options }) => {
             />
             {selected === f.name && (
               <Input
+                key={f.name}
                 name={join(parentName, f.name)}
                 field={f}
                 options={fieldOptions[f.name]}
