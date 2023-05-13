@@ -1,6 +1,7 @@
 const daisyui = require('daisyui');
 const plugin = require('tailwindcss/plugin');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{tsx,jsx}'],
   theme: {
@@ -18,5 +19,7 @@ module.exports = {
     }),
   ],
   daisyui: {
+    themes: ['dark', 'light'],
   },
+  darkMode: 'class',
 };
