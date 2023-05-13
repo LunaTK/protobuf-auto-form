@@ -20,6 +20,7 @@ export default defineConfig({
       formats: ['es', 'cjs'],
       fileName: (format) => `AutoForm.${format}.js`,
     },
+    minify: false,
     rollupOptions: {
       external: ['react', 'react-dom', 'react-hook-form', 'protobufjs'],
     },

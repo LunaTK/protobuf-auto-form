@@ -51,7 +51,7 @@ export const fillInitialValues = (
         fillInitialValues(value, field.resolvedType),
       );
     } else if (field.map) {
-      Object.keys(data[field.name]).forEach((value: any) =>
+      Object.values(data[field.name]).forEach((value: any) =>
         fillInitialValues(value, field.resolvedType),
       );
     } else if (field.resolvedType instanceof protobuf.Type) {
