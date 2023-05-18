@@ -1,5 +1,13 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.36
+
+### Patch Changes
+
+- 40b956a: chore: temp disable dark mode
+- c071e01: chore: tailwind dark theme using class
+- 71f8c22: bug: react element should not be shared between different oneof cases
+
 ## 0.1.0-alpha.35
 
 ### Patch Changes
