@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.37
+
+### Patch Changes
+
+- ff2e9e6: style: hide empty message
+
 ## 0.1.0-alpha.36
 
 ### Patch Changes
