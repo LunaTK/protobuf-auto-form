@@ -7,20 +7,20 @@
 }
 
 .af-repeat-ele {
-    @apply border border-dashed rounded border-slate-400/50;
+    @apply border border-gray-200 border-solid rounded-lg shadow-sm;
 }
 
 .af-repeat-ele .af-repeat-ele {
-    @apply border border-solid;
+    @apply border-dashed shadow-none;
 }
 
 .af-repeat-ele .af-repeat-ele .af-repeat-ele {
-    @apply border border-dotted;
+    @apply border-dotted shadow-none;
 }
 
 /* direct child of form whose class name is af-msg */
 .af-msg-grid {
-    @apply grid p-4 gap-x-6 gap-y-8;
+    @apply grid p-5 gap-x-6 gap-y-8;
 
     /* background-color: brown; */
     grid-template-columns: fit-content(200px) 1fr;
@@ -29,6 +29,10 @@
 form>.af-msg-grid {
     /* background-color: aqua; */
     grid-template-columns: repeat(var(--af-col, 1), fit-content(200px) 1fr);
+}
+
+.af-msg-grid:empty {
+    display: none;
 }
 
 .af-label {
