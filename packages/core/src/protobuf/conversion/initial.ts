@@ -60,7 +60,7 @@ export const fillInitialValues = (
   });
 
   type.oneofsArray.forEach((oneof) => {
-    if (isProto3Optional(oneof)) {
+    if (isProto3Optional(oneof) && isUnset(data[oneof.name])) {
       data[oneof.name] = '__unset__';
     }
     if (data[oneof.name]) return;
