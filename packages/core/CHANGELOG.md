@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.38
+
+### Patch Changes
+
+- c6294ab: bug: do not reset already select OneOf on init
+
 ## 0.1.0-alpha.37
 
 ### Patch Changes
