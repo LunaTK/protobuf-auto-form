@@ -47,6 +47,7 @@ const BasicInput: React.FC<Props> = ({
   error,
 }) => {
   const { register } = useFormContext();
+  const inputType = getInputType(type as BasicType);
 
   return (
     <input
@@ -61,8 +62,9 @@ const BasicInput: React.FC<Props> = ({
             : options?.rules?.validate),
           ...(validate && { autoformValidation: validate }),
         },
+        valueAsNumber: inputType === 'number',
       })}
-      type={getInputType(type as BasicType)}
+      type={inputType}
       placeholder={type}
       step="any"
       readOnly={options?.readOnly}
