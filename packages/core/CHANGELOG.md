@@ -1,5 +1,11 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.39
+
+### Patch Changes
+
+- ccadf02: feat: valueAsNumber for number type inputs
+
 ## 0.1.0-alpha.38
 
 ### Patch Changes
