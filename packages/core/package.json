@@ -37,8 +37,8 @@
     "lodash.get": "^4.4.2",
     "postcss": "^8.4.14",
     "protobufjs": "^6.11.2",
-    "react": "^17.0",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.5",
     "react-test-renderer": "^17.0.2",
     "rollup-plugin-visualizer": "^5.8.3",
@@ -49,13 +49,8 @@
     "vite-plugin-dts": "^1.7.1",
     "vitest": "^0.25.2"
   },
-  "peerDependencies": {
-    "protobufjs": "^6.11.2",
-    "react": "^17.0",
-    "react-dom": "^17.0.2",
-    "react-hook-form": "^7.31.1"
-  },
   "dependencies": {
-    "clsx": "^1.2.1"
+    "clsx": "^1.2.1",
+    "protobufjs": "^6.11.2"
   }
 }
