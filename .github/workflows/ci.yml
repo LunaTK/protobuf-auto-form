@@ -23,5 +23,5 @@ jobs:
         run: yarn tsc --noEmit
         working-directory: packages/core
       - name: Run vitest
-        run: yarn vitest
+        run: yarn vitest --dom
         working-directory: packages/core
