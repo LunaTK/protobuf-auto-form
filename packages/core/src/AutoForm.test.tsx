@@ -38,4 +38,18 @@ describe('AutoForm', () => {
     await vi.waitFor(() => handleSubmit.mock.calls.length > 0);
     expect(handleSubmit.mock.calls.length).toBe(1);
   });
+
+  it('Add map item', async () => {
+    const handleSubmit = vi.fn();
+    const dom = render(<MockApp onSubmit={handleSubmit}><button id="submit" /></MockApp>);
+    const submitButton = dom.container.querySelector('#submit');
+    const addButton = dom.queryAllByText('Add')[0];
+    expect(submitButton).toBeDefined();
+    expect(addButton).toBeDefined();
+    
+    fireEvent.click(addButton!);
+    fireEvent.click(submitButton!);
+    await vi.waitFor(() => handleSubmit.mock.calls.length > 0);
+    expect(handleSubmit.mock.calls.length).toBe(1);
+  })
 })
