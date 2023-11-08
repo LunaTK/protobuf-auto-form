@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import protobuf from 'protobufjs';
 import { AutoFormContext } from '../../context';
-import { proto2Form } from './proto2Form';
-import { form2Proto, pruneUnselectedOneofValues } from './form2Proto';
+import { form2Proto, proto2Form, pruneUnselectedOneofValues } from './';
 import { fillInitialValues } from './initial';
 
 describe('Protobuf Conversion', () => {
