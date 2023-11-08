@@ -8,6 +8,8 @@ import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
 import { getInitialValue } from '../../conversion/initial';
 import ArrayLike from './ArrayLike';
+import { useAutoFormCtx } from '../../../context';
+import { proto2Form } from '../../conversion';
 
 interface MapProps {
   name: string;
@@ -35,7 +37,7 @@ const MapKeyValueInput: React.FC<{
   const valueLabel = valueOptions?.label ?? 'Value';
 
   return (
-    <div className="af-repeat-ele flex-1 flex flex-col my-2 p-2">
+    <div className="flex flex-col flex-1 p-2 my-2 af-repeat-ele">
       <div className="label">
         <span className="label-text">{keyLabel}</span>
       </div>
@@ -66,11 +68,14 @@ const MapInput: React.FC<MapProps> = ({ name, field, keyType, options }) => {
     name,
     rules: options?.rules,
   });
+  const ctx = useAutoFormCtx();
 
   const add = () => {
+    const value = getInitialValue(field, { ignoreArrayLike: true });
+    const $value = proto2Form(ctx)(value, field.resolvedType, options);
     append({
       $key: '',
-      $value: getInitialValue(field, { ignoreArrayLike: true }),
+      $value,
     });
   };
 

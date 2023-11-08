@@ -35,7 +35,7 @@ const MockApp: React.FC<MockAppProps> = (props) => {
 afterEach(cleanup);
 
 describe("AutoForm", () => {
-  it("Add map item", async () => {
+  it("Add repeated item", async () => {
     const namespace = protobuf.parse(`
       syntax = "proto3";
 
@@ -44,16 +44,8 @@ describe("AutoForm", () => {
       }
     `).root;
 
-    const handleSubmit = vi.fn();
-    const dom = render(
-      <MockApp
-        onSubmit={handleSubmit}
-        namespace={namespace}
-        messageType="RepeatedString"
-      >
-        <button id="submit" />
-      </MockApp>
-    );
+    const { handleSubmit, dom } = renderAutoForm(namespace, "RepeatedString");
+    
     fireEvent.click(dom.queryByTestId("add-btn")!);
     await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
     fireEvent.click(dom.container.querySelector("#submit")!);
@@ -69,4 +61,71 @@ describe("AutoForm", () => {
       "repeated element should be added"
     ).toEqual([{ children: [""] }]);
   });
+
+  it('Add repeated item', async () => {
+    const namespace = protobuf.parse(`
+      syntax = "proto3";
+
+      message Child {
+        map<string, string> val = 1;
+      }
+
+      message Parent {
+        repeated Child children = 1;
+      }
+    `).root;
+    
+    const { handleSubmit, dom } = renderAutoForm(namespace, "Parent");
+    
+    fireEvent.click(dom.queryByTestId("add-btn")!);
+    await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
+    fireEvent.click(dom.container.querySelector("#submit")!);
+    await waitFor(() => handleSubmit.mock.calls.length === 1);
+
+    expect(
+      handleSubmit.mock.calls[0],
+      "repeated element with map should work"
+    ).toEqual([{ children: [{ val: {} }] }]);
+  })
+
+
+  it('Add nested map', async () => {
+    const namespace = protobuf.parse(`
+      syntax = "proto3";
+
+      message Child {
+        map<string, string> val = 1;
+      }
+
+      message Parent {
+        map<string, Child> children = 1;
+      }
+    `).root;
+
+    const { handleSubmit, dom } = renderAutoForm(namespace, "Parent");
+    
+    fireEvent.click(dom.queryByTestId("add-btn")!);
+    await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
+    fireEvent.click(dom.container.querySelector("#submit")!);
+    await waitFor(() => handleSubmit.mock.calls.length === 1);
+
+    expect(
+      handleSubmit.mock.calls[0],
+      "repeated element with map should work"
+    ).toEqual([{ children: {"": {"val": {}}} }]);
+  })
 });
+
+function renderAutoForm(namespace: protobuf.Namespace, messageType: string) {
+  const handleSubmit = vi.fn();
+  const dom = render(
+    <MockApp
+      onSubmit={handleSubmit}
+      namespace={namespace}
+      messageType={messageType}
+    >
+      <button id="submit" />
+    </MockApp>
+  );
+  return { handleSubmit, dom };
+}

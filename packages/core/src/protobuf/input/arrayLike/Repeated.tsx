@@ -6,6 +6,8 @@ import { FieldOptions } from '../../../models';
 import { useChildFields } from '../../../hooks';
 import { getInitialValue } from '../../conversion/initial';
 import ArrayLike from './ArrayLike';
+import { useAutoFormCtx } from '../../../context';
+import { proto2Form } from '../../conversion';
 
 interface Props {
   name: string;
@@ -21,12 +23,15 @@ const RepeatedInput: React.FC<Props> = ({ field, name, options }) => {
     name,
     rules: options?.rules,
   });
+  const ctx = useAutoFormCtx();
 
   return (
     <ArrayLike
-      onAdd={() =>
-        append({ $value: getInitialValue(field, { ignoreArrayLike: true }) })
-      }
+      onAdd={() => {
+        const value = getInitialValue(field, { ignoreArrayLike: true });
+        const $value = proto2Form(ctx)(value, field.resolvedType, options);
+        append({ $value });
+      }}
       onRemove={remove}
       fields={fields}
       render={({ idx }) => (
