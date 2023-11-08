@@ -44,16 +44,8 @@ describe("AutoForm", () => {
       }
     `).root;
 
-    const handleSubmit = vi.fn();
-    const dom = render(
-      <MockApp
-        onSubmit={handleSubmit}
-        namespace={namespace}
-        messageType="RepeatedString"
-      >
-        <button id="submit" />
-      </MockApp>
-    );
+    const { handleSubmit, dom } = renderAutoForm(namespace, "RepeatedString");
+    
     fireEvent.click(dom.queryByTestId("add-btn")!);
     await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
     fireEvent.click(dom.container.querySelector("#submit")!);
@@ -82,17 +74,8 @@ describe("AutoForm", () => {
         repeated Child children = 1;
       }
     `).root;
-
-    const handleSubmit = vi.fn();
-    const dom = render(
-      <MockApp
-        onSubmit={handleSubmit}
-        namespace={namespace}
-        messageType="Parent"
-      >
-        <button id="submit" />
-      </MockApp>
-    );
+    
+    const { handleSubmit, dom } = renderAutoForm(namespace, "Parent");
     
     fireEvent.click(dom.queryByTestId("add-btn")!);
     await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
@@ -119,16 +102,7 @@ describe("AutoForm", () => {
       }
     `).root;
 
-    const handleSubmit = vi.fn();
-    const dom = render(
-      <MockApp
-        onSubmit={handleSubmit}
-        namespace={namespace}
-        messageType="Parent"
-      >
-        <button id="submit" />
-      </MockApp>
-    );
+    const { handleSubmit, dom } = renderAutoForm(namespace, "Parent");
     
     fireEvent.click(dom.queryByTestId("add-btn")!);
     await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
@@ -141,3 +115,17 @@ describe("AutoForm", () => {
     ).toEqual([{ children: {"": {"val": {}}} }]);
   })
 });
+
+function renderAutoForm(namespace: protobuf.Namespace, messageType: string) {
+  const handleSubmit = vi.fn();
+  const dom = render(
+    <MockApp
+      onSubmit={handleSubmit}
+      namespace={namespace}
+      messageType={messageType}
+    >
+      <button id="submit" />
+    </MockApp>
+  );
+  return { handleSubmit, dom };
+}
