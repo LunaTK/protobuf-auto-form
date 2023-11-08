@@ -12,6 +12,9 @@ export const getInitialValue = (
   if (!ignoreArrayLike) {
     if (field.map) return {};
     if (field.repeated) return [];
+    if (!isUnset(field.defaultValue)) {
+      return field.defaultValue; // NOTE: defaultValue which is an array if repeated
+    }
   }
   if (field.resolvedType instanceof protobuf.Type) {
     return getInitialMessageValue(field.resolvedType);
@@ -19,11 +22,8 @@ export const getInitialValue = (
   if (field.resolvedType instanceof protobuf.Enum) {
     return getInitialEnumValue(field.resolvedType);
   }
-  if (!isUnset(field.defaultValue)) {
-    return field.defaultValue;
-  }
   if (!isUnset(field.typeDefault)) {
-    return field.typeDefault;
+    return field.typeDefault; // NOTE: typeDefault is each element of defaultValue(if array)
   }
   throw new Error('Unknown type: ' + field);
 };

@@ -11,28 +11,18 @@ import { useForm } from "react-hook-form";
 import protobuf from "protobufjs";
 import React from "react";
 
-const namespace = protobuf.parse(`
-syntax = "proto3";
-
-message GrandChild {
-  map<int32, string> items = 1;
+interface MockAppProps {
+  onSubmit: (values: unknown) => void;
+  namespace: protobuf.Namespace;
+  messageType: string;
 }
 
-message Child {
-  GrandChild gc = 1;
-}
-
-message Parent {
-  repeated string children = 1;
-}
-  `).root;
-
-const MockApp: React.FC<{ onSubmit: (values: unknown) => void }> = (props) => {
+const MockApp: React.FC<MockAppProps> = (props) => {
   const form = useForm();
   const { AutoForm } = createAutoForm({
     form,
-    messageType: "Parent",
-    namespace,
+    messageType: props.messageType,
+    namespace: props.namespace,
   });
 
   return (
@@ -45,28 +35,21 @@ const MockApp: React.FC<{ onSubmit: (values: unknown) => void }> = (props) => {
 afterEach(cleanup);
 
 describe("AutoForm", () => {
-  it("Form submission", async () => {
-    const handleSubmit = vi.fn();
-    const dom = render(
-      <MockApp onSubmit={handleSubmit}>
-        <button id="submit" />
-      </MockApp>
-    );
-    const submitButton = dom.container.querySelector("#submit");
-    expect(submitButton).toBeDefined();
-    fireEvent.click(submitButton!);
-    await vi.waitFor(() => handleSubmit.mock.calls.length > 0);
-    expect(handleSubmit.mock.calls.length).toBe(1);
-  });
-
   it("Add map item", async () => {
+    const namespace = protobuf.parse(`
+      syntax = "proto3";
+
+      message RepeatedString {
+        repeated string children = 1;
+      }
+    `).root;
+
     const handleSubmit = vi.fn();
     const dom = render(
       <MockApp
-        onSubmit={(values) => {
-          console.log(values);
-          handleSubmit(values);
-        }}
+        onSubmit={handleSubmit}
+        namespace={namespace}
+        messageType="RepeatedString"
       >
         <button id="submit" />
       </MockApp>
@@ -74,8 +57,16 @@ describe("AutoForm", () => {
     fireEvent.click(dom.queryByTestId("add-btn")!);
     await vi.waitUntil(() => dom.queryByTestId("delete-btn") !== null);
     fireEvent.click(dom.container.querySelector("#submit")!);
-    await waitFor(() => expect(handleSubmit).toHaveBeenCalledTimes(1));
+    await waitFor(() =>
+      expect(
+        handleSubmit,
+        "handleSubmit should be called"
+      ).toHaveBeenCalledTimes(1)
+    );
 
-    expect(handleSubmit.mock.calls[0]).toEqual([{ children: [""] }]);
+    expect(
+      handleSubmit.mock.calls[0],
+      "repeated element should be added"
+    ).toEqual([{ children: [""] }]);
   });
 });
