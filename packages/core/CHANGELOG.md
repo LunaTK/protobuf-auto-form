@@ -1,5 +1,16 @@
 # protobuf-auto-form
 
+## 0.1.0-alpha.40
+
+### Minor Changes
+
+- eac2141: chore(deps): bump react 18 and remove peerdeps
+
+### Patch Changes
+
+- 12fdb5e: bug: add element of array-like as a form state
+- 101ba22: bug: fix initial value of repeated elements
+
 ## 0.1.0-alpha.39
 
 ### Patch Changes
